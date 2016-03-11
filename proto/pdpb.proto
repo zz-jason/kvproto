@@ -58,6 +58,7 @@ enum MetaType {
     StoreType        = 2;
     RegionType       = 3;
     PeerType         = 4;
+    ClusterType      = 5;
 }
 
 message AllocIdRequest {
@@ -72,21 +73,23 @@ message GetMetaRequest {
     optional MetaType meta_type    = 1;
     optional uint64 node_id        = 2;
     optional uint64 store_id       = 3;
-    optional bytes region_key     = 4;
+    optional bytes region_key      = 4;
+    optional uint64 cluster_id     = 5;
 }
 
 message GetMetaResponse {
-    optional MetaType meta_type    = 1;
-    optional metapb.Node node      = 2;
-    optional metapb.Store store    = 3;
-    optional metapb.Region region  = 4;
-
+    optional MetaType meta_type     = 1;
+    optional metapb.Node node       = 2;
+    optional metapb.Store store     = 3;
+    optional metapb.Region region   = 4;
+    optional metapb.Cluster cluster = 5;
 }
 
 message PutMetaRequest {
-    optional MetaType meta_type  = 1;
-    optional metapb.Node node    = 2;
-    optional metapb.Store store  = 3;
+    optional MetaType meta_type     = 1;
+    optional metapb.Node node       = 2;
+    optional metapb.Store store     = 3;
+    optional metapb.Cluster cluster = 4;
 }
 
 message PutMetaResponse {
@@ -105,6 +108,12 @@ message DeleteMetaResponse {
 
 message AskChangePeerRequest {
     optional metapb.Region region = 1;
+    // The current leader peer of the region.
+    // Pd can first try to send command to this peer,
+    // if the peer is not leader now, pd will try to
+    // find the new leader of the region and then send
+    // command again.
+    optional metapb.Peer leader   = 2;
 }
 
 message AskChangePeerResponse {
@@ -114,6 +123,7 @@ message AskChangePeerResponse {
 message AskSplitRequest {
     optional metapb.Region region = 1;
     optional bytes split_key      = 2;
+    optional metapb.Peer leader   = 3;
 }
 
 message AskSplitResponse {
@@ -168,4 +178,9 @@ message BootstrappedError {
 message Error {
     optional string message                 = 1;
     optional BootstrappedError bootstrapped = 2;
+}
+
+message Job {
+    optional uint64 job_id    = 1;
+    optional Request request  = 2;
 }
