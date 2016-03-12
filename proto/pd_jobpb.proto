@@ -1,0 +1,24 @@
+syntax = "proto2";
+package pd_jobpd;
+
+import "raft_cmdpb.proto";
+
+enum JobStatus {
+    // When pd server inserts the job into job list, the job status is pending.
+    Pending = 0;
+    // When pd server gets the first job and before handling, it must first change
+    // the job's status to running. If the job is running, we should check whether
+    // the job is already finished in raft server.
+    Running = 1;
+
+    Finished = 2;
+    Canceled = 3;
+}
+
+// For every conf change, split operation, we will add this into job list, 
+// and in another thread, it will get first job, handle it, and then pop in cycle.
+message Job {
+    optional uint64 job_id                          = 1;
+    optional JobStatus status                       = 2;
+    optional raft_cmdpb.RaftCommandRequest request  = 3;
+}

@@ -179,10 +179,3 @@ message Error {
     optional string message                 = 1;
     optional BootstrappedError bootstrapped = 2;
 }
-
-// For every conf change, split operation, we will add this into job list, 
-// and in another thread, it will get first job, handle it, and then pop in cycle.
-message Job {
-    optional uint64 job_id    = 1;
-    optional Request request  = 2;
-}

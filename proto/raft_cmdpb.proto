@@ -119,6 +119,7 @@ message AdminResponse {
     optional CompactLogResponse compact_log = 4;  
 }
 
+// For get the leader of the region.
 message RegionLeaderRequest {
     
 }
@@ -126,6 +127,24 @@ message RegionLeaderRequest {
 message RegionLeaderResponse {
     optional metapb.Peer leader 	= 1;
     optional uint64 current_term 	= 2;
+}
+
+// For get more information of the region.
+// We add some admin operations (ChangePeer, Split...) into the pb job list,
+// then pd server will peek the first one, handle it and then pop it from the job lib. 
+// But sometimes, the pd server may crash before popping. When another pd server
+// starts and finds the job is running but not finished, it will first check whether
+// the raft server already has handled this job.
+// E,g, for ChangePeer, if we add Peer10 into region1 and find region1 has already had
+// Peer10, we can think this ChangePeer is finished, and can pop this job from job list
+// directly.
+message RegionDetailRequest {
+
+}
+
+message RegionDetailResponse {
+    optional metapb.Region region = 1;
+    optional metapb.Peer leader   = 2;
 }
 
 enum StatusCommandType {
