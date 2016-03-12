@@ -910,6 +910,8 @@ func (m *Error) GetBootstrapped() *BootstrappedError {
 	return nil
 }
 
+// For every conf change, split operation, we will add this into job list,
+// and in another thread, it will get first job, handle it, and then pop in cycle.
 type Job struct {
 	JobId            *uint64  `protobuf:"varint,1,opt,name=job_id" json:"job_id,omitempty"`
 	Request          *Request `protobuf:"bytes,2,opt,name=request" json:"request,omitempty"`

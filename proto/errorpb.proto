@@ -19,13 +19,9 @@ message KeyNotInRegion {
     optional bytes end_key     = 4;
 }
 
-message ErrorDetail {
-    optional NotLeaderError not_leader              = 1;
-    optional RegionNotFoundError region_not_found   = 2;
-    optional KeyNotInRegion key_not_in_region       = 3;
-}
-
 message Error {
-    optional string message            = 1;
-    optional ErrorDetail detail        = 2;
+    optional string message                         = 1;
+    optional NotLeaderError not_leader              = 2;
+    optional RegionNotFoundError region_not_found   = 3;
+    optional KeyNotInRegion key_not_in_region       = 4;
 }
