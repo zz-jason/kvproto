@@ -8,6 +8,8 @@ pub mod metapb;
 #[cfg_attr(rustfmt, rustfmt_skip)]
 pub mod mvccpb;
 #[cfg_attr(rustfmt, rustfmt_skip)]
+pub mod pd_jobpb;
+#[cfg_attr(rustfmt, rustfmt_skip)]
 pub mod pdpb;
 #[cfg_attr(rustfmt, rustfmt_skip)]
 pub mod raft_cmdpb;
