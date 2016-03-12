@@ -657,7 +657,7 @@ func (m *RegionLeaderResponse) GetCurrentTerm() uint64 {
 	return 0
 }
 
-// For get more information of the region.
+// For getting more information of the region.
 // We add some admin operations (ChangePeer, Split...) into the pb job list,
 // then pd server will peek the first one, handle it and then pop it from the job lib.
 // But sometimes, the pd server may crash before popping. When another pd server

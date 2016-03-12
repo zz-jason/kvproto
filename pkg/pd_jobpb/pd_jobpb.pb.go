@@ -30,7 +30,7 @@ const _ = proto.ProtoPackageIsVersion1
 type JobStatus int32
 
 const (
-	// When pd server inserts the job into job list, the job status is pending.
+	// When pd server inserts the job into job queue, the job status is pending.
 	JobStatus_Pending JobStatus = 0
 	// When pd server gets the first job and before handling, it must first change
 	// the job's status to running. If the job is running, we should check whether
@@ -71,7 +71,7 @@ func (x *JobStatus) UnmarshalJSON(data []byte) error {
 }
 func (JobStatus) EnumDescriptor() ([]byte, []int) { return fileDescriptor0, []int{0} }
 
-// For every conf change, split operation, we will add this into job list,
+// For each conf change, split operation, we will add this into job queue,
 // and in another thread, it will get first job, handle it, and then pop in cycle.
 type Job struct {
 	JobId            *uint64                        `protobuf:"varint,1,opt,name=job_id" json:"job_id,omitempty"`
