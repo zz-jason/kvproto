@@ -19,8 +19,6 @@ ret=0
 for file in `ls *.proto`  
     do
     base_name=$(basename $file ".proto")
-    protoc --go_out=$GO_OUT_M:../pkg/$base_name $file
-    last_ret=$?
-    [[ $last_ret != 0 ]] && ret=$last_ret
+    protoc --go_out=$GO_OUT_M:../pkg/$base_name $file || ret=$?
 done
 exit $ret

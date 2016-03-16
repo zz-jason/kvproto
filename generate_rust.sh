@@ -9,8 +9,6 @@ for file in `ls *.proto`
     do
     base_name=$(basename $file ".proto")
     echo "#[cfg_attr(rustfmt, rustfmt_skip)]" >> ../src/lib.rs
-    echo "pub mod $base_name;" >> ../src/lib.rs
-    last_ret=$?
-    [[ $last_ret != 0 ]] && ret=$last_ret
+    echo "pub mod $base_name;" >> ../src/lib.rs || ret=$?
 done
 exit $ret
