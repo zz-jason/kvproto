@@ -16,10 +16,16 @@ enum MessageType {
     CmdCommitThenGet = 7;
 }
 
-enum ResultType {
-    Ok = 1;
-    Retryable = 2;
-    Locked = 3;
+message ResultType {
+    enum Type {
+        Ok = 1;
+        Retryable = 2;
+        Locked = 3;
+        // Known result type add here.
+        Other = 9;
+    }
+    optional Type type = 1 [default = Ok];
+    optional string msg = 2;
 }
 
 message KeyAddress {
@@ -39,7 +45,7 @@ message CmdGetRequest {
 }
 
 message CmdGetResponse {
-    optional ResultType res_type = 1 [default = Ok];
+    optional ResultType res_type = 1;
     optional bytes value = 2;
     optional bytes primary_lock = 3;
     optional uint64 lock_version = 4;
@@ -52,7 +58,7 @@ message CmdScanRequest {
 }
 
 message Item {
-    optional ResultType res_type = 1 [default = Ok];
+    optional ResultType res_type = 1;
     optional bytes key = 2;
     optional bytes value = 3;
     // primary_lock_key
@@ -70,8 +76,8 @@ message CmdPrewriteRequest {
     repeated KvPair puts = 1;
     repeated KeyAddress dels = 2;
     repeated KeyAddress locks = 3;
-    // primary_lock_key_address
-    optional KeyAddress primary_address = 4;
+    // primary_lock_key
+    optional bytes primary_lock = 4;
     optional uint64 start_version = 5;
 }
 
