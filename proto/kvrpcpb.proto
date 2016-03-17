@@ -16,15 +16,18 @@ enum MessageType {
     CmdCommitThenGet = 7;
 }
 
+// ResultType use for many different result, so dispose each Type prudently.
 message ResultType {
     enum Type {
         Ok = 1;
         Retryable = 2;
         Locked = 3;
+        Committed = 4;
+        Rolledback = 5;
         // Known result type add here.
         Other = 9;
     }
-    optional Type type = 1 [default = Ok];
+    optional Type type = 1 [default = Other];
     optional string msg = 2;
 }
 
@@ -103,14 +106,6 @@ message CmdCleanupRequest {
 }
 
 message CmdCleanupResponse {
-    enum ResultType {
-        Ok = 1;
-        Retryable = 2;
-        Committed = 3;
-        Rolledback = 4;
-        // Known result type add here.
-        Other = 9;
-    }
     optional ResultType res_type = 1;
     optional uint64 commit_version = 2;
 }
