@@ -114,7 +114,6 @@ message AskChangePeerRequest {
     // find the new leader of the region and then send
     // command again.
     optional metapb.Peer leader   = 2;
-    optional uint64 current_term  = 3;
 }
 
 message AskChangePeerResponse {
@@ -125,7 +124,6 @@ message AskSplitRequest {
     optional metapb.Region region = 1;
     optional bytes split_key      = 2;
     optional metapb.Peer leader   = 3;
-    optional uint64 current_term  = 4;
 }
 
 message AskSplitResponse {
