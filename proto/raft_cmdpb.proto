@@ -84,6 +84,8 @@ message SplitRequest {
     optional uint64 new_region_id  = 2;
     // The peer ids for the new split region. 
     repeated uint64 new_peer_ids   = 3;
+
+    optional metapb.Region region  = 4;
 }
 
 message SplitResponse {
