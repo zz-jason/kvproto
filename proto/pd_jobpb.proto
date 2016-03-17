@@ -2,7 +2,6 @@ syntax = "proto2";
 package pd_jobpd;
 
 import "raft_cmdpb.proto";
-import "metapb.proto";
 
 enum JobStatus {
     // When pd server inserts the job into job queue, the job status is pending.
@@ -21,6 +20,5 @@ enum JobStatus {
 message Job {
     optional uint64 job_id                          = 1;
     optional JobStatus status                       = 2;
-    optional metapb.Region region                   = 3;
-    optional raft_cmdpb.RaftCommandRequest request  = 4;
+    optional raft_cmdpb.RaftCommandRequest request  = 3;
 }
