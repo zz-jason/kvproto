@@ -29,9 +29,13 @@ message Peer {
 }
 
 message Region {
-    optional uint64 region_id   = 1;
+    optional uint64 region_id   	= 1;
     // Region key range [start_key, end_key).
-    optional bytes start_key    = 2;
-    optional bytes end_key      = 3;
-    repeated Peer peers         = 4;
+    optional bytes  start_key    	= 2;
+    optional bytes  end_key      	= 3;
+    // Conf change version, auto increment when add or remove peer
+    optional uint64 peer_conf_ver	= 4;
+    // Region version, auto increment when split or merge
+    optional uint64 version 		= 5;
+    repeated Peer   peers         	= 6;
 }
