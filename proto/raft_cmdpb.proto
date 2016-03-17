@@ -66,6 +66,7 @@ message Response {
 message ChangePeerRequest {
     optional raftpb.ConfChangeType change_type = 1;
     optional metapb.Peer peer                  = 2;
+    optional metapb.Region region 	       = 3;
 }
 
 message ChangePeerResponse {
