@@ -25,6 +25,7 @@ message RaftMessage {
     optional metapb.Peer from_peer    = 2;
     optional metapb.Peer to_peer      = 3;
     optional raftpb.Message message   = 4;
+    optional RegionEpoch region_epoch = 5;
 }
 
 message RaftTruncatedState {
