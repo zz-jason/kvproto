@@ -38,4 +38,5 @@ message Region {
     // Region version, auto increment when split or merge
     optional uint64 version 		= 5;
     repeated Peer   peers         	= 6;
+    optional uint64 max_peer_id     = 7;
 }
