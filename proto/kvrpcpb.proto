@@ -1,6 +1,7 @@
 syntax = "proto2";
 package kvrpcpb;
 import "metapb.proto";
+import "errorpb.proto";
 
 enum MessageType {
     CmdGet = 1;
@@ -16,6 +17,11 @@ enum MessageType {
     CmdCommitThenGet = 7;
 }
 
+message LockInfo {
+    optional bytes primary_lock = 1;
+    optional uint64 lock_version = 2;
+}
+
 // ResultType use for many different result, so dispose each Type prudently.
 message ResultType {
     enum Type {
@@ -24,11 +30,15 @@ message ResultType {
         Locked = 3;
         Committed = 4;
         Rolledback = 5;
+        NotLeader = 6;
         // Known result type add here.
         Other = 9;
     }
     optional Type type = 1 [default = Other];
     optional string msg = 2;
+    // If and only if Type == Locked
+    optional LockInfo lock_info = 3;
+    optional errorpb.NotLeaderError leader_info = 4;
 }
 
 message KeyAddress {
@@ -50,8 +60,6 @@ message CmdGetRequest {
 message CmdGetResponse {
     optional ResultType res_type = 1;
     optional bytes value = 2;
-    optional bytes primary_lock = 3;
-    optional uint64 lock_version = 4;
 }
 
 message CmdScanRequest {
@@ -64,9 +72,6 @@ message Item {
     optional ResultType res_type = 1;
     optional bytes key = 2;
     optional bytes value = 3;
-    // primary_lock_key
-    optional bytes primary_lock = 4;
-    optional uint64 lock_version = 5;
 }
 
 message CmdScanResponse {
