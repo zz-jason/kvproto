@@ -39,7 +39,7 @@ message DeleteResponse {
     
 }
 
-enum CommandType {
+enum CmdType {
     Invalid     = 0;
     Get         = 1;
     Seek        = 2;
@@ -48,19 +48,19 @@ enum CommandType {
 }
 
 message Request {
-    optional CommandType cmd_type      = 1;
-    optional GetRequest get            = 2;
-    optional SeekRequest seek          = 3;
-    optional PutRequest put            = 4;
-    optional DeleteRequest delete      = 5;
+    optional CmdType cmd_type      = 1;
+    optional GetRequest get        = 2;
+    optional SeekRequest seek      = 3;
+    optional PutRequest put        = 4;
+    optional DeleteRequest delete  = 5;
 }
 
 message Response {
-    optional CommandType cmd_type      = 1;
-    optional GetResponse get           = 2;
-    optional SeekResponse seek         = 3;
-    optional PutResponse put           = 4;
-    optional DeleteResponse delete     = 5;
+    optional CmdType cmd_type      = 1;
+    optional GetResponse get       = 2;
+    optional SeekResponse seek     = 3;
+    optional PutResponse put       = 4;
+    optional DeleteResponse delete = 5;
 }
 
 message ChangePeerRequest {
@@ -101,7 +101,7 @@ message CompactLogResponse {
     
 }
 
-enum AdminCommandType {
+enum AdminCmdType {
     InvalidAdmin    = 0;
     ChangePeer      = 1;
     Split           = 2;
@@ -109,14 +109,14 @@ enum AdminCommandType {
 }
 
 message AdminRequest {
-    optional AdminCommandType cmd_type      = 1;
+    optional AdminCmdType cmd_type          = 1;
     optional ChangePeerRequest change_peer  = 2;
     optional SplitRequest split             = 3;
     optional CompactLogRequest compact_log  = 4;
 }
 
 message AdminResponse {
-    optional AdminCommandType cmd_type      = 1;
+    optional AdminCmdType cmd_type          = 1;
     optional ChangePeerResponse change_peer = 2;
     optional SplitResponse split            = 3;
     optional CompactLogResponse compact_log = 4;  
@@ -150,20 +150,20 @@ message RegionDetailResponse {
     optional metapb.Peer leader   = 2;
 }
 
-enum StatusCommandType {
+enum StatusCmdType {
     InvalidStatus    = 0;
     RegionLeader     = 1;
     RegionDetail     = 2;
 }
 
 message StatusRequest {
-    optional StatusCommandType cmd_type           = 1;
+    optional StatusCmdType cmd_type               = 1;
     optional RegionLeaderRequest region_leader    = 2;
     optional RegionDetailRequest region_detail    = 3;
 }
 
 message StatusResponse {
-    optional StatusCommandType cmd_type           = 1;
+    optional StatusCmdType cmd_type               = 1;
     optional RegionLeaderResponse region_leader   = 2;
     optional RegionDetailResponse region_detail   = 3;
 }
@@ -183,7 +183,7 @@ message RaftResponseHeader {
     optional uint64 current_term  = 3;
 }
 
-message RaftCommandRequest {
+message RaftCmdRequest {
     optional RaftRequestHeader header     = 1;
     // We can't enclose normal requests and administrator request
     // at same time. 
@@ -192,7 +192,7 @@ message RaftCommandRequest {
     optional StatusRequest status_request = 4;
 }
 
-message RaftCommandResponse {
+message RaftCmdResponse {
     optional RaftResponseHeader header      = 1;
     repeated Response responses             = 2;
     optional AdminResponse admin_response   = 3;

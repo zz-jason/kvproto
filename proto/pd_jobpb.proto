@@ -19,8 +19,8 @@ enum JobStatus {
 // For each conf change, split operation, we will add this into job queue, 
 // and in another thread, it will get first job, handle it, and then pop in cycle.
 message Job {
-    optional uint64 job_id                          = 1;
-    optional JobStatus status                       = 2;
-    optional metapb.Region region                   = 3;
-    optional raft_cmdpb.RaftCommandRequest request  = 4;
+    optional uint64 job_id                      = 1;
+    optional JobStatus status                   = 2;
+    optional metapb.Region region               = 3;
+    optional raft_cmdpb.RaftCmdRequest request  = 4;
 }

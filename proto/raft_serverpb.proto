@@ -7,17 +7,17 @@ import "raft_cmdpb.proto";
 
 enum MessageType {
     None         = 0;
-    Command      = 1;
-    CommandResp  = 2;
+    Cmd          = 1;
+    CmdResp      = 2;
     Raft         = 3;
 }
 
 // Message holds all messages communicating with raft server.
 message Message {
-    optional MessageType                     msg_type  = 1;  
-    optional raft_cmdpb.RaftCommandRequest   cmd_req   = 2;
-    optional raft_cmdpb.RaftCommandResponse  cmd_resp  = 3;
-    optional RaftMessage                     raft      = 4;
+    optional MessageType                 msg_type  = 1;  
+    optional raft_cmdpb.RaftCmdRequest   cmd_req   = 2;
+    optional raft_cmdpb.RaftCmdResponse  cmd_resp  = 3;
+    optional RaftMessage                 raft      = 4;
 }
 
 message RaftMessage {
