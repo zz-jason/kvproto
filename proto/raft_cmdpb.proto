@@ -49,18 +49,18 @@ enum CmdType {
 
 message Request {
     optional CmdType cmd_type      = 1;
-    optional GetRequest get            = 2;
-    optional SeekRequest seek          = 3;
-    optional PutRequest put            = 4;
-    optional DeleteRequest delete      = 5;
+    optional GetRequest get        = 2;
+    optional SeekRequest seek      = 3;
+    optional PutRequest put        = 4;
+    optional DeleteRequest delete  = 5;
 }
 
 message Response {
     optional CmdType cmd_type      = 1;
-    optional GetResponse get           = 2;
-    optional SeekResponse seek         = 3;
-    optional PutResponse put           = 4;
-    optional DeleteResponse delete     = 5;
+    optional GetResponse get       = 2;
+    optional SeekResponse seek     = 3;
+    optional PutResponse put       = 4;
+    optional DeleteResponse delete = 5;
 }
 
 message ChangePeerRequest {
@@ -109,14 +109,14 @@ enum AdminCmdType {
 }
 
 message AdminRequest {
-    optional AdminCmdType cmd_type      = 1;
+    optional AdminCmdType cmd_type          = 1;
     optional ChangePeerRequest change_peer  = 2;
     optional SplitRequest split             = 3;
     optional CompactLogRequest compact_log  = 4;
 }
 
 message AdminResponse {
-    optional AdminCmdType cmd_type      = 1;
+    optional AdminCmdType cmd_type          = 1;
     optional ChangePeerResponse change_peer = 2;
     optional SplitResponse split            = 3;
     optional CompactLogResponse compact_log = 4;  
@@ -157,13 +157,13 @@ enum StatusCmdType {
 }
 
 message StatusRequest {
-    optional StatusCmdType cmd_type           = 1;
+    optional StatusCmdType cmd_type               = 1;
     optional RegionLeaderRequest region_leader    = 2;
     optional RegionDetailRequest region_detail    = 3;
 }
 
 message StatusResponse {
-    optional StatusCmdType cmd_type           = 1;
+    optional StatusCmdType cmd_type               = 1;
     optional RegionLeaderResponse region_leader   = 2;
     optional RegionDetailResponse region_detail   = 3;
 }
