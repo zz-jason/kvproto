@@ -22,5 +22,5 @@ message Job {
     optional uint64 job_id                          = 1;
     optional JobStatus status                       = 2;
     optional metapb.Region region                   = 3;
-    optional raft_cmdpb.RaftCommandRequest request  = 4;
+    optional raft_cmdpb.RaftCmdRequest request  = 4;
 }
