@@ -48,7 +48,7 @@ message KeyAddress {
 }
 
 message KvPair {
-    optional KeyAddress key_address = 1;
+    optional bytes key              = 1;
     optional bytes value            = 2;
 }
 
@@ -82,11 +82,12 @@ message CmdScanResponse {
 
 message CmdPrewriteRequest {
     repeated KvPair puts            = 1;
-    repeated KeyAddress dels        = 2;
-    repeated KeyAddress locks       = 3;
+    repeated bytes dels             = 2;
+    repeated bytes locks            = 3;
     // primary_lock_key
     optional bytes primary_lock     = 4;
     optional uint64 start_version   = 5;
+    optional KeyAddress key_address = 6;
 }
 
 message CmdPrewriteResponse {
