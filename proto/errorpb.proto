@@ -19,9 +19,13 @@ message KeyNotInRegion {
     optional bytes end_key     = 4;
 }
 
+message StaleEpoch {
+}
+
 message Error {
     optional string message                         = 1;
     optional NotLeaderError not_leader              = 2;
     optional RegionNotFoundError region_not_found   = 3;
     optional KeyNotInRegion key_not_in_region       = 4;
+    optional StaleEpoch stale_epoch                 = 5;
 }
