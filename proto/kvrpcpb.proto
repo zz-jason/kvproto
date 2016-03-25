@@ -47,11 +47,6 @@ message KeyAddress {
     optional metapb.Peer peer   = 3;
 }
 
-message KvPair {
-    optional KeyAddress key_address = 1;
-    optional bytes value            = 2;
-}
-
 message CmdGetRequest {
     optional KeyAddress key_address = 1;
     optional uint64 version         = 2;
@@ -80,13 +75,24 @@ message CmdScanResponse {
     repeated Item results   = 2;
 }
 
+enum Operator {
+    OpPut       = 1;
+    OpDel       = 2;
+    OpLock      = 3;
+}
+
+message Mutation {
+    optional Operator op    = 1;
+    optional bytes key      = 2;
+    optional bytes value    = 3;
+}
+
 message CmdPrewriteRequest {
-    repeated KvPair puts            = 1;
-    repeated KeyAddress dels        = 2;
-    repeated KeyAddress locks       = 3;
+    repeated Mutation mutations     = 1;
     // primary_lock_key
-    optional bytes primary_lock     = 4;
-    optional uint64 start_version   = 5;
+    optional bytes primary_lock     = 2;
+    optional uint64 start_version   = 3;
+    optional KeyAddress key_address = 4;
 }
 
 message CmdPrewriteResponse {
