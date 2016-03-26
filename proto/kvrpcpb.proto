@@ -12,7 +12,7 @@ enum MessageType {
     // Below types both use for Get failed. If Get failed, it may be locked.
     // So it tries to clean primary lock(CmdCleanup), and then server will return
     // either committed or rolled back. Finally, client will commit/rollback
-    // primary lock and THEN Get again.
+    // primary lock and then Get again.
     CmdRollbackThenGet  = 6;
     CmdCommitThenGet    = 7;
 }
@@ -38,7 +38,7 @@ message ResultType {
     optional string msg                         = 2;
     // If and only if Type == Locked
     optional LockInfo lock_info                 = 3;
-    optional errorpb.NotLeaderError leader_info = 4;
+    optional errorpb.NotLeader leader_info      = 4;
 }
 
 message KeyAddress {
