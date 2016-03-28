@@ -5,6 +5,9 @@ import "raftpb.proto";
 import "metapb.proto";
 import "raft_cmdpb.proto";
 
+// TODO: after we refactor with msgpb.MessageType, msgpb.Message, we will remove 
+// MessageType and Message here later.
+
 enum MessageType {
     None         = 0;
     Cmd          = 1;
