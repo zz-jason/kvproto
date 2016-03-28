@@ -6,6 +6,8 @@ pub mod kvrpcpb;
 #[cfg_attr(rustfmt, rustfmt_skip)]
 pub mod metapb;
 #[cfg_attr(rustfmt, rustfmt_skip)]
+pub mod msgpb;
+#[cfg_attr(rustfmt, rustfmt_skip)]
 pub mod mvccpb;
 #[cfg_attr(rustfmt, rustfmt_skip)]
 pub mod pd_jobpb;

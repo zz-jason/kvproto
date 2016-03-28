@@ -1,0 +1,25 @@
+syntax = "proto2";
+package msgpb;
+
+import "raft_cmdpb.proto";
+import "raft_serverpb.proto";
+import "kvrpcpb.proto";
+
+enum MessageType {
+    None         = 0;
+    Cmd          = 1;
+    CmdResp      = 2;
+    Raft         = 3;
+    KvReq        = 4;
+    KvResp       = 5;
+}
+
+// Message holds all messages communicating with TiKV.
+message Message {
+    optional MessageType                 msg_type  = 1;  
+    optional raft_cmdpb.RaftCmdRequest   cmd_req   = 2;
+    optional raft_cmdpb.RaftCmdResponse  cmd_resp  = 3;
+    optional raft_serverpb.RaftMessage   raft      = 4;
+    optional kvrpcpb.Request             kv_req    = 5;
+    optional kvrpcpb.Response            kv_resp   = 6;
+}
