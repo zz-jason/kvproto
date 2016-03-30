@@ -2,7 +2,7 @@ syntax = "proto2";
 package metapb;
 
 message Cluster {
-    optional uint64 cluster_id     = 1;
+    optional uint64 id              = 1;
     // max peer number for a region.
     // pd will do the auto-balance if region peer number mismatches.
     optional uint32 max_peer_number = 2;
@@ -10,16 +10,16 @@ message Cluster {
 }
 
 message Node {
-    optional uint64 node_id     = 1;
+    optional uint64 id      = 1;
     // Address for communication between nodes.
-    optional string address     = 2;
+    optional string address = 2;
     // more attributes......
 }
 
 
 message Store {
-    optional uint64 store_id  = 1;
-    optional uint64 node_id   = 2;
+    optional uint64 id      = 1;
+    optional uint64 node_id = 2;
     // more attributes......
 }
 
@@ -31,16 +31,16 @@ message RegionEpoch {
 }
 
 message Peer {
-    optional uint64 peer_id   = 1;
-    optional uint64 node_id   = 2;
-    optional uint64 store_id  = 3;
+    optional uint64 id          = 1;
+    optional uint64 node_id     = 2;
+    optional uint64 store_id    = 3;
 }
 
 message Region {
-    optional uint64 region_id   	= 1;
+    optional uint64 id                  = 1;
     // Region key range [start_key, end_key).
-    optional bytes  start_key    	= 2;
-    optional bytes  end_key      	= 3;
+    optional bytes  start_key           = 2;
+    optional bytes  end_key             = 3;
     optional RegionEpoch region_epoch   = 4;
-    repeated Peer   peers         	= 5;
+    repeated Peer   peers               = 5;
 }
