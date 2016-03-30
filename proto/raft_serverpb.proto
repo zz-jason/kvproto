@@ -3,25 +3,6 @@ package raft_serverpb;
 
 import "raftpb.proto";
 import "metapb.proto";
-import "raft_cmdpb.proto";
-
-// TODO: after we refactor with msgpb.MessageType, msgpb.Message, we will remove 
-// MessageType and Message here later.
-
-enum MessageType {
-    None         = 0;
-    Cmd          = 1;
-    CmdResp      = 2;
-    Raft         = 3;
-}
-
-// Message holds all messages communicating with raft server.
-message Message {
-    optional MessageType                 msg_type  = 1;  
-    optional raft_cmdpb.RaftCmdRequest   cmd_req   = 2;
-    optional raft_cmdpb.RaftCmdResponse  cmd_resp  = 3;
-    optional RaftMessage                 raft      = 4;
-}
 
 message RaftMessage {
     optional uint64 region_id         	     = 1;

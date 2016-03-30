@@ -13,8 +13,6 @@ message Node {
     optional uint64 node_id     = 1;
     // Address for communication between nodes.
     optional string address     = 2;
-    // Address for communication between client and node.
-    optional string client_addr = 3;
     // more attributes......
 }
 
