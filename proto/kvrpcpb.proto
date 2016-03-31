@@ -75,16 +75,16 @@ message CmdScanResponse {
     repeated Item results   = 2;
 }
 
-enum Operator {
-    OpPut       = 1;
-    OpDel       = 2;
-    OpLock      = 3;
+enum Op {
+    Put       = 1;
+    Del       = 2;
+    Lock      = 3;
 }
 
 message Mutation {
-    optional Operator op    = 1;
-    optional bytes key      = 2;
-    optional bytes value    = 3;
+    optional Op    op    = 1;
+    optional bytes key   = 2;
+    optional bytes value = 3;
 }
 
 message CmdPrewriteRequest {
