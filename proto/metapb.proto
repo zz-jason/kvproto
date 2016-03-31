@@ -9,17 +9,10 @@ message Cluster {
     // more attributes......
 }
 
-message Node {
-    optional uint64 id      = 1;
-    // Address for communication between nodes.
-    optional string address = 2;
-    // more attributes......
-}
-
 
 message Store {
     optional uint64 id      = 1;
-    optional uint64 node_id = 2;
+    optional string address = 2;
     // more attributes......
 }
 
@@ -32,8 +25,7 @@ message RegionEpoch {
 
 message Peer {
     optional uint64 id          = 1;
-    optional uint64 node_id     = 2;
-    optional uint64 store_id    = 3;
+    optional uint64 store_id    = 2;
 }
 
 message Region {
