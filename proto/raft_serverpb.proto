@@ -29,6 +29,5 @@ message RaftSnapshotData {
 
 message StoreIdent {
     optional uint64 cluster_id   = 1;
-    optional uint64 node_id      = 2;
-    optional uint64 store_id     = 3;
+    optional uint64 store_id     = 2;
 }
