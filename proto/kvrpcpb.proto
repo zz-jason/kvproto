@@ -41,15 +41,15 @@ message ResultType {
     optional errorpb.NotLeader leader_info      = 4;
 }
 
-message KeyAddress {
-    optional bytes key          = 1;
-    optional uint64 region_id   = 2;
-    optional metapb.Peer peer   = 3;
+message Context {
+    optional uint64 region_id   = 1;
+    optional metapb.Peer peer   = 2;
 }
 
 message CmdGetRequest {
-    optional KeyAddress key_address = 1;
-    optional uint64 version         = 2;
+    optional Context context = 1;
+    optional bytes   key     = 2;
+    optional uint64  version = 3;
 }
 
 message CmdGetResponse {
@@ -58,9 +58,10 @@ message CmdGetResponse {
 }
 
 message CmdScanRequest {
-    optional KeyAddress key_address = 1;
-    optional uint32 limit           = 2;
-    optional uint64 version         = 3;
+    optional Context context   = 1;
+    optional bytes   start_key = 2;
+    optional uint32  limit     = 3;
+    optional uint64  version   = 4;
 }
 
 message Item {
@@ -88,11 +89,11 @@ message Mutation {
 }
 
 message CmdPrewriteRequest {
-    repeated Mutation mutations     = 1;
+    optional Context  context     = 1;
+    repeated Mutation mutations   = 2;
     // primary_lock_key
-    optional bytes primary_lock     = 2;
-    optional uint64 start_version   = 3;
-    optional KeyAddress key_address = 4;
+    optional bytes primary_lock   = 3;
+    optional uint64 start_version = 4;
 }
 
 message CmdPrewriteResponse {
@@ -102,9 +103,10 @@ message CmdPrewriteResponse {
 }
 
 message CmdCommitRequest {
-    optional uint64 start_version       = 1;
-    repeated KeyAddress keys_address    = 2;
-    optional uint64 commit_version      = 3;
+    optional Context context        = 1;
+    optional uint64  start_version  = 2;
+    repeated bytes   keys           = 3;
+    optional uint64  commit_version = 4;
 }
 
 message CmdCommitResponse {
@@ -112,8 +114,9 @@ message CmdCommitResponse {
 }
 
 message CmdCleanupRequest {
-    optional KeyAddress key_address = 1;
-    optional uint64 start_version   = 2;
+    optional Context context       = 1;
+    optional bytes   key           = 2;
+    optional uint64  start_version = 3;
 }
 
 message CmdCleanupResponse {
@@ -122,8 +125,9 @@ message CmdCleanupResponse {
 }
 
 message CmdRollbackThenGetRequest {
-    optional KeyAddress key_address = 1;
-    optional uint64 lock_version    = 2;
+    optional Context context      = 1;
+    optional bytes   key          = 2;
+    optional uint64  lock_version = 3;
 }
 
 message CmdRollbackThenGetResponse {
@@ -132,10 +136,11 @@ message CmdRollbackThenGetResponse {
 }
 
 message CmdCommitThenGetRequest {
-    optional KeyAddress key_address = 1;
-    optional uint64 lock_version    = 2;
-    optional uint64 commit_version  = 3;
-    optional uint64 get_version     = 4;
+    optional Context context        = 1;
+    optional bytes   key            = 2;
+    optional uint64  lock_version   = 3;
+    optional uint64  commit_version = 4;
+    optional uint64  get_version    = 5;
 }
 
 message CmdCommitThenGetResponse {
