@@ -1,5 +1,7 @@
 extern crate protobuf;
 #[cfg_attr(rustfmt, rustfmt_skip)]
+pub mod coprocessor;
+#[cfg_attr(rustfmt, rustfmt_skip)]
 pub mod errorpb;
 #[cfg_attr(rustfmt, rustfmt_skip)]
 pub mod kvrpcpb;

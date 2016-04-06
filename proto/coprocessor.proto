@@ -1,0 +1,36 @@
+syntax = "proto2";
+package coprocessor;
+
+import "errorpb.proto";
+import "kvrpcpb.proto";
+
+message Request {
+    optional kvrpcpb.Context context   = 1;
+    optional int64           tp        = 2;
+    optional bytes           data      = 3;
+    optional bytes           start_key = 4;
+    optional bytes           end_key   = 5;
+}
+
+enum ResultType {
+    Ok             = 1;
+    Locked         = 2;
+    NotLeader      = 3;
+    RegionNotFound = 4;
+    KeyNotInRegion = 5;
+    Other          = 6;
+}
+
+message Result {
+    optional ResultType             type             = 1;
+    optional string                 msg              = 2;
+    optional kvrpcpb.LockInfo       lock_info        = 3;
+    optional errorpb.NotLeader      leader_info      = 4;
+    optional errorpb.RegionNotFound region_not_found = 5;
+    optional errorpb.KeyNotInRegion not_in_region    = 6;
+}
+
+message Response {
+    optional Result result = 1;
+    optional bytes  data   = 2;
+}
