@@ -4,6 +4,7 @@ package msgpb;
 import "raft_cmdpb.proto";
 import "raft_serverpb.proto";
 import "kvrpcpb.proto";
+import "coprocessor.proto";
 
 enum MessageType {
     None         = 0;
@@ -12,6 +13,8 @@ enum MessageType {
     Raft         = 3;
     KvReq        = 4;
     KvResp       = 5;
+    CopReq       = 6;
+    CopResp      = 7;
 }
 
 // Message holds all messages communicating with TiKV.
@@ -22,4 +25,6 @@ message Message {
     optional raft_serverpb.RaftMessage   raft      = 4;
     optional kvrpcpb.Request             kv_req    = 5;
     optional kvrpcpb.Response            kv_resp   = 6;
+    optional coprocessor.Request         cop_req   = 7;
+    optional coprocessor.Response        cop_resp  = 8;
 }
