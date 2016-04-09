@@ -39,6 +39,14 @@ message DeleteResponse {
     
 }
 
+message SnapRequest {
+    
+}
+
+message SnapResponse {
+    optional metapb.Region region = 1;
+}
+
 enum CmdType {
     Invalid     = 0;
     Get         = 1;
@@ -49,19 +57,21 @@ enum CmdType {
 }
 
 message Request {
-    optional CmdType cmd_type      = 1;
-    optional GetRequest get        = 2;
-    optional SeekRequest seek      = 3;
-    optional PutRequest put        = 4;
-    optional DeleteRequest delete  = 5;
+    optional CmdType        cmd_type    = 1;
+    optional GetRequest     get         = 2;
+    optional SeekRequest    seek        = 3;
+    optional PutRequest     put         = 4;
+    optional DeleteRequest  delete      = 5;
+    optional SnapRequest    snap        = 6;
 }
 
 message Response {
-    optional CmdType cmd_type      = 1;
-    optional GetResponse get       = 2;
-    optional SeekResponse seek     = 3;
-    optional PutResponse put       = 4;
-    optional DeleteResponse delete = 5;
+    optional CmdType        cmd_type    = 1;
+    optional GetResponse    get         = 2;
+    optional SeekResponse   seek        = 3;
+    optional PutResponse    put         = 4;
+    optional DeleteResponse delete      = 5;
+    optional SnapResponse   snap        = 6;
 }
 
 message ChangePeerRequest {
