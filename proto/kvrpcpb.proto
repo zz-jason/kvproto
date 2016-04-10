@@ -19,8 +19,9 @@ enum MessageType {
 }
 
 message LockInfo {
-    optional bytes primary_lock     = 1;
-    optional uint64 lock_version    = 2;
+    optional bytes  primary_lock = 1;
+    optional uint64 lock_version = 2;
+    optional bytes  key          = 3;
 }
 
 // ResultType use for many different result, so dispose each Type prudently.
