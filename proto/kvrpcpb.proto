@@ -15,6 +15,7 @@ enum MessageType {
     // primary lock and then Get again.
     CmdRollbackThenGet  = 6;
     CmdCommitThenGet    = 7;
+    CmdBatchGet         = 8;
 }
 
 message LockInfo {
