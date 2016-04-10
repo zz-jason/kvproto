@@ -148,8 +148,8 @@ message CmdBatchGetRequest {
 }
 
 message CmdBatchGetResponse {
-    optional bool ok      = 1;
-    repeated Item results = 2;
+    optional ResultType res_type = 1;
+    repeated Item       results  = 2;
 }
 
 message Request {
