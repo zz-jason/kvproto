@@ -142,6 +142,16 @@ message CmdCommitThenGetResponse {
     optional bytes value    = 2;
 }
 
+message CmdBatchGetRequest {
+    repeated bytes  keys    = 1;
+    optional uint64 version = 2;
+}
+
+message CmdBatchGetResponse {
+    optional bool ok      = 1;
+    repeated Item results = 2;
+}
+
 message Request {
     optional MessageType               type               = 1;
     optional Context                   context            = 2;
@@ -152,6 +162,7 @@ message Request {
     optional CmdCleanupRequest         cmd_cleanup_req    = 7;
     optional CmdRollbackThenGetRequest cmd_rb_get_req     = 8;
     optional CmdCommitThenGetRequest   cmd_commit_get_req = 9;
+    optional CmdBatchGetRequest        cmd_batch_get_req  = 10;
 }
 
 message Response {
@@ -163,4 +174,5 @@ message Response {
     optional CmdCleanupResponse         cmd_cleanup_resp    = 6;
     optional CmdRollbackThenGetResponse cmd_rb_get_resp     = 7;
     optional CmdCommitThenGetResponse   cmd_commit_get_resp = 8;
+    optional CmdBatchGetResponse        cmd_batch_get_resp  = 9;
 }
