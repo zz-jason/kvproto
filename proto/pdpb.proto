@@ -144,7 +144,7 @@ message AskSplitResponse {
     repeated uint64 new_peer_ids              = 2;
 }
 
-message StoreHeartbeatRequest {
+message StoreStats {
     optional uint64 store_id     = 1;
     // Capacity for the store.
     optional uint64 capacity     = 2; 
@@ -152,6 +152,10 @@ message StoreHeartbeatRequest {
     optional uint64 available    = 3;
     // Total region count in this store. 
     optional uint32 region_count = 4;
+}
+
+message StoreHeartbeatRequest {
+    optional StoreStats stats    = 1;
 }
 
 message StoreHeartbeatResponse {
