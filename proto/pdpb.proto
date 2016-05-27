@@ -152,8 +152,6 @@ message StoreHeartbeatRequest {
     optional uint64 available    = 3;
     // Total region count in this store. 
     optional uint32 region_count = 4;
-    // Total leader count in this store.
-    optional uint32 leader_count = 5;
 }
 
 message StoreHeartbeatResponse {
