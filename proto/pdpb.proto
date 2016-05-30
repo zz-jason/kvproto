@@ -22,6 +22,7 @@ enum CommandType {
     RegionHeartbeat     = 9;
     GetClusterConfig    = 10;
     PutClusterConfig    = 11;
+    StoreHeartbeat      = 12;
 }
 
 message TsoRequest {
@@ -143,6 +144,24 @@ message AskSplitResponse {
     repeated uint64 new_peer_ids              = 2;
 }
 
+message StoreStats {
+    optional uint64 store_id     = 1;
+    // Capacity for the store.
+    optional uint64 capacity     = 2; 
+    // Available size for the store. 
+    optional uint64 available    = 3;
+    // Total region count in this store. 
+    optional uint32 region_count = 4;
+}
+
+message StoreHeartbeatRequest {
+    optional StoreStats stats    = 1;
+}
+
+message StoreHeartbeatResponse {
+    
+}
+
 message RequestHeader {
     // 16 bytes, to distinguish request.  
     optional bytes uuid                = 1;
@@ -170,6 +189,7 @@ message Request {
     optional RegionHeartbeatRequest region_heartbeat        = 11;
     optional GetClusterConfigRequest get_cluster_config     = 12;
     optional PutClusterConfigRequest put_cluster_config     = 13;
+    optional StoreHeartbeatRequest store_heartbeat          = 14;
 }
 
 message Response {
@@ -186,6 +206,7 @@ message Response {
     optional RegionHeartbeatResponse region_heartbeat       = 11;
     optional GetClusterConfigResponse get_cluster_config    = 12;
     optional PutClusterConfigResponse put_cluster_config    = 13;
+    optional StoreHeartbeatResponse store_heartbeat         = 14;
 }
 
 message BootstrappedError {
