@@ -151,13 +151,17 @@ message AskSplitResponse {
 }
 
 message StoreStats {
-    optional uint64 store_id     = 1;
+    optional uint64 store_id             = 1;
     // Capacity for the store.
-    optional uint64 capacity     = 2; 
-    // Available size for the store. 
-    optional uint64 available    = 3;
+    optional uint64 capacity             = 2; 
+    // Available size for the store.
+    optional uint64 available            = 3;
     // Total region count in this store. 
-    optional uint32 region_count = 4;
+    optional uint32 region_count         = 4;
+    // Current snapshot sending count.
+    optional uint32 snap_sending_count   = 5;
+    // Current snapshot receiving count.
+    optional uint32 snap_receiving_count = 6;
 }
 
 message StoreHeartbeatRequest {
