@@ -5,11 +5,17 @@
 #![allow(unknown_lints)]
 #![allow(clippy)]
 
+#![cfg_attr(rustfmt, rustfmt_skip)]
+
+#![allow(box_pointers)]
 #![allow(dead_code)]
 #![allow(non_camel_case_types)]
 #![allow(non_snake_case)]
 #![allow(non_upper_case_globals)]
+#![allow(trivial_casts)]
+#![allow(unsafe_code)]
 #![allow(unused_imports)]
+#![allow(unused_results)]
 
 use protobuf::Message as Message_imported_for_functions;
 use protobuf::ProtobufEnum as ProtobufEnum_imported_for_functions;
@@ -64,7 +70,7 @@ impl NotLeader {
         self.region_id = ::std::option::Option::Some(v);
     }
 
-    pub fn get_region_id<'a>(&self) -> u64 {
+    pub fn get_region_id(&self) -> u64 {
         self.region_id.unwrap_or(0)
     }
 
@@ -85,7 +91,7 @@ impl NotLeader {
 
     // Mutable pointer to the field.
     // If field is not initialized, it is initialized with default value first.
-    pub fn mut_leader<'a>(&'a mut self) -> &'a mut super::metapb::Peer {
+    pub fn mut_leader(&mut self) -> &mut super::metapb::Peer {
         if self.leader.is_none() {
             self.leader.set_default();
         };
@@ -97,7 +103,7 @@ impl NotLeader {
         self.leader.take().unwrap_or_else(|| super::metapb::Peer::new())
     }
 
-    pub fn get_leader<'a>(&'a self) -> &'a super::metapb::Peer {
+    pub fn get_leader(&self) -> &super::metapb::Peer {
         self.leader.as_ref().unwrap_or_else(|| super::metapb::Peer::default_instance())
     }
 }
@@ -286,7 +292,7 @@ impl RegionNotFound {
         self.region_id = ::std::option::Option::Some(v);
     }
 
-    pub fn get_region_id<'a>(&self) -> u64 {
+    pub fn get_region_id(&self) -> u64 {
         self.region_id.unwrap_or(0)
     }
 }
@@ -464,7 +470,7 @@ impl KeyNotInRegion {
 
     // Mutable pointer to the field.
     // If field is not initialized, it is initialized with default value first.
-    pub fn mut_key<'a>(&'a mut self) -> &'a mut ::std::vec::Vec<u8> {
+    pub fn mut_key(&mut self) -> &mut ::std::vec::Vec<u8> {
         if self.key.is_none() {
             self.key.set_default();
         };
@@ -476,7 +482,7 @@ impl KeyNotInRegion {
         self.key.take().unwrap_or_else(|| ::std::vec::Vec::new())
     }
 
-    pub fn get_key<'a>(&'a self) -> &'a [u8] {
+    pub fn get_key(&self) -> &[u8] {
         match self.key.as_ref() {
             Some(v) => &v,
             None => &[],
@@ -498,7 +504,7 @@ impl KeyNotInRegion {
         self.region_id = ::std::option::Option::Some(v);
     }
 
-    pub fn get_region_id<'a>(&self) -> u64 {
+    pub fn get_region_id(&self) -> u64 {
         self.region_id.unwrap_or(0)
     }
 
@@ -519,7 +525,7 @@ impl KeyNotInRegion {
 
     // Mutable pointer to the field.
     // If field is not initialized, it is initialized with default value first.
-    pub fn mut_start_key<'a>(&'a mut self) -> &'a mut ::std::vec::Vec<u8> {
+    pub fn mut_start_key(&mut self) -> &mut ::std::vec::Vec<u8> {
         if self.start_key.is_none() {
             self.start_key.set_default();
         };
@@ -531,7 +537,7 @@ impl KeyNotInRegion {
         self.start_key.take().unwrap_or_else(|| ::std::vec::Vec::new())
     }
 
-    pub fn get_start_key<'a>(&'a self) -> &'a [u8] {
+    pub fn get_start_key(&self) -> &[u8] {
         match self.start_key.as_ref() {
             Some(v) => &v,
             None => &[],
@@ -555,7 +561,7 @@ impl KeyNotInRegion {
 
     // Mutable pointer to the field.
     // If field is not initialized, it is initialized with default value first.
-    pub fn mut_end_key<'a>(&'a mut self) -> &'a mut ::std::vec::Vec<u8> {
+    pub fn mut_end_key(&mut self) -> &mut ::std::vec::Vec<u8> {
         if self.end_key.is_none() {
             self.end_key.set_default();
         };
@@ -567,7 +573,7 @@ impl KeyNotInRegion {
         self.end_key.take().unwrap_or_else(|| ::std::vec::Vec::new())
     }
 
-    pub fn get_end_key<'a>(&'a self) -> &'a [u8] {
+    pub fn get_end_key(&self) -> &[u8] {
         match self.end_key.as_ref() {
             Some(v) => &v,
             None => &[],
@@ -926,7 +932,7 @@ impl Error {
 
     // Mutable pointer to the field.
     // If field is not initialized, it is initialized with default value first.
-    pub fn mut_message<'a>(&'a mut self) -> &'a mut ::std::string::String {
+    pub fn mut_message(&mut self) -> &mut ::std::string::String {
         if self.message.is_none() {
             self.message.set_default();
         };
@@ -938,7 +944,7 @@ impl Error {
         self.message.take().unwrap_or_else(|| ::std::string::String::new())
     }
 
-    pub fn get_message<'a>(&'a self) -> &'a str {
+    pub fn get_message(&self) -> &str {
         match self.message.as_ref() {
             Some(v) => &v,
             None => "",
@@ -962,7 +968,7 @@ impl Error {
 
     // Mutable pointer to the field.
     // If field is not initialized, it is initialized with default value first.
-    pub fn mut_not_leader<'a>(&'a mut self) -> &'a mut NotLeader {
+    pub fn mut_not_leader(&mut self) -> &mut NotLeader {
         if self.not_leader.is_none() {
             self.not_leader.set_default();
         };
@@ -974,7 +980,7 @@ impl Error {
         self.not_leader.take().unwrap_or_else(|| NotLeader::new())
     }
 
-    pub fn get_not_leader<'a>(&'a self) -> &'a NotLeader {
+    pub fn get_not_leader(&self) -> &NotLeader {
         self.not_leader.as_ref().unwrap_or_else(|| NotLeader::default_instance())
     }
 
@@ -995,7 +1001,7 @@ impl Error {
 
     // Mutable pointer to the field.
     // If field is not initialized, it is initialized with default value first.
-    pub fn mut_region_not_found<'a>(&'a mut self) -> &'a mut RegionNotFound {
+    pub fn mut_region_not_found(&mut self) -> &mut RegionNotFound {
         if self.region_not_found.is_none() {
             self.region_not_found.set_default();
         };
@@ -1007,7 +1013,7 @@ impl Error {
         self.region_not_found.take().unwrap_or_else(|| RegionNotFound::new())
     }
 
-    pub fn get_region_not_found<'a>(&'a self) -> &'a RegionNotFound {
+    pub fn get_region_not_found(&self) -> &RegionNotFound {
         self.region_not_found.as_ref().unwrap_or_else(|| RegionNotFound::default_instance())
     }
 
@@ -1028,7 +1034,7 @@ impl Error {
 
     // Mutable pointer to the field.
     // If field is not initialized, it is initialized with default value first.
-    pub fn mut_key_not_in_region<'a>(&'a mut self) -> &'a mut KeyNotInRegion {
+    pub fn mut_key_not_in_region(&mut self) -> &mut KeyNotInRegion {
         if self.key_not_in_region.is_none() {
             self.key_not_in_region.set_default();
         };
@@ -1040,7 +1046,7 @@ impl Error {
         self.key_not_in_region.take().unwrap_or_else(|| KeyNotInRegion::new())
     }
 
-    pub fn get_key_not_in_region<'a>(&'a self) -> &'a KeyNotInRegion {
+    pub fn get_key_not_in_region(&self) -> &KeyNotInRegion {
         self.key_not_in_region.as_ref().unwrap_or_else(|| KeyNotInRegion::default_instance())
     }
 
@@ -1061,7 +1067,7 @@ impl Error {
 
     // Mutable pointer to the field.
     // If field is not initialized, it is initialized with default value first.
-    pub fn mut_stale_epoch<'a>(&'a mut self) -> &'a mut StaleEpoch {
+    pub fn mut_stale_epoch(&mut self) -> &mut StaleEpoch {
         if self.stale_epoch.is_none() {
             self.stale_epoch.set_default();
         };
@@ -1073,7 +1079,7 @@ impl Error {
         self.stale_epoch.take().unwrap_or_else(|| StaleEpoch::new())
     }
 
-    pub fn get_stale_epoch<'a>(&'a self) -> &'a StaleEpoch {
+    pub fn get_stale_epoch(&self) -> &StaleEpoch {
         self.stale_epoch.as_ref().unwrap_or_else(|| StaleEpoch::default_instance())
     }
 }

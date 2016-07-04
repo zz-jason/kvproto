@@ -5,11 +5,17 @@
 #![allow(unknown_lints)]
 #![allow(clippy)]
 
+#![cfg_attr(rustfmt, rustfmt_skip)]
+
+#![allow(box_pointers)]
 #![allow(dead_code)]
 #![allow(non_camel_case_types)]
 #![allow(non_snake_case)]
 #![allow(non_upper_case_globals)]
+#![allow(trivial_casts)]
+#![allow(unsafe_code)]
 #![allow(unused_imports)]
+#![allow(unused_results)]
 
 use protobuf::Message as Message_imported_for_functions;
 use protobuf::ProtobufEnum as ProtobufEnum_imported_for_functions;
@@ -64,7 +70,7 @@ impl MetaItem {
         self.start_ts = ::std::option::Option::Some(v);
     }
 
-    pub fn get_start_ts<'a>(&self) -> u64 {
+    pub fn get_start_ts(&self) -> u64 {
         self.start_ts.unwrap_or(0)
     }
 
@@ -83,7 +89,7 @@ impl MetaItem {
         self.commit_ts = ::std::option::Option::Some(v);
     }
 
-    pub fn get_commit_ts<'a>(&self) -> u64 {
+    pub fn get_commit_ts(&self) -> u64 {
         self.commit_ts.unwrap_or(0)
     }
 }
@@ -277,7 +283,7 @@ impl MetaLock {
         self.field_type = ::std::option::Option::Some(v);
     }
 
-    pub fn get_field_type<'a>(&self) -> MetaLockType {
+    pub fn get_field_type(&self) -> MetaLockType {
         self.field_type.unwrap_or(MetaLockType::ReadOnly)
     }
 
@@ -296,7 +302,7 @@ impl MetaLock {
         self.start_ts = ::std::option::Option::Some(v);
     }
 
-    pub fn get_start_ts<'a>(&self) -> u64 {
+    pub fn get_start_ts(&self) -> u64 {
         self.start_ts.unwrap_or(0)
     }
 
@@ -317,7 +323,7 @@ impl MetaLock {
 
     // Mutable pointer to the field.
     // If field is not initialized, it is initialized with default value first.
-    pub fn mut_primary_key<'a>(&'a mut self) -> &'a mut ::std::vec::Vec<u8> {
+    pub fn mut_primary_key(&mut self) -> &mut ::std::vec::Vec<u8> {
         if self.primary_key.is_none() {
             self.primary_key.set_default();
         };
@@ -329,7 +335,7 @@ impl MetaLock {
         self.primary_key.take().unwrap_or_else(|| ::std::vec::Vec::new())
     }
 
-    pub fn get_primary_key<'a>(&'a self) -> &'a [u8] {
+    pub fn get_primary_key(&self) -> &[u8] {
         match self.primary_key.as_ref() {
             Some(v) => &v,
             None => &[],
@@ -544,7 +550,7 @@ impl Meta {
 
     // Mutable pointer to the field.
     // If field is not initialized, it is initialized with default value first.
-    pub fn mut_lock<'a>(&'a mut self) -> &'a mut MetaLock {
+    pub fn mut_lock(&mut self) -> &mut MetaLock {
         if self.lock.is_none() {
             self.lock.set_default();
         };
@@ -556,7 +562,7 @@ impl Meta {
         self.lock.take().unwrap_or_else(|| MetaLock::new())
     }
 
-    pub fn get_lock<'a>(&'a self) -> &'a MetaLock {
+    pub fn get_lock(&self) -> &MetaLock {
         self.lock.as_ref().unwrap_or_else(|| MetaLock::default_instance())
     }
 
@@ -572,7 +578,7 @@ impl Meta {
     }
 
     // Mutable pointer to the field.
-    pub fn mut_items<'a>(&'a mut self) -> &'a mut ::protobuf::RepeatedField<MetaItem> {
+    pub fn mut_items(&mut self) -> &mut ::protobuf::RepeatedField<MetaItem> {
         &mut self.items
     }
 
@@ -581,7 +587,7 @@ impl Meta {
         ::std::mem::replace(&mut self.items, ::protobuf::RepeatedField::new())
     }
 
-    pub fn get_items<'a>(&'a self) -> &'a [MetaItem] {
+    pub fn get_items(&self) -> &[MetaItem] {
         &self.items
     }
 
@@ -600,7 +606,7 @@ impl Meta {
         self.next = ::std::option::Option::Some(v);
     }
 
-    pub fn get_next<'a>(&self) -> u64 {
+    pub fn get_next(&self) -> u64 {
         self.next.unwrap_or(0)
     }
 }

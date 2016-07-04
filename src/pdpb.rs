@@ -5,11 +5,17 @@
 #![allow(unknown_lints)]
 #![allow(clippy)]
 
+#![cfg_attr(rustfmt, rustfmt_skip)]
+
+#![allow(box_pointers)]
 #![allow(dead_code)]
 #![allow(non_camel_case_types)]
 #![allow(non_snake_case)]
 #![allow(non_upper_case_globals)]
+#![allow(trivial_casts)]
+#![allow(unsafe_code)]
 #![allow(unused_imports)]
+#![allow(unused_results)]
 
 use protobuf::Message as Message_imported_for_functions;
 use protobuf::ProtobufEnum as ProtobufEnum_imported_for_functions;
@@ -66,7 +72,7 @@ impl Leader {
 
     // Mutable pointer to the field.
     // If field is not initialized, it is initialized with default value first.
-    pub fn mut_addr<'a>(&'a mut self) -> &'a mut ::std::string::String {
+    pub fn mut_addr(&mut self) -> &mut ::std::string::String {
         if self.addr.is_none() {
             self.addr.set_default();
         };
@@ -78,7 +84,7 @@ impl Leader {
         self.addr.take().unwrap_or_else(|| ::std::string::String::new())
     }
 
-    pub fn get_addr<'a>(&'a self) -> &'a str {
+    pub fn get_addr(&self) -> &str {
         match self.addr.as_ref() {
             Some(v) => &v,
             None => "",
@@ -100,7 +106,7 @@ impl Leader {
         self.pid = ::std::option::Option::Some(v);
     }
 
-    pub fn get_pid<'a>(&self) -> i64 {
+    pub fn get_pid(&self) -> i64 {
         self.pid.unwrap_or(0)
     }
 }
@@ -286,7 +292,7 @@ impl TsoRequest {
         self.count = ::std::option::Option::Some(v);
     }
 
-    pub fn get_count<'a>(&self) -> u32 {
+    pub fn get_count(&self) -> u32 {
         self.count.unwrap_or(0)
     }
 }
@@ -458,7 +464,7 @@ impl Timestamp {
         self.physical = ::std::option::Option::Some(v);
     }
 
-    pub fn get_physical<'a>(&self) -> i64 {
+    pub fn get_physical(&self) -> i64 {
         self.physical.unwrap_or(0)
     }
 
@@ -477,7 +483,7 @@ impl Timestamp {
         self.logical = ::std::option::Option::Some(v);
     }
 
-    pub fn get_logical<'a>(&self) -> i64 {
+    pub fn get_logical(&self) -> i64 {
         self.logical.unwrap_or(0)
     }
 }
@@ -669,7 +675,7 @@ impl TsoResponse {
         self.count = ::std::option::Option::Some(v);
     }
 
-    pub fn get_count<'a>(&self) -> u32 {
+    pub fn get_count(&self) -> u32 {
         self.count.unwrap_or(0)
     }
 
@@ -690,7 +696,7 @@ impl TsoResponse {
 
     // Mutable pointer to the field.
     // If field is not initialized, it is initialized with default value first.
-    pub fn mut_timestamp<'a>(&'a mut self) -> &'a mut Timestamp {
+    pub fn mut_timestamp(&mut self) -> &mut Timestamp {
         if self.timestamp.is_none() {
             self.timestamp.set_default();
         };
@@ -702,7 +708,7 @@ impl TsoResponse {
         self.timestamp.take().unwrap_or_else(|| Timestamp::new())
     }
 
-    pub fn get_timestamp<'a>(&'a self) -> &'a Timestamp {
+    pub fn get_timestamp(&self) -> &Timestamp {
         self.timestamp.as_ref().unwrap_or_else(|| Timestamp::default_instance())
     }
 }
@@ -895,7 +901,7 @@ impl BootstrapRequest {
 
     // Mutable pointer to the field.
     // If field is not initialized, it is initialized with default value first.
-    pub fn mut_store<'a>(&'a mut self) -> &'a mut super::metapb::Store {
+    pub fn mut_store(&mut self) -> &mut super::metapb::Store {
         if self.store.is_none() {
             self.store.set_default();
         };
@@ -907,7 +913,7 @@ impl BootstrapRequest {
         self.store.take().unwrap_or_else(|| super::metapb::Store::new())
     }
 
-    pub fn get_store<'a>(&'a self) -> &'a super::metapb::Store {
+    pub fn get_store(&self) -> &super::metapb::Store {
         self.store.as_ref().unwrap_or_else(|| super::metapb::Store::default_instance())
     }
 
@@ -928,7 +934,7 @@ impl BootstrapRequest {
 
     // Mutable pointer to the field.
     // If field is not initialized, it is initialized with default value first.
-    pub fn mut_region<'a>(&'a mut self) -> &'a mut super::metapb::Region {
+    pub fn mut_region(&mut self) -> &mut super::metapb::Region {
         if self.region.is_none() {
             self.region.set_default();
         };
@@ -940,7 +946,7 @@ impl BootstrapRequest {
         self.region.take().unwrap_or_else(|| super::metapb::Region::new())
     }
 
-    pub fn get_region<'a>(&'a self) -> &'a super::metapb::Region {
+    pub fn get_region(&self) -> &super::metapb::Region {
         self.region.as_ref().unwrap_or_else(|| super::metapb::Region::default_instance())
     }
 }
@@ -1384,7 +1390,7 @@ impl IsBootstrappedResponse {
         self.bootstrapped = ::std::option::Option::Some(v);
     }
 
-    pub fn get_bootstrapped<'a>(&self) -> bool {
+    pub fn get_bootstrapped(&self) -> bool {
         self.bootstrapped.unwrap_or(false)
     }
 }
@@ -1682,7 +1688,7 @@ impl AllocIdResponse {
         self.id = ::std::option::Option::Some(v);
     }
 
-    pub fn get_id<'a>(&self) -> u64 {
+    pub fn get_id(&self) -> u64 {
         self.id.unwrap_or(0)
     }
 }
@@ -1852,7 +1858,7 @@ impl GetStoreRequest {
         self.store_id = ::std::option::Option::Some(v);
     }
 
-    pub fn get_store_id<'a>(&self) -> u64 {
+    pub fn get_store_id(&self) -> u64 {
         self.store_id.unwrap_or(0)
     }
 }
@@ -2024,7 +2030,7 @@ impl GetStoreResponse {
 
     // Mutable pointer to the field.
     // If field is not initialized, it is initialized with default value first.
-    pub fn mut_store<'a>(&'a mut self) -> &'a mut super::metapb::Store {
+    pub fn mut_store(&mut self) -> &mut super::metapb::Store {
         if self.store.is_none() {
             self.store.set_default();
         };
@@ -2036,7 +2042,7 @@ impl GetStoreResponse {
         self.store.take().unwrap_or_else(|| super::metapb::Store::new())
     }
 
-    pub fn get_store<'a>(&'a self) -> &'a super::metapb::Store {
+    pub fn get_store(&self) -> &super::metapb::Store {
         self.store.as_ref().unwrap_or_else(|| super::metapb::Store::default_instance())
     }
 }
@@ -2207,7 +2213,7 @@ impl GetRegionRequest {
 
     // Mutable pointer to the field.
     // If field is not initialized, it is initialized with default value first.
-    pub fn mut_region_key<'a>(&'a mut self) -> &'a mut ::std::vec::Vec<u8> {
+    pub fn mut_region_key(&mut self) -> &mut ::std::vec::Vec<u8> {
         if self.region_key.is_none() {
             self.region_key.set_default();
         };
@@ -2219,7 +2225,7 @@ impl GetRegionRequest {
         self.region_key.take().unwrap_or_else(|| ::std::vec::Vec::new())
     }
 
-    pub fn get_region_key<'a>(&'a self) -> &'a [u8] {
+    pub fn get_region_key(&self) -> &[u8] {
         match self.region_key.as_ref() {
             Some(v) => &v,
             None => &[],
@@ -2390,7 +2396,7 @@ impl GetRegionResponse {
 
     // Mutable pointer to the field.
     // If field is not initialized, it is initialized with default value first.
-    pub fn mut_region<'a>(&'a mut self) -> &'a mut super::metapb::Region {
+    pub fn mut_region(&mut self) -> &mut super::metapb::Region {
         if self.region.is_none() {
             self.region.set_default();
         };
@@ -2402,7 +2408,7 @@ impl GetRegionResponse {
         self.region.take().unwrap_or_else(|| super::metapb::Region::new())
     }
 
-    pub fn get_region<'a>(&'a self) -> &'a super::metapb::Region {
+    pub fn get_region(&self) -> &super::metapb::Region {
         self.region.as_ref().unwrap_or_else(|| super::metapb::Region::default_instance())
     }
 }
@@ -2701,7 +2707,7 @@ impl GetClusterConfigResponse {
 
     // Mutable pointer to the field.
     // If field is not initialized, it is initialized with default value first.
-    pub fn mut_cluster<'a>(&'a mut self) -> &'a mut super::metapb::Cluster {
+    pub fn mut_cluster(&mut self) -> &mut super::metapb::Cluster {
         if self.cluster.is_none() {
             self.cluster.set_default();
         };
@@ -2713,7 +2719,7 @@ impl GetClusterConfigResponse {
         self.cluster.take().unwrap_or_else(|| super::metapb::Cluster::new())
     }
 
-    pub fn get_cluster<'a>(&'a self) -> &'a super::metapb::Cluster {
+    pub fn get_cluster(&self) -> &super::metapb::Cluster {
         self.cluster.as_ref().unwrap_or_else(|| super::metapb::Cluster::default_instance())
     }
 }
@@ -2884,7 +2890,7 @@ impl PutStoreRequest {
 
     // Mutable pointer to the field.
     // If field is not initialized, it is initialized with default value first.
-    pub fn mut_store<'a>(&'a mut self) -> &'a mut super::metapb::Store {
+    pub fn mut_store(&mut self) -> &mut super::metapb::Store {
         if self.store.is_none() {
             self.store.set_default();
         };
@@ -2896,7 +2902,7 @@ impl PutStoreRequest {
         self.store.take().unwrap_or_else(|| super::metapb::Store::new())
     }
 
-    pub fn get_store<'a>(&'a self) -> &'a super::metapb::Store {
+    pub fn get_store(&self) -> &super::metapb::Store {
         self.store.as_ref().unwrap_or_else(|| super::metapb::Store::default_instance())
     }
 }
@@ -3197,7 +3203,7 @@ impl RegionHeartbeatRequest {
 
     // Mutable pointer to the field.
     // If field is not initialized, it is initialized with default value first.
-    pub fn mut_region<'a>(&'a mut self) -> &'a mut super::metapb::Region {
+    pub fn mut_region(&mut self) -> &mut super::metapb::Region {
         if self.region.is_none() {
             self.region.set_default();
         };
@@ -3209,7 +3215,7 @@ impl RegionHeartbeatRequest {
         self.region.take().unwrap_or_else(|| super::metapb::Region::new())
     }
 
-    pub fn get_region<'a>(&'a self) -> &'a super::metapb::Region {
+    pub fn get_region(&self) -> &super::metapb::Region {
         self.region.as_ref().unwrap_or_else(|| super::metapb::Region::default_instance())
     }
 
@@ -3230,7 +3236,7 @@ impl RegionHeartbeatRequest {
 
     // Mutable pointer to the field.
     // If field is not initialized, it is initialized with default value first.
-    pub fn mut_leader<'a>(&'a mut self) -> &'a mut super::metapb::Peer {
+    pub fn mut_leader(&mut self) -> &mut super::metapb::Peer {
         if self.leader.is_none() {
             self.leader.set_default();
         };
@@ -3242,7 +3248,7 @@ impl RegionHeartbeatRequest {
         self.leader.take().unwrap_or_else(|| super::metapb::Peer::new())
     }
 
-    pub fn get_leader<'a>(&'a self) -> &'a super::metapb::Peer {
+    pub fn get_leader(&self) -> &super::metapb::Peer {
         self.leader.as_ref().unwrap_or_else(|| super::metapb::Peer::default_instance())
     }
 }
@@ -3432,7 +3438,7 @@ impl ChangePeer {
         self.change_type = ::std::option::Option::Some(v);
     }
 
-    pub fn get_change_type<'a>(&self) -> super::raftpb::ConfChangeType {
+    pub fn get_change_type(&self) -> super::raftpb::ConfChangeType {
         self.change_type.unwrap_or(super::raftpb::ConfChangeType::AddNode)
     }
 
@@ -3453,7 +3459,7 @@ impl ChangePeer {
 
     // Mutable pointer to the field.
     // If field is not initialized, it is initialized with default value first.
-    pub fn mut_peer<'a>(&'a mut self) -> &'a mut super::metapb::Peer {
+    pub fn mut_peer(&mut self) -> &mut super::metapb::Peer {
         if self.peer.is_none() {
             self.peer.set_default();
         };
@@ -3465,7 +3471,7 @@ impl ChangePeer {
         self.peer.take().unwrap_or_else(|| super::metapb::Peer::new())
     }
 
-    pub fn get_peer<'a>(&'a self) -> &'a super::metapb::Peer {
+    pub fn get_peer(&self) -> &super::metapb::Peer {
         self.peer.as_ref().unwrap_or_else(|| super::metapb::Peer::default_instance())
     }
 }
@@ -3656,7 +3662,7 @@ impl TransferLeader {
 
     // Mutable pointer to the field.
     // If field is not initialized, it is initialized with default value first.
-    pub fn mut_peer<'a>(&'a mut self) -> &'a mut super::metapb::Peer {
+    pub fn mut_peer(&mut self) -> &mut super::metapb::Peer {
         if self.peer.is_none() {
             self.peer.set_default();
         };
@@ -3668,7 +3674,7 @@ impl TransferLeader {
         self.peer.take().unwrap_or_else(|| super::metapb::Peer::new())
     }
 
-    pub fn get_peer<'a>(&'a self) -> &'a super::metapb::Peer {
+    pub fn get_peer(&self) -> &super::metapb::Peer {
         self.peer.as_ref().unwrap_or_else(|| super::metapb::Peer::default_instance())
     }
 }
@@ -3841,7 +3847,7 @@ impl RegionHeartbeatResponse {
 
     // Mutable pointer to the field.
     // If field is not initialized, it is initialized with default value first.
-    pub fn mut_change_peer<'a>(&'a mut self) -> &'a mut ChangePeer {
+    pub fn mut_change_peer(&mut self) -> &mut ChangePeer {
         if self.change_peer.is_none() {
             self.change_peer.set_default();
         };
@@ -3853,7 +3859,7 @@ impl RegionHeartbeatResponse {
         self.change_peer.take().unwrap_or_else(|| ChangePeer::new())
     }
 
-    pub fn get_change_peer<'a>(&'a self) -> &'a ChangePeer {
+    pub fn get_change_peer(&self) -> &ChangePeer {
         self.change_peer.as_ref().unwrap_or_else(|| ChangePeer::default_instance())
     }
 
@@ -3874,7 +3880,7 @@ impl RegionHeartbeatResponse {
 
     // Mutable pointer to the field.
     // If field is not initialized, it is initialized with default value first.
-    pub fn mut_transfer_leader<'a>(&'a mut self) -> &'a mut TransferLeader {
+    pub fn mut_transfer_leader(&mut self) -> &mut TransferLeader {
         if self.transfer_leader.is_none() {
             self.transfer_leader.set_default();
         };
@@ -3886,7 +3892,7 @@ impl RegionHeartbeatResponse {
         self.transfer_leader.take().unwrap_or_else(|| TransferLeader::new())
     }
 
-    pub fn get_transfer_leader<'a>(&'a self) -> &'a TransferLeader {
+    pub fn get_transfer_leader(&self) -> &TransferLeader {
         self.transfer_leader.as_ref().unwrap_or_else(|| TransferLeader::default_instance())
     }
 }
@@ -4076,7 +4082,7 @@ impl PutClusterConfigRequest {
 
     // Mutable pointer to the field.
     // If field is not initialized, it is initialized with default value first.
-    pub fn mut_cluster<'a>(&'a mut self) -> &'a mut super::metapb::Cluster {
+    pub fn mut_cluster(&mut self) -> &mut super::metapb::Cluster {
         if self.cluster.is_none() {
             self.cluster.set_default();
         };
@@ -4088,7 +4094,7 @@ impl PutClusterConfigRequest {
         self.cluster.take().unwrap_or_else(|| super::metapb::Cluster::new())
     }
 
-    pub fn get_cluster<'a>(&'a self) -> &'a super::metapb::Cluster {
+    pub fn get_cluster(&self) -> &super::metapb::Cluster {
         self.cluster.as_ref().unwrap_or_else(|| super::metapb::Cluster::default_instance())
     }
 }
@@ -4387,7 +4393,7 @@ impl AskSplitRequest {
 
     // Mutable pointer to the field.
     // If field is not initialized, it is initialized with default value first.
-    pub fn mut_region<'a>(&'a mut self) -> &'a mut super::metapb::Region {
+    pub fn mut_region(&mut self) -> &mut super::metapb::Region {
         if self.region.is_none() {
             self.region.set_default();
         };
@@ -4399,7 +4405,7 @@ impl AskSplitRequest {
         self.region.take().unwrap_or_else(|| super::metapb::Region::new())
     }
 
-    pub fn get_region<'a>(&'a self) -> &'a super::metapb::Region {
+    pub fn get_region(&self) -> &super::metapb::Region {
         self.region.as_ref().unwrap_or_else(|| super::metapb::Region::default_instance())
     }
 }
@@ -4570,7 +4576,7 @@ impl AskSplitResponse {
         self.new_region_id = ::std::option::Option::Some(v);
     }
 
-    pub fn get_new_region_id<'a>(&self) -> u64 {
+    pub fn get_new_region_id(&self) -> u64 {
         self.new_region_id.unwrap_or(0)
     }
 
@@ -4586,7 +4592,7 @@ impl AskSplitResponse {
     }
 
     // Mutable pointer to the field.
-    pub fn mut_new_peer_ids<'a>(&'a mut self) -> &'a mut ::std::vec::Vec<u64> {
+    pub fn mut_new_peer_ids(&mut self) -> &mut ::std::vec::Vec<u64> {
         &mut self.new_peer_ids
     }
 
@@ -4595,7 +4601,7 @@ impl AskSplitResponse {
         ::std::mem::replace(&mut self.new_peer_ids, ::std::vec::Vec::new())
     }
 
-    pub fn get_new_peer_ids<'a>(&'a self) -> &'a [u64] {
+    pub fn get_new_peer_ids(&self) -> &[u64] {
         &self.new_peer_ids
     }
 }
@@ -4790,7 +4796,7 @@ impl StoreStats {
         self.store_id = ::std::option::Option::Some(v);
     }
 
-    pub fn get_store_id<'a>(&self) -> u64 {
+    pub fn get_store_id(&self) -> u64 {
         self.store_id.unwrap_or(0)
     }
 
@@ -4809,7 +4815,7 @@ impl StoreStats {
         self.capacity = ::std::option::Option::Some(v);
     }
 
-    pub fn get_capacity<'a>(&self) -> u64 {
+    pub fn get_capacity(&self) -> u64 {
         self.capacity.unwrap_or(0)
     }
 
@@ -4828,7 +4834,7 @@ impl StoreStats {
         self.available = ::std::option::Option::Some(v);
     }
 
-    pub fn get_available<'a>(&self) -> u64 {
+    pub fn get_available(&self) -> u64 {
         self.available.unwrap_or(0)
     }
 
@@ -4847,7 +4853,7 @@ impl StoreStats {
         self.region_count = ::std::option::Option::Some(v);
     }
 
-    pub fn get_region_count<'a>(&self) -> u32 {
+    pub fn get_region_count(&self) -> u32 {
         self.region_count.unwrap_or(0)
     }
 
@@ -4866,7 +4872,7 @@ impl StoreStats {
         self.sending_snap_count = ::std::option::Option::Some(v);
     }
 
-    pub fn get_sending_snap_count<'a>(&self) -> u32 {
+    pub fn get_sending_snap_count(&self) -> u32 {
         self.sending_snap_count.unwrap_or(0)
     }
 
@@ -4885,7 +4891,7 @@ impl StoreStats {
         self.receiving_snap_count = ::std::option::Option::Some(v);
     }
 
-    pub fn get_receiving_snap_count<'a>(&self) -> u32 {
+    pub fn get_receiving_snap_count(&self) -> u32 {
         self.receiving_snap_count.unwrap_or(0)
     }
 }
@@ -5157,7 +5163,7 @@ impl StoreHeartbeatRequest {
 
     // Mutable pointer to the field.
     // If field is not initialized, it is initialized with default value first.
-    pub fn mut_stats<'a>(&'a mut self) -> &'a mut StoreStats {
+    pub fn mut_stats(&mut self) -> &mut StoreStats {
         if self.stats.is_none() {
             self.stats.set_default();
         };
@@ -5169,7 +5175,7 @@ impl StoreHeartbeatRequest {
         self.stats.take().unwrap_or_else(|| StoreStats::new())
     }
 
-    pub fn get_stats<'a>(&'a self) -> &'a StoreStats {
+    pub fn get_stats(&self) -> &StoreStats {
         self.stats.as_ref().unwrap_or_else(|| StoreStats::default_instance())
     }
 }
@@ -5470,7 +5476,7 @@ impl ReportSplitRequest {
 
     // Mutable pointer to the field.
     // If field is not initialized, it is initialized with default value first.
-    pub fn mut_left<'a>(&'a mut self) -> &'a mut super::metapb::Region {
+    pub fn mut_left(&mut self) -> &mut super::metapb::Region {
         if self.left.is_none() {
             self.left.set_default();
         };
@@ -5482,7 +5488,7 @@ impl ReportSplitRequest {
         self.left.take().unwrap_or_else(|| super::metapb::Region::new())
     }
 
-    pub fn get_left<'a>(&'a self) -> &'a super::metapb::Region {
+    pub fn get_left(&self) -> &super::metapb::Region {
         self.left.as_ref().unwrap_or_else(|| super::metapb::Region::default_instance())
     }
 
@@ -5503,7 +5509,7 @@ impl ReportSplitRequest {
 
     // Mutable pointer to the field.
     // If field is not initialized, it is initialized with default value first.
-    pub fn mut_right<'a>(&'a mut self) -> &'a mut super::metapb::Region {
+    pub fn mut_right(&mut self) -> &mut super::metapb::Region {
         if self.right.is_none() {
             self.right.set_default();
         };
@@ -5515,7 +5521,7 @@ impl ReportSplitRequest {
         self.right.take().unwrap_or_else(|| super::metapb::Region::new())
     }
 
-    pub fn get_right<'a>(&'a self) -> &'a super::metapb::Region {
+    pub fn get_right(&self) -> &super::metapb::Region {
         self.right.as_ref().unwrap_or_else(|| super::metapb::Region::default_instance())
     }
 }
@@ -5835,7 +5841,7 @@ impl RequestHeader {
 
     // Mutable pointer to the field.
     // If field is not initialized, it is initialized with default value first.
-    pub fn mut_uuid<'a>(&'a mut self) -> &'a mut ::std::vec::Vec<u8> {
+    pub fn mut_uuid(&mut self) -> &mut ::std::vec::Vec<u8> {
         if self.uuid.is_none() {
             self.uuid.set_default();
         };
@@ -5847,7 +5853,7 @@ impl RequestHeader {
         self.uuid.take().unwrap_or_else(|| ::std::vec::Vec::new())
     }
 
-    pub fn get_uuid<'a>(&'a self) -> &'a [u8] {
+    pub fn get_uuid(&self) -> &[u8] {
         match self.uuid.as_ref() {
             Some(v) => &v,
             None => &[],
@@ -5869,7 +5875,7 @@ impl RequestHeader {
         self.cluster_id = ::std::option::Option::Some(v);
     }
 
-    pub fn get_cluster_id<'a>(&self) -> u64 {
+    pub fn get_cluster_id(&self) -> u64 {
         self.cluster_id.unwrap_or(0)
     }
 }
@@ -6061,7 +6067,7 @@ impl ResponseHeader {
 
     // Mutable pointer to the field.
     // If field is not initialized, it is initialized with default value first.
-    pub fn mut_uuid<'a>(&'a mut self) -> &'a mut ::std::vec::Vec<u8> {
+    pub fn mut_uuid(&mut self) -> &mut ::std::vec::Vec<u8> {
         if self.uuid.is_none() {
             self.uuid.set_default();
         };
@@ -6073,7 +6079,7 @@ impl ResponseHeader {
         self.uuid.take().unwrap_or_else(|| ::std::vec::Vec::new())
     }
 
-    pub fn get_uuid<'a>(&'a self) -> &'a [u8] {
+    pub fn get_uuid(&self) -> &[u8] {
         match self.uuid.as_ref() {
             Some(v) => &v,
             None => &[],
@@ -6095,7 +6101,7 @@ impl ResponseHeader {
         self.cluster_id = ::std::option::Option::Some(v);
     }
 
-    pub fn get_cluster_id<'a>(&self) -> u64 {
+    pub fn get_cluster_id(&self) -> u64 {
         self.cluster_id.unwrap_or(0)
     }
 
@@ -6116,7 +6122,7 @@ impl ResponseHeader {
 
     // Mutable pointer to the field.
     // If field is not initialized, it is initialized with default value first.
-    pub fn mut_error<'a>(&'a mut self) -> &'a mut Error {
+    pub fn mut_error(&mut self) -> &mut Error {
         if self.error.is_none() {
             self.error.set_default();
         };
@@ -6128,7 +6134,7 @@ impl ResponseHeader {
         self.error.take().unwrap_or_else(|| Error::new())
     }
 
-    pub fn get_error<'a>(&'a self) -> &'a Error {
+    pub fn get_error(&self) -> &Error {
         self.error.as_ref().unwrap_or_else(|| Error::default_instance())
     }
 }
@@ -6363,7 +6369,7 @@ impl Request {
 
     // Mutable pointer to the field.
     // If field is not initialized, it is initialized with default value first.
-    pub fn mut_header<'a>(&'a mut self) -> &'a mut RequestHeader {
+    pub fn mut_header(&mut self) -> &mut RequestHeader {
         if self.header.is_none() {
             self.header.set_default();
         };
@@ -6375,7 +6381,7 @@ impl Request {
         self.header.take().unwrap_or_else(|| RequestHeader::new())
     }
 
-    pub fn get_header<'a>(&'a self) -> &'a RequestHeader {
+    pub fn get_header(&self) -> &RequestHeader {
         self.header.as_ref().unwrap_or_else(|| RequestHeader::default_instance())
     }
 
@@ -6394,7 +6400,7 @@ impl Request {
         self.cmd_type = ::std::option::Option::Some(v);
     }
 
-    pub fn get_cmd_type<'a>(&self) -> CommandType {
+    pub fn get_cmd_type(&self) -> CommandType {
         self.cmd_type.unwrap_or(CommandType::Invalid)
     }
 
@@ -6415,7 +6421,7 @@ impl Request {
 
     // Mutable pointer to the field.
     // If field is not initialized, it is initialized with default value first.
-    pub fn mut_tso<'a>(&'a mut self) -> &'a mut TsoRequest {
+    pub fn mut_tso(&mut self) -> &mut TsoRequest {
         if self.tso.is_none() {
             self.tso.set_default();
         };
@@ -6427,7 +6433,7 @@ impl Request {
         self.tso.take().unwrap_or_else(|| TsoRequest::new())
     }
 
-    pub fn get_tso<'a>(&'a self) -> &'a TsoRequest {
+    pub fn get_tso(&self) -> &TsoRequest {
         self.tso.as_ref().unwrap_or_else(|| TsoRequest::default_instance())
     }
 
@@ -6448,7 +6454,7 @@ impl Request {
 
     // Mutable pointer to the field.
     // If field is not initialized, it is initialized with default value first.
-    pub fn mut_bootstrap<'a>(&'a mut self) -> &'a mut BootstrapRequest {
+    pub fn mut_bootstrap(&mut self) -> &mut BootstrapRequest {
         if self.bootstrap.is_none() {
             self.bootstrap.set_default();
         };
@@ -6460,7 +6466,7 @@ impl Request {
         self.bootstrap.take().unwrap_or_else(|| BootstrapRequest::new())
     }
 
-    pub fn get_bootstrap<'a>(&'a self) -> &'a BootstrapRequest {
+    pub fn get_bootstrap(&self) -> &BootstrapRequest {
         self.bootstrap.as_ref().unwrap_or_else(|| BootstrapRequest::default_instance())
     }
 
@@ -6481,7 +6487,7 @@ impl Request {
 
     // Mutable pointer to the field.
     // If field is not initialized, it is initialized with default value first.
-    pub fn mut_is_bootstrapped<'a>(&'a mut self) -> &'a mut IsBootstrappedRequest {
+    pub fn mut_is_bootstrapped(&mut self) -> &mut IsBootstrappedRequest {
         if self.is_bootstrapped.is_none() {
             self.is_bootstrapped.set_default();
         };
@@ -6493,7 +6499,7 @@ impl Request {
         self.is_bootstrapped.take().unwrap_or_else(|| IsBootstrappedRequest::new())
     }
 
-    pub fn get_is_bootstrapped<'a>(&'a self) -> &'a IsBootstrappedRequest {
+    pub fn get_is_bootstrapped(&self) -> &IsBootstrappedRequest {
         self.is_bootstrapped.as_ref().unwrap_or_else(|| IsBootstrappedRequest::default_instance())
     }
 
@@ -6514,7 +6520,7 @@ impl Request {
 
     // Mutable pointer to the field.
     // If field is not initialized, it is initialized with default value first.
-    pub fn mut_alloc_id<'a>(&'a mut self) -> &'a mut AllocIdRequest {
+    pub fn mut_alloc_id(&mut self) -> &mut AllocIdRequest {
         if self.alloc_id.is_none() {
             self.alloc_id.set_default();
         };
@@ -6526,7 +6532,7 @@ impl Request {
         self.alloc_id.take().unwrap_or_else(|| AllocIdRequest::new())
     }
 
-    pub fn get_alloc_id<'a>(&'a self) -> &'a AllocIdRequest {
+    pub fn get_alloc_id(&self) -> &AllocIdRequest {
         self.alloc_id.as_ref().unwrap_or_else(|| AllocIdRequest::default_instance())
     }
 
@@ -6547,7 +6553,7 @@ impl Request {
 
     // Mutable pointer to the field.
     // If field is not initialized, it is initialized with default value first.
-    pub fn mut_get_store<'a>(&'a mut self) -> &'a mut GetStoreRequest {
+    pub fn mut_get_store(&mut self) -> &mut GetStoreRequest {
         if self.get_store.is_none() {
             self.get_store.set_default();
         };
@@ -6559,7 +6565,7 @@ impl Request {
         self.get_store.take().unwrap_or_else(|| GetStoreRequest::new())
     }
 
-    pub fn get_get_store<'a>(&'a self) -> &'a GetStoreRequest {
+    pub fn get_get_store(&self) -> &GetStoreRequest {
         self.get_store.as_ref().unwrap_or_else(|| GetStoreRequest::default_instance())
     }
 
@@ -6580,7 +6586,7 @@ impl Request {
 
     // Mutable pointer to the field.
     // If field is not initialized, it is initialized with default value first.
-    pub fn mut_put_store<'a>(&'a mut self) -> &'a mut PutStoreRequest {
+    pub fn mut_put_store(&mut self) -> &mut PutStoreRequest {
         if self.put_store.is_none() {
             self.put_store.set_default();
         };
@@ -6592,7 +6598,7 @@ impl Request {
         self.put_store.take().unwrap_or_else(|| PutStoreRequest::new())
     }
 
-    pub fn get_put_store<'a>(&'a self) -> &'a PutStoreRequest {
+    pub fn get_put_store(&self) -> &PutStoreRequest {
         self.put_store.as_ref().unwrap_or_else(|| PutStoreRequest::default_instance())
     }
 
@@ -6613,7 +6619,7 @@ impl Request {
 
     // Mutable pointer to the field.
     // If field is not initialized, it is initialized with default value first.
-    pub fn mut_ask_split<'a>(&'a mut self) -> &'a mut AskSplitRequest {
+    pub fn mut_ask_split(&mut self) -> &mut AskSplitRequest {
         if self.ask_split.is_none() {
             self.ask_split.set_default();
         };
@@ -6625,7 +6631,7 @@ impl Request {
         self.ask_split.take().unwrap_or_else(|| AskSplitRequest::new())
     }
 
-    pub fn get_ask_split<'a>(&'a self) -> &'a AskSplitRequest {
+    pub fn get_ask_split(&self) -> &AskSplitRequest {
         self.ask_split.as_ref().unwrap_or_else(|| AskSplitRequest::default_instance())
     }
 
@@ -6646,7 +6652,7 @@ impl Request {
 
     // Mutable pointer to the field.
     // If field is not initialized, it is initialized with default value first.
-    pub fn mut_get_region<'a>(&'a mut self) -> &'a mut GetRegionRequest {
+    pub fn mut_get_region(&mut self) -> &mut GetRegionRequest {
         if self.get_region.is_none() {
             self.get_region.set_default();
         };
@@ -6658,7 +6664,7 @@ impl Request {
         self.get_region.take().unwrap_or_else(|| GetRegionRequest::new())
     }
 
-    pub fn get_get_region<'a>(&'a self) -> &'a GetRegionRequest {
+    pub fn get_get_region(&self) -> &GetRegionRequest {
         self.get_region.as_ref().unwrap_or_else(|| GetRegionRequest::default_instance())
     }
 
@@ -6679,7 +6685,7 @@ impl Request {
 
     // Mutable pointer to the field.
     // If field is not initialized, it is initialized with default value first.
-    pub fn mut_region_heartbeat<'a>(&'a mut self) -> &'a mut RegionHeartbeatRequest {
+    pub fn mut_region_heartbeat(&mut self) -> &mut RegionHeartbeatRequest {
         if self.region_heartbeat.is_none() {
             self.region_heartbeat.set_default();
         };
@@ -6691,7 +6697,7 @@ impl Request {
         self.region_heartbeat.take().unwrap_or_else(|| RegionHeartbeatRequest::new())
     }
 
-    pub fn get_region_heartbeat<'a>(&'a self) -> &'a RegionHeartbeatRequest {
+    pub fn get_region_heartbeat(&self) -> &RegionHeartbeatRequest {
         self.region_heartbeat.as_ref().unwrap_or_else(|| RegionHeartbeatRequest::default_instance())
     }
 
@@ -6712,7 +6718,7 @@ impl Request {
 
     // Mutable pointer to the field.
     // If field is not initialized, it is initialized with default value first.
-    pub fn mut_get_cluster_config<'a>(&'a mut self) -> &'a mut GetClusterConfigRequest {
+    pub fn mut_get_cluster_config(&mut self) -> &mut GetClusterConfigRequest {
         if self.get_cluster_config.is_none() {
             self.get_cluster_config.set_default();
         };
@@ -6724,7 +6730,7 @@ impl Request {
         self.get_cluster_config.take().unwrap_or_else(|| GetClusterConfigRequest::new())
     }
 
-    pub fn get_get_cluster_config<'a>(&'a self) -> &'a GetClusterConfigRequest {
+    pub fn get_get_cluster_config(&self) -> &GetClusterConfigRequest {
         self.get_cluster_config.as_ref().unwrap_or_else(|| GetClusterConfigRequest::default_instance())
     }
 
@@ -6745,7 +6751,7 @@ impl Request {
 
     // Mutable pointer to the field.
     // If field is not initialized, it is initialized with default value first.
-    pub fn mut_put_cluster_config<'a>(&'a mut self) -> &'a mut PutClusterConfigRequest {
+    pub fn mut_put_cluster_config(&mut self) -> &mut PutClusterConfigRequest {
         if self.put_cluster_config.is_none() {
             self.put_cluster_config.set_default();
         };
@@ -6757,7 +6763,7 @@ impl Request {
         self.put_cluster_config.take().unwrap_or_else(|| PutClusterConfigRequest::new())
     }
 
-    pub fn get_put_cluster_config<'a>(&'a self) -> &'a PutClusterConfigRequest {
+    pub fn get_put_cluster_config(&self) -> &PutClusterConfigRequest {
         self.put_cluster_config.as_ref().unwrap_or_else(|| PutClusterConfigRequest::default_instance())
     }
 
@@ -6778,7 +6784,7 @@ impl Request {
 
     // Mutable pointer to the field.
     // If field is not initialized, it is initialized with default value first.
-    pub fn mut_store_heartbeat<'a>(&'a mut self) -> &'a mut StoreHeartbeatRequest {
+    pub fn mut_store_heartbeat(&mut self) -> &mut StoreHeartbeatRequest {
         if self.store_heartbeat.is_none() {
             self.store_heartbeat.set_default();
         };
@@ -6790,7 +6796,7 @@ impl Request {
         self.store_heartbeat.take().unwrap_or_else(|| StoreHeartbeatRequest::new())
     }
 
-    pub fn get_store_heartbeat<'a>(&'a self) -> &'a StoreHeartbeatRequest {
+    pub fn get_store_heartbeat(&self) -> &StoreHeartbeatRequest {
         self.store_heartbeat.as_ref().unwrap_or_else(|| StoreHeartbeatRequest::default_instance())
     }
 
@@ -6811,7 +6817,7 @@ impl Request {
 
     // Mutable pointer to the field.
     // If field is not initialized, it is initialized with default value first.
-    pub fn mut_report_split<'a>(&'a mut self) -> &'a mut ReportSplitRequest {
+    pub fn mut_report_split(&mut self) -> &mut ReportSplitRequest {
         if self.report_split.is_none() {
             self.report_split.set_default();
         };
@@ -6823,7 +6829,7 @@ impl Request {
         self.report_split.take().unwrap_or_else(|| ReportSplitRequest::new())
     }
 
-    pub fn get_report_split<'a>(&'a self) -> &'a ReportSplitRequest {
+    pub fn get_report_split(&self) -> &ReportSplitRequest {
         self.report_split.as_ref().unwrap_or_else(|| ReportSplitRequest::default_instance())
     }
 }
@@ -7289,7 +7295,7 @@ impl Response {
 
     // Mutable pointer to the field.
     // If field is not initialized, it is initialized with default value first.
-    pub fn mut_header<'a>(&'a mut self) -> &'a mut ResponseHeader {
+    pub fn mut_header(&mut self) -> &mut ResponseHeader {
         if self.header.is_none() {
             self.header.set_default();
         };
@@ -7301,7 +7307,7 @@ impl Response {
         self.header.take().unwrap_or_else(|| ResponseHeader::new())
     }
 
-    pub fn get_header<'a>(&'a self) -> &'a ResponseHeader {
+    pub fn get_header(&self) -> &ResponseHeader {
         self.header.as_ref().unwrap_or_else(|| ResponseHeader::default_instance())
     }
 
@@ -7320,7 +7326,7 @@ impl Response {
         self.cmd_type = ::std::option::Option::Some(v);
     }
 
-    pub fn get_cmd_type<'a>(&self) -> CommandType {
+    pub fn get_cmd_type(&self) -> CommandType {
         self.cmd_type.unwrap_or(CommandType::Invalid)
     }
 
@@ -7341,7 +7347,7 @@ impl Response {
 
     // Mutable pointer to the field.
     // If field is not initialized, it is initialized with default value first.
-    pub fn mut_tso<'a>(&'a mut self) -> &'a mut TsoResponse {
+    pub fn mut_tso(&mut self) -> &mut TsoResponse {
         if self.tso.is_none() {
             self.tso.set_default();
         };
@@ -7353,7 +7359,7 @@ impl Response {
         self.tso.take().unwrap_or_else(|| TsoResponse::new())
     }
 
-    pub fn get_tso<'a>(&'a self) -> &'a TsoResponse {
+    pub fn get_tso(&self) -> &TsoResponse {
         self.tso.as_ref().unwrap_or_else(|| TsoResponse::default_instance())
     }
 
@@ -7374,7 +7380,7 @@ impl Response {
 
     // Mutable pointer to the field.
     // If field is not initialized, it is initialized with default value first.
-    pub fn mut_bootstrap<'a>(&'a mut self) -> &'a mut BootstrapResponse {
+    pub fn mut_bootstrap(&mut self) -> &mut BootstrapResponse {
         if self.bootstrap.is_none() {
             self.bootstrap.set_default();
         };
@@ -7386,7 +7392,7 @@ impl Response {
         self.bootstrap.take().unwrap_or_else(|| BootstrapResponse::new())
     }
 
-    pub fn get_bootstrap<'a>(&'a self) -> &'a BootstrapResponse {
+    pub fn get_bootstrap(&self) -> &BootstrapResponse {
         self.bootstrap.as_ref().unwrap_or_else(|| BootstrapResponse::default_instance())
     }
 
@@ -7407,7 +7413,7 @@ impl Response {
 
     // Mutable pointer to the field.
     // If field is not initialized, it is initialized with default value first.
-    pub fn mut_is_bootstrapped<'a>(&'a mut self) -> &'a mut IsBootstrappedResponse {
+    pub fn mut_is_bootstrapped(&mut self) -> &mut IsBootstrappedResponse {
         if self.is_bootstrapped.is_none() {
             self.is_bootstrapped.set_default();
         };
@@ -7419,7 +7425,7 @@ impl Response {
         self.is_bootstrapped.take().unwrap_or_else(|| IsBootstrappedResponse::new())
     }
 
-    pub fn get_is_bootstrapped<'a>(&'a self) -> &'a IsBootstrappedResponse {
+    pub fn get_is_bootstrapped(&self) -> &IsBootstrappedResponse {
         self.is_bootstrapped.as_ref().unwrap_or_else(|| IsBootstrappedResponse::default_instance())
     }
 
@@ -7440,7 +7446,7 @@ impl Response {
 
     // Mutable pointer to the field.
     // If field is not initialized, it is initialized with default value first.
-    pub fn mut_alloc_id<'a>(&'a mut self) -> &'a mut AllocIdResponse {
+    pub fn mut_alloc_id(&mut self) -> &mut AllocIdResponse {
         if self.alloc_id.is_none() {
             self.alloc_id.set_default();
         };
@@ -7452,7 +7458,7 @@ impl Response {
         self.alloc_id.take().unwrap_or_else(|| AllocIdResponse::new())
     }
 
-    pub fn get_alloc_id<'a>(&'a self) -> &'a AllocIdResponse {
+    pub fn get_alloc_id(&self) -> &AllocIdResponse {
         self.alloc_id.as_ref().unwrap_or_else(|| AllocIdResponse::default_instance())
     }
 
@@ -7473,7 +7479,7 @@ impl Response {
 
     // Mutable pointer to the field.
     // If field is not initialized, it is initialized with default value first.
-    pub fn mut_get_store<'a>(&'a mut self) -> &'a mut GetStoreResponse {
+    pub fn mut_get_store(&mut self) -> &mut GetStoreResponse {
         if self.get_store.is_none() {
             self.get_store.set_default();
         };
@@ -7485,7 +7491,7 @@ impl Response {
         self.get_store.take().unwrap_or_else(|| GetStoreResponse::new())
     }
 
-    pub fn get_get_store<'a>(&'a self) -> &'a GetStoreResponse {
+    pub fn get_get_store(&self) -> &GetStoreResponse {
         self.get_store.as_ref().unwrap_or_else(|| GetStoreResponse::default_instance())
     }
 
@@ -7506,7 +7512,7 @@ impl Response {
 
     // Mutable pointer to the field.
     // If field is not initialized, it is initialized with default value first.
-    pub fn mut_put_store<'a>(&'a mut self) -> &'a mut PutStoreResponse {
+    pub fn mut_put_store(&mut self) -> &mut PutStoreResponse {
         if self.put_store.is_none() {
             self.put_store.set_default();
         };
@@ -7518,7 +7524,7 @@ impl Response {
         self.put_store.take().unwrap_or_else(|| PutStoreResponse::new())
     }
 
-    pub fn get_put_store<'a>(&'a self) -> &'a PutStoreResponse {
+    pub fn get_put_store(&self) -> &PutStoreResponse {
         self.put_store.as_ref().unwrap_or_else(|| PutStoreResponse::default_instance())
     }
 
@@ -7539,7 +7545,7 @@ impl Response {
 
     // Mutable pointer to the field.
     // If field is not initialized, it is initialized with default value first.
-    pub fn mut_ask_split<'a>(&'a mut self) -> &'a mut AskSplitResponse {
+    pub fn mut_ask_split(&mut self) -> &mut AskSplitResponse {
         if self.ask_split.is_none() {
             self.ask_split.set_default();
         };
@@ -7551,7 +7557,7 @@ impl Response {
         self.ask_split.take().unwrap_or_else(|| AskSplitResponse::new())
     }
 
-    pub fn get_ask_split<'a>(&'a self) -> &'a AskSplitResponse {
+    pub fn get_ask_split(&self) -> &AskSplitResponse {
         self.ask_split.as_ref().unwrap_or_else(|| AskSplitResponse::default_instance())
     }
 
@@ -7572,7 +7578,7 @@ impl Response {
 
     // Mutable pointer to the field.
     // If field is not initialized, it is initialized with default value first.
-    pub fn mut_get_region<'a>(&'a mut self) -> &'a mut GetRegionResponse {
+    pub fn mut_get_region(&mut self) -> &mut GetRegionResponse {
         if self.get_region.is_none() {
             self.get_region.set_default();
         };
@@ -7584,7 +7590,7 @@ impl Response {
         self.get_region.take().unwrap_or_else(|| GetRegionResponse::new())
     }
 
-    pub fn get_get_region<'a>(&'a self) -> &'a GetRegionResponse {
+    pub fn get_get_region(&self) -> &GetRegionResponse {
         self.get_region.as_ref().unwrap_or_else(|| GetRegionResponse::default_instance())
     }
 
@@ -7605,7 +7611,7 @@ impl Response {
 
     // Mutable pointer to the field.
     // If field is not initialized, it is initialized with default value first.
-    pub fn mut_region_heartbeat<'a>(&'a mut self) -> &'a mut RegionHeartbeatResponse {
+    pub fn mut_region_heartbeat(&mut self) -> &mut RegionHeartbeatResponse {
         if self.region_heartbeat.is_none() {
             self.region_heartbeat.set_default();
         };
@@ -7617,7 +7623,7 @@ impl Response {
         self.region_heartbeat.take().unwrap_or_else(|| RegionHeartbeatResponse::new())
     }
 
-    pub fn get_region_heartbeat<'a>(&'a self) -> &'a RegionHeartbeatResponse {
+    pub fn get_region_heartbeat(&self) -> &RegionHeartbeatResponse {
         self.region_heartbeat.as_ref().unwrap_or_else(|| RegionHeartbeatResponse::default_instance())
     }
 
@@ -7638,7 +7644,7 @@ impl Response {
 
     // Mutable pointer to the field.
     // If field is not initialized, it is initialized with default value first.
-    pub fn mut_get_cluster_config<'a>(&'a mut self) -> &'a mut GetClusterConfigResponse {
+    pub fn mut_get_cluster_config(&mut self) -> &mut GetClusterConfigResponse {
         if self.get_cluster_config.is_none() {
             self.get_cluster_config.set_default();
         };
@@ -7650,7 +7656,7 @@ impl Response {
         self.get_cluster_config.take().unwrap_or_else(|| GetClusterConfigResponse::new())
     }
 
-    pub fn get_get_cluster_config<'a>(&'a self) -> &'a GetClusterConfigResponse {
+    pub fn get_get_cluster_config(&self) -> &GetClusterConfigResponse {
         self.get_cluster_config.as_ref().unwrap_or_else(|| GetClusterConfigResponse::default_instance())
     }
 
@@ -7671,7 +7677,7 @@ impl Response {
 
     // Mutable pointer to the field.
     // If field is not initialized, it is initialized with default value first.
-    pub fn mut_put_cluster_config<'a>(&'a mut self) -> &'a mut PutClusterConfigResponse {
+    pub fn mut_put_cluster_config(&mut self) -> &mut PutClusterConfigResponse {
         if self.put_cluster_config.is_none() {
             self.put_cluster_config.set_default();
         };
@@ -7683,7 +7689,7 @@ impl Response {
         self.put_cluster_config.take().unwrap_or_else(|| PutClusterConfigResponse::new())
     }
 
-    pub fn get_put_cluster_config<'a>(&'a self) -> &'a PutClusterConfigResponse {
+    pub fn get_put_cluster_config(&self) -> &PutClusterConfigResponse {
         self.put_cluster_config.as_ref().unwrap_or_else(|| PutClusterConfigResponse::default_instance())
     }
 
@@ -7704,7 +7710,7 @@ impl Response {
 
     // Mutable pointer to the field.
     // If field is not initialized, it is initialized with default value first.
-    pub fn mut_store_heartbeat<'a>(&'a mut self) -> &'a mut StoreHeartbeatResponse {
+    pub fn mut_store_heartbeat(&mut self) -> &mut StoreHeartbeatResponse {
         if self.store_heartbeat.is_none() {
             self.store_heartbeat.set_default();
         };
@@ -7716,7 +7722,7 @@ impl Response {
         self.store_heartbeat.take().unwrap_or_else(|| StoreHeartbeatResponse::new())
     }
 
-    pub fn get_store_heartbeat<'a>(&'a self) -> &'a StoreHeartbeatResponse {
+    pub fn get_store_heartbeat(&self) -> &StoreHeartbeatResponse {
         self.store_heartbeat.as_ref().unwrap_or_else(|| StoreHeartbeatResponse::default_instance())
     }
 
@@ -7737,7 +7743,7 @@ impl Response {
 
     // Mutable pointer to the field.
     // If field is not initialized, it is initialized with default value first.
-    pub fn mut_report_split<'a>(&'a mut self) -> &'a mut ReportSplitResponse {
+    pub fn mut_report_split(&mut self) -> &mut ReportSplitResponse {
         if self.report_split.is_none() {
             self.report_split.set_default();
         };
@@ -7749,7 +7755,7 @@ impl Response {
         self.report_split.take().unwrap_or_else(|| ReportSplitResponse::new())
     }
 
-    pub fn get_report_split<'a>(&'a self) -> &'a ReportSplitResponse {
+    pub fn get_report_split(&self) -> &ReportSplitResponse {
         self.report_split.as_ref().unwrap_or_else(|| ReportSplitResponse::default_instance())
     }
 }
@@ -8317,7 +8323,7 @@ impl Error {
 
     // Mutable pointer to the field.
     // If field is not initialized, it is initialized with default value first.
-    pub fn mut_message<'a>(&'a mut self) -> &'a mut ::std::string::String {
+    pub fn mut_message(&mut self) -> &mut ::std::string::String {
         if self.message.is_none() {
             self.message.set_default();
         };
@@ -8329,7 +8335,7 @@ impl Error {
         self.message.take().unwrap_or_else(|| ::std::string::String::new())
     }
 
-    pub fn get_message<'a>(&'a self) -> &'a str {
+    pub fn get_message(&self) -> &str {
         match self.message.as_ref() {
             Some(v) => &v,
             None => "",
@@ -8353,7 +8359,7 @@ impl Error {
 
     // Mutable pointer to the field.
     // If field is not initialized, it is initialized with default value first.
-    pub fn mut_bootstrapped<'a>(&'a mut self) -> &'a mut BootstrappedError {
+    pub fn mut_bootstrapped(&mut self) -> &mut BootstrappedError {
         if self.bootstrapped.is_none() {
             self.bootstrapped.set_default();
         };
@@ -8365,7 +8371,7 @@ impl Error {
         self.bootstrapped.take().unwrap_or_else(|| BootstrappedError::new())
     }
 
-    pub fn get_bootstrapped<'a>(&'a self) -> &'a BootstrappedError {
+    pub fn get_bootstrapped(&self) -> &BootstrappedError {
         self.bootstrapped.as_ref().unwrap_or_else(|| BootstrappedError::default_instance())
     }
 }

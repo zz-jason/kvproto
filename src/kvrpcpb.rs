@@ -5,11 +5,17 @@
 #![allow(unknown_lints)]
 #![allow(clippy)]
 
+#![cfg_attr(rustfmt, rustfmt_skip)]
+
+#![allow(box_pointers)]
 #![allow(dead_code)]
 #![allow(non_camel_case_types)]
 #![allow(non_snake_case)]
 #![allow(non_upper_case_globals)]
+#![allow(trivial_casts)]
+#![allow(unsafe_code)]
 #![allow(unused_imports)]
+#![allow(unused_results)]
 
 use protobuf::Message as Message_imported_for_functions;
 use protobuf::ProtobufEnum as ProtobufEnum_imported_for_functions;
@@ -68,7 +74,7 @@ impl LockInfo {
 
     // Mutable pointer to the field.
     // If field is not initialized, it is initialized with default value first.
-    pub fn mut_primary_lock<'a>(&'a mut self) -> &'a mut ::std::vec::Vec<u8> {
+    pub fn mut_primary_lock(&mut self) -> &mut ::std::vec::Vec<u8> {
         if self.primary_lock.is_none() {
             self.primary_lock.set_default();
         };
@@ -80,7 +86,7 @@ impl LockInfo {
         self.primary_lock.take().unwrap_or_else(|| ::std::vec::Vec::new())
     }
 
-    pub fn get_primary_lock<'a>(&'a self) -> &'a [u8] {
+    pub fn get_primary_lock(&self) -> &[u8] {
         match self.primary_lock.as_ref() {
             Some(v) => &v,
             None => &[],
@@ -102,7 +108,7 @@ impl LockInfo {
         self.lock_version = ::std::option::Option::Some(v);
     }
 
-    pub fn get_lock_version<'a>(&self) -> u64 {
+    pub fn get_lock_version(&self) -> u64 {
         self.lock_version.unwrap_or(0)
     }
 
@@ -123,7 +129,7 @@ impl LockInfo {
 
     // Mutable pointer to the field.
     // If field is not initialized, it is initialized with default value first.
-    pub fn mut_key<'a>(&'a mut self) -> &'a mut ::std::vec::Vec<u8> {
+    pub fn mut_key(&mut self) -> &mut ::std::vec::Vec<u8> {
         if self.key.is_none() {
             self.key.set_default();
         };
@@ -135,7 +141,7 @@ impl LockInfo {
         self.key.take().unwrap_or_else(|| ::std::vec::Vec::new())
     }
 
-    pub fn get_key<'a>(&'a self) -> &'a [u8] {
+    pub fn get_key(&self) -> &[u8] {
         match self.key.as_ref() {
             Some(v) => &v,
             None => &[],
@@ -346,7 +352,7 @@ impl KeyError {
 
     // Mutable pointer to the field.
     // If field is not initialized, it is initialized with default value first.
-    pub fn mut_locked<'a>(&'a mut self) -> &'a mut LockInfo {
+    pub fn mut_locked(&mut self) -> &mut LockInfo {
         if self.locked.is_none() {
             self.locked.set_default();
         };
@@ -358,7 +364,7 @@ impl KeyError {
         self.locked.take().unwrap_or_else(|| LockInfo::new())
     }
 
-    pub fn get_locked<'a>(&'a self) -> &'a LockInfo {
+    pub fn get_locked(&self) -> &LockInfo {
         self.locked.as_ref().unwrap_or_else(|| LockInfo::default_instance())
     }
 
@@ -379,7 +385,7 @@ impl KeyError {
 
     // Mutable pointer to the field.
     // If field is not initialized, it is initialized with default value first.
-    pub fn mut_retryable<'a>(&'a mut self) -> &'a mut ::std::string::String {
+    pub fn mut_retryable(&mut self) -> &mut ::std::string::String {
         if self.retryable.is_none() {
             self.retryable.set_default();
         };
@@ -391,7 +397,7 @@ impl KeyError {
         self.retryable.take().unwrap_or_else(|| ::std::string::String::new())
     }
 
-    pub fn get_retryable<'a>(&'a self) -> &'a str {
+    pub fn get_retryable(&self) -> &str {
         match self.retryable.as_ref() {
             Some(v) => &v,
             None => "",
@@ -415,7 +421,7 @@ impl KeyError {
 
     // Mutable pointer to the field.
     // If field is not initialized, it is initialized with default value first.
-    pub fn mut_abort<'a>(&'a mut self) -> &'a mut ::std::string::String {
+    pub fn mut_abort(&mut self) -> &mut ::std::string::String {
         if self.abort.is_none() {
             self.abort.set_default();
         };
@@ -427,7 +433,7 @@ impl KeyError {
         self.abort.take().unwrap_or_else(|| ::std::string::String::new())
     }
 
-    pub fn get_abort<'a>(&'a self) -> &'a str {
+    pub fn get_abort(&self) -> &str {
         match self.abort.as_ref() {
             Some(v) => &v,
             None => "",
@@ -635,7 +641,7 @@ impl Context {
         self.region_id = ::std::option::Option::Some(v);
     }
 
-    pub fn get_region_id<'a>(&self) -> u64 {
+    pub fn get_region_id(&self) -> u64 {
         self.region_id.unwrap_or(0)
     }
 
@@ -656,7 +662,7 @@ impl Context {
 
     // Mutable pointer to the field.
     // If field is not initialized, it is initialized with default value first.
-    pub fn mut_region_epoch<'a>(&'a mut self) -> &'a mut super::metapb::RegionEpoch {
+    pub fn mut_region_epoch(&mut self) -> &mut super::metapb::RegionEpoch {
         if self.region_epoch.is_none() {
             self.region_epoch.set_default();
         };
@@ -668,7 +674,7 @@ impl Context {
         self.region_epoch.take().unwrap_or_else(|| super::metapb::RegionEpoch::new())
     }
 
-    pub fn get_region_epoch<'a>(&'a self) -> &'a super::metapb::RegionEpoch {
+    pub fn get_region_epoch(&self) -> &super::metapb::RegionEpoch {
         self.region_epoch.as_ref().unwrap_or_else(|| super::metapb::RegionEpoch::default_instance())
     }
 
@@ -689,7 +695,7 @@ impl Context {
 
     // Mutable pointer to the field.
     // If field is not initialized, it is initialized with default value first.
-    pub fn mut_peer<'a>(&'a mut self) -> &'a mut super::metapb::Peer {
+    pub fn mut_peer(&mut self) -> &mut super::metapb::Peer {
         if self.peer.is_none() {
             self.peer.set_default();
         };
@@ -701,7 +707,7 @@ impl Context {
         self.peer.take().unwrap_or_else(|| super::metapb::Peer::new())
     }
 
-    pub fn get_peer<'a>(&'a self) -> &'a super::metapb::Peer {
+    pub fn get_peer(&self) -> &super::metapb::Peer {
         self.peer.as_ref().unwrap_or_else(|| super::metapb::Peer::default_instance())
     }
 }
@@ -913,7 +919,7 @@ impl CmdGetRequest {
 
     // Mutable pointer to the field.
     // If field is not initialized, it is initialized with default value first.
-    pub fn mut_key<'a>(&'a mut self) -> &'a mut ::std::vec::Vec<u8> {
+    pub fn mut_key(&mut self) -> &mut ::std::vec::Vec<u8> {
         if self.key.is_none() {
             self.key.set_default();
         };
@@ -925,7 +931,7 @@ impl CmdGetRequest {
         self.key.take().unwrap_or_else(|| ::std::vec::Vec::new())
     }
 
-    pub fn get_key<'a>(&'a self) -> &'a [u8] {
+    pub fn get_key(&self) -> &[u8] {
         match self.key.as_ref() {
             Some(v) => &v,
             None => &[],
@@ -947,7 +953,7 @@ impl CmdGetRequest {
         self.version = ::std::option::Option::Some(v);
     }
 
-    pub fn get_version<'a>(&self) -> u64 {
+    pub fn get_version(&self) -> u64 {
         self.version.unwrap_or(0)
     }
 }
@@ -1137,7 +1143,7 @@ impl CmdGetResponse {
 
     // Mutable pointer to the field.
     // If field is not initialized, it is initialized with default value first.
-    pub fn mut_error<'a>(&'a mut self) -> &'a mut KeyError {
+    pub fn mut_error(&mut self) -> &mut KeyError {
         if self.error.is_none() {
             self.error.set_default();
         };
@@ -1149,7 +1155,7 @@ impl CmdGetResponse {
         self.error.take().unwrap_or_else(|| KeyError::new())
     }
 
-    pub fn get_error<'a>(&'a self) -> &'a KeyError {
+    pub fn get_error(&self) -> &KeyError {
         self.error.as_ref().unwrap_or_else(|| KeyError::default_instance())
     }
 
@@ -1170,7 +1176,7 @@ impl CmdGetResponse {
 
     // Mutable pointer to the field.
     // If field is not initialized, it is initialized with default value first.
-    pub fn mut_value<'a>(&'a mut self) -> &'a mut ::std::vec::Vec<u8> {
+    pub fn mut_value(&mut self) -> &mut ::std::vec::Vec<u8> {
         if self.value.is_none() {
             self.value.set_default();
         };
@@ -1182,7 +1188,7 @@ impl CmdGetResponse {
         self.value.take().unwrap_or_else(|| ::std::vec::Vec::new())
     }
 
-    pub fn get_value<'a>(&'a self) -> &'a [u8] {
+    pub fn get_value(&self) -> &[u8] {
         match self.value.as_ref() {
             Some(v) => &v,
             None => &[],
@@ -1376,7 +1382,7 @@ impl CmdScanRequest {
 
     // Mutable pointer to the field.
     // If field is not initialized, it is initialized with default value first.
-    pub fn mut_start_key<'a>(&'a mut self) -> &'a mut ::std::vec::Vec<u8> {
+    pub fn mut_start_key(&mut self) -> &mut ::std::vec::Vec<u8> {
         if self.start_key.is_none() {
             self.start_key.set_default();
         };
@@ -1388,7 +1394,7 @@ impl CmdScanRequest {
         self.start_key.take().unwrap_or_else(|| ::std::vec::Vec::new())
     }
 
-    pub fn get_start_key<'a>(&'a self) -> &'a [u8] {
+    pub fn get_start_key(&self) -> &[u8] {
         match self.start_key.as_ref() {
             Some(v) => &v,
             None => &[],
@@ -1410,7 +1416,7 @@ impl CmdScanRequest {
         self.limit = ::std::option::Option::Some(v);
     }
 
-    pub fn get_limit<'a>(&self) -> u32 {
+    pub fn get_limit(&self) -> u32 {
         self.limit.unwrap_or(0)
     }
 
@@ -1429,7 +1435,7 @@ impl CmdScanRequest {
         self.version = ::std::option::Option::Some(v);
     }
 
-    pub fn get_version<'a>(&self) -> u64 {
+    pub fn get_version(&self) -> u64 {
         self.version.unwrap_or(0)
     }
 }
@@ -1641,7 +1647,7 @@ impl KvPair {
 
     // Mutable pointer to the field.
     // If field is not initialized, it is initialized with default value first.
-    pub fn mut_error<'a>(&'a mut self) -> &'a mut KeyError {
+    pub fn mut_error(&mut self) -> &mut KeyError {
         if self.error.is_none() {
             self.error.set_default();
         };
@@ -1653,7 +1659,7 @@ impl KvPair {
         self.error.take().unwrap_or_else(|| KeyError::new())
     }
 
-    pub fn get_error<'a>(&'a self) -> &'a KeyError {
+    pub fn get_error(&self) -> &KeyError {
         self.error.as_ref().unwrap_or_else(|| KeyError::default_instance())
     }
 
@@ -1674,7 +1680,7 @@ impl KvPair {
 
     // Mutable pointer to the field.
     // If field is not initialized, it is initialized with default value first.
-    pub fn mut_key<'a>(&'a mut self) -> &'a mut ::std::vec::Vec<u8> {
+    pub fn mut_key(&mut self) -> &mut ::std::vec::Vec<u8> {
         if self.key.is_none() {
             self.key.set_default();
         };
@@ -1686,7 +1692,7 @@ impl KvPair {
         self.key.take().unwrap_or_else(|| ::std::vec::Vec::new())
     }
 
-    pub fn get_key<'a>(&'a self) -> &'a [u8] {
+    pub fn get_key(&self) -> &[u8] {
         match self.key.as_ref() {
             Some(v) => &v,
             None => &[],
@@ -1710,7 +1716,7 @@ impl KvPair {
 
     // Mutable pointer to the field.
     // If field is not initialized, it is initialized with default value first.
-    pub fn mut_value<'a>(&'a mut self) -> &'a mut ::std::vec::Vec<u8> {
+    pub fn mut_value(&mut self) -> &mut ::std::vec::Vec<u8> {
         if self.value.is_none() {
             self.value.set_default();
         };
@@ -1722,7 +1728,7 @@ impl KvPair {
         self.value.take().unwrap_or_else(|| ::std::vec::Vec::new())
     }
 
-    pub fn get_value<'a>(&'a self) -> &'a [u8] {
+    pub fn get_value(&self) -> &[u8] {
         match self.value.as_ref() {
             Some(v) => &v,
             None => &[],
@@ -1923,7 +1929,7 @@ impl CmdScanResponse {
     }
 
     // Mutable pointer to the field.
-    pub fn mut_pairs<'a>(&'a mut self) -> &'a mut ::protobuf::RepeatedField<KvPair> {
+    pub fn mut_pairs(&mut self) -> &mut ::protobuf::RepeatedField<KvPair> {
         &mut self.pairs
     }
 
@@ -1932,7 +1938,7 @@ impl CmdScanResponse {
         ::std::mem::replace(&mut self.pairs, ::protobuf::RepeatedField::new())
     }
 
-    pub fn get_pairs<'a>(&'a self) -> &'a [KvPair] {
+    pub fn get_pairs(&self) -> &[KvPair] {
         &self.pairs
     }
 }
@@ -2104,7 +2110,7 @@ impl Mutation {
         self.op = ::std::option::Option::Some(v);
     }
 
-    pub fn get_op<'a>(&self) -> Op {
+    pub fn get_op(&self) -> Op {
         self.op.unwrap_or(Op::Put)
     }
 
@@ -2125,7 +2131,7 @@ impl Mutation {
 
     // Mutable pointer to the field.
     // If field is not initialized, it is initialized with default value first.
-    pub fn mut_key<'a>(&'a mut self) -> &'a mut ::std::vec::Vec<u8> {
+    pub fn mut_key(&mut self) -> &mut ::std::vec::Vec<u8> {
         if self.key.is_none() {
             self.key.set_default();
         };
@@ -2137,7 +2143,7 @@ impl Mutation {
         self.key.take().unwrap_or_else(|| ::std::vec::Vec::new())
     }
 
-    pub fn get_key<'a>(&'a self) -> &'a [u8] {
+    pub fn get_key(&self) -> &[u8] {
         match self.key.as_ref() {
             Some(v) => &v,
             None => &[],
@@ -2161,7 +2167,7 @@ impl Mutation {
 
     // Mutable pointer to the field.
     // If field is not initialized, it is initialized with default value first.
-    pub fn mut_value<'a>(&'a mut self) -> &'a mut ::std::vec::Vec<u8> {
+    pub fn mut_value(&mut self) -> &mut ::std::vec::Vec<u8> {
         if self.value.is_none() {
             self.value.set_default();
         };
@@ -2173,7 +2179,7 @@ impl Mutation {
         self.value.take().unwrap_or_else(|| ::std::vec::Vec::new())
     }
 
-    pub fn get_value<'a>(&'a self) -> &'a [u8] {
+    pub fn get_value(&self) -> &[u8] {
         match self.value.as_ref() {
             Some(v) => &v,
             None => &[],
@@ -2379,7 +2385,7 @@ impl CmdPrewriteRequest {
     }
 
     // Mutable pointer to the field.
-    pub fn mut_mutations<'a>(&'a mut self) -> &'a mut ::protobuf::RepeatedField<Mutation> {
+    pub fn mut_mutations(&mut self) -> &mut ::protobuf::RepeatedField<Mutation> {
         &mut self.mutations
     }
 
@@ -2388,7 +2394,7 @@ impl CmdPrewriteRequest {
         ::std::mem::replace(&mut self.mutations, ::protobuf::RepeatedField::new())
     }
 
-    pub fn get_mutations<'a>(&'a self) -> &'a [Mutation] {
+    pub fn get_mutations(&self) -> &[Mutation] {
         &self.mutations
     }
 
@@ -2409,7 +2415,7 @@ impl CmdPrewriteRequest {
 
     // Mutable pointer to the field.
     // If field is not initialized, it is initialized with default value first.
-    pub fn mut_primary_lock<'a>(&'a mut self) -> &'a mut ::std::vec::Vec<u8> {
+    pub fn mut_primary_lock(&mut self) -> &mut ::std::vec::Vec<u8> {
         if self.primary_lock.is_none() {
             self.primary_lock.set_default();
         };
@@ -2421,7 +2427,7 @@ impl CmdPrewriteRequest {
         self.primary_lock.take().unwrap_or_else(|| ::std::vec::Vec::new())
     }
 
-    pub fn get_primary_lock<'a>(&'a self) -> &'a [u8] {
+    pub fn get_primary_lock(&self) -> &[u8] {
         match self.primary_lock.as_ref() {
             Some(v) => &v,
             None => &[],
@@ -2443,7 +2449,7 @@ impl CmdPrewriteRequest {
         self.start_version = ::std::option::Option::Some(v);
     }
 
-    pub fn get_start_version<'a>(&self) -> u64 {
+    pub fn get_start_version(&self) -> u64 {
         self.start_version.unwrap_or(0)
     }
 }
@@ -2644,7 +2650,7 @@ impl CmdPrewriteResponse {
     }
 
     // Mutable pointer to the field.
-    pub fn mut_errors<'a>(&'a mut self) -> &'a mut ::protobuf::RepeatedField<KeyError> {
+    pub fn mut_errors(&mut self) -> &mut ::protobuf::RepeatedField<KeyError> {
         &mut self.errors
     }
 
@@ -2653,7 +2659,7 @@ impl CmdPrewriteResponse {
         ::std::mem::replace(&mut self.errors, ::protobuf::RepeatedField::new())
     }
 
-    pub fn get_errors<'a>(&'a self) -> &'a [KeyError] {
+    pub fn get_errors(&self) -> &[KeyError] {
         &self.errors
     }
 }
@@ -2825,7 +2831,7 @@ impl CmdCommitRequest {
         self.start_version = ::std::option::Option::Some(v);
     }
 
-    pub fn get_start_version<'a>(&self) -> u64 {
+    pub fn get_start_version(&self) -> u64 {
         self.start_version.unwrap_or(0)
     }
 
@@ -2841,7 +2847,7 @@ impl CmdCommitRequest {
     }
 
     // Mutable pointer to the field.
-    pub fn mut_keys<'a>(&'a mut self) -> &'a mut ::protobuf::RepeatedField<::std::vec::Vec<u8>> {
+    pub fn mut_keys(&mut self) -> &mut ::protobuf::RepeatedField<::std::vec::Vec<u8>> {
         &mut self.keys
     }
 
@@ -2850,7 +2856,7 @@ impl CmdCommitRequest {
         ::std::mem::replace(&mut self.keys, ::protobuf::RepeatedField::new())
     }
 
-    pub fn get_keys<'a>(&'a self) -> &'a [::std::vec::Vec<u8>] {
+    pub fn get_keys(&self) -> &[::std::vec::Vec<u8>] {
         &self.keys
     }
 
@@ -2869,7 +2875,7 @@ impl CmdCommitRequest {
         self.commit_version = ::std::option::Option::Some(v);
     }
 
-    pub fn get_commit_version<'a>(&self) -> u64 {
+    pub fn get_commit_version(&self) -> u64 {
         self.commit_version.unwrap_or(0)
     }
 }
@@ -3076,7 +3082,7 @@ impl CmdCommitResponse {
 
     // Mutable pointer to the field.
     // If field is not initialized, it is initialized with default value first.
-    pub fn mut_error<'a>(&'a mut self) -> &'a mut KeyError {
+    pub fn mut_error(&mut self) -> &mut KeyError {
         if self.error.is_none() {
             self.error.set_default();
         };
@@ -3088,7 +3094,7 @@ impl CmdCommitResponse {
         self.error.take().unwrap_or_else(|| KeyError::new())
     }
 
-    pub fn get_error<'a>(&'a self) -> &'a KeyError {
+    pub fn get_error(&self) -> &KeyError {
         self.error.as_ref().unwrap_or_else(|| KeyError::default_instance())
     }
 }
@@ -3259,7 +3265,7 @@ impl CmdBatchRollbackRequest {
         self.start_version = ::std::option::Option::Some(v);
     }
 
-    pub fn get_start_version<'a>(&self) -> u64 {
+    pub fn get_start_version(&self) -> u64 {
         self.start_version.unwrap_or(0)
     }
 
@@ -3275,7 +3281,7 @@ impl CmdBatchRollbackRequest {
     }
 
     // Mutable pointer to the field.
-    pub fn mut_keys<'a>(&'a mut self) -> &'a mut ::protobuf::RepeatedField<::std::vec::Vec<u8>> {
+    pub fn mut_keys(&mut self) -> &mut ::protobuf::RepeatedField<::std::vec::Vec<u8>> {
         &mut self.keys
     }
 
@@ -3284,7 +3290,7 @@ impl CmdBatchRollbackRequest {
         ::std::mem::replace(&mut self.keys, ::protobuf::RepeatedField::new())
     }
 
-    pub fn get_keys<'a>(&'a self) -> &'a [::std::vec::Vec<u8>] {
+    pub fn get_keys(&self) -> &[::std::vec::Vec<u8>] {
         &self.keys
     }
 }
@@ -3471,7 +3477,7 @@ impl CmdBatchRollbackResponse {
 
     // Mutable pointer to the field.
     // If field is not initialized, it is initialized with default value first.
-    pub fn mut_error<'a>(&'a mut self) -> &'a mut KeyError {
+    pub fn mut_error(&mut self) -> &mut KeyError {
         if self.error.is_none() {
             self.error.set_default();
         };
@@ -3483,7 +3489,7 @@ impl CmdBatchRollbackResponse {
         self.error.take().unwrap_or_else(|| KeyError::new())
     }
 
-    pub fn get_error<'a>(&'a self) -> &'a KeyError {
+    pub fn get_error(&self) -> &KeyError {
         self.error.as_ref().unwrap_or_else(|| KeyError::default_instance())
     }
 }
@@ -3656,7 +3662,7 @@ impl CmdCleanupRequest {
 
     // Mutable pointer to the field.
     // If field is not initialized, it is initialized with default value first.
-    pub fn mut_key<'a>(&'a mut self) -> &'a mut ::std::vec::Vec<u8> {
+    pub fn mut_key(&mut self) -> &mut ::std::vec::Vec<u8> {
         if self.key.is_none() {
             self.key.set_default();
         };
@@ -3668,7 +3674,7 @@ impl CmdCleanupRequest {
         self.key.take().unwrap_or_else(|| ::std::vec::Vec::new())
     }
 
-    pub fn get_key<'a>(&'a self) -> &'a [u8] {
+    pub fn get_key(&self) -> &[u8] {
         match self.key.as_ref() {
             Some(v) => &v,
             None => &[],
@@ -3690,7 +3696,7 @@ impl CmdCleanupRequest {
         self.start_version = ::std::option::Option::Some(v);
     }
 
-    pub fn get_start_version<'a>(&self) -> u64 {
+    pub fn get_start_version(&self) -> u64 {
         self.start_version.unwrap_or(0)
     }
 }
@@ -3880,7 +3886,7 @@ impl CmdCleanupResponse {
 
     // Mutable pointer to the field.
     // If field is not initialized, it is initialized with default value first.
-    pub fn mut_error<'a>(&'a mut self) -> &'a mut KeyError {
+    pub fn mut_error(&mut self) -> &mut KeyError {
         if self.error.is_none() {
             self.error.set_default();
         };
@@ -3892,7 +3898,7 @@ impl CmdCleanupResponse {
         self.error.take().unwrap_or_else(|| KeyError::new())
     }
 
-    pub fn get_error<'a>(&'a self) -> &'a KeyError {
+    pub fn get_error(&self) -> &KeyError {
         self.error.as_ref().unwrap_or_else(|| KeyError::default_instance())
     }
 
@@ -3911,7 +3917,7 @@ impl CmdCleanupResponse {
         self.commit_version = ::std::option::Option::Some(v);
     }
 
-    pub fn get_commit_version<'a>(&self) -> u64 {
+    pub fn get_commit_version(&self) -> u64 {
         self.commit_version.unwrap_or(0)
     }
 }
@@ -4104,7 +4110,7 @@ impl CmdRollbackThenGetRequest {
 
     // Mutable pointer to the field.
     // If field is not initialized, it is initialized with default value first.
-    pub fn mut_key<'a>(&'a mut self) -> &'a mut ::std::vec::Vec<u8> {
+    pub fn mut_key(&mut self) -> &mut ::std::vec::Vec<u8> {
         if self.key.is_none() {
             self.key.set_default();
         };
@@ -4116,7 +4122,7 @@ impl CmdRollbackThenGetRequest {
         self.key.take().unwrap_or_else(|| ::std::vec::Vec::new())
     }
 
-    pub fn get_key<'a>(&'a self) -> &'a [u8] {
+    pub fn get_key(&self) -> &[u8] {
         match self.key.as_ref() {
             Some(v) => &v,
             None => &[],
@@ -4138,7 +4144,7 @@ impl CmdRollbackThenGetRequest {
         self.lock_version = ::std::option::Option::Some(v);
     }
 
-    pub fn get_lock_version<'a>(&self) -> u64 {
+    pub fn get_lock_version(&self) -> u64 {
         self.lock_version.unwrap_or(0)
     }
 }
@@ -4328,7 +4334,7 @@ impl CmdRollbackThenGetResponse {
 
     // Mutable pointer to the field.
     // If field is not initialized, it is initialized with default value first.
-    pub fn mut_error<'a>(&'a mut self) -> &'a mut KeyError {
+    pub fn mut_error(&mut self) -> &mut KeyError {
         if self.error.is_none() {
             self.error.set_default();
         };
@@ -4340,7 +4346,7 @@ impl CmdRollbackThenGetResponse {
         self.error.take().unwrap_or_else(|| KeyError::new())
     }
 
-    pub fn get_error<'a>(&'a self) -> &'a KeyError {
+    pub fn get_error(&self) -> &KeyError {
         self.error.as_ref().unwrap_or_else(|| KeyError::default_instance())
     }
 
@@ -4361,7 +4367,7 @@ impl CmdRollbackThenGetResponse {
 
     // Mutable pointer to the field.
     // If field is not initialized, it is initialized with default value first.
-    pub fn mut_value<'a>(&'a mut self) -> &'a mut ::std::vec::Vec<u8> {
+    pub fn mut_value(&mut self) -> &mut ::std::vec::Vec<u8> {
         if self.value.is_none() {
             self.value.set_default();
         };
@@ -4373,7 +4379,7 @@ impl CmdRollbackThenGetResponse {
         self.value.take().unwrap_or_else(|| ::std::vec::Vec::new())
     }
 
-    pub fn get_value<'a>(&'a self) -> &'a [u8] {
+    pub fn get_value(&self) -> &[u8] {
         match self.value.as_ref() {
             Some(v) => &v,
             None => &[],
@@ -4569,7 +4575,7 @@ impl CmdCommitThenGetRequest {
 
     // Mutable pointer to the field.
     // If field is not initialized, it is initialized with default value first.
-    pub fn mut_key<'a>(&'a mut self) -> &'a mut ::std::vec::Vec<u8> {
+    pub fn mut_key(&mut self) -> &mut ::std::vec::Vec<u8> {
         if self.key.is_none() {
             self.key.set_default();
         };
@@ -4581,7 +4587,7 @@ impl CmdCommitThenGetRequest {
         self.key.take().unwrap_or_else(|| ::std::vec::Vec::new())
     }
 
-    pub fn get_key<'a>(&'a self) -> &'a [u8] {
+    pub fn get_key(&self) -> &[u8] {
         match self.key.as_ref() {
             Some(v) => &v,
             None => &[],
@@ -4603,7 +4609,7 @@ impl CmdCommitThenGetRequest {
         self.lock_version = ::std::option::Option::Some(v);
     }
 
-    pub fn get_lock_version<'a>(&self) -> u64 {
+    pub fn get_lock_version(&self) -> u64 {
         self.lock_version.unwrap_or(0)
     }
 
@@ -4622,7 +4628,7 @@ impl CmdCommitThenGetRequest {
         self.commit_version = ::std::option::Option::Some(v);
     }
 
-    pub fn get_commit_version<'a>(&self) -> u64 {
+    pub fn get_commit_version(&self) -> u64 {
         self.commit_version.unwrap_or(0)
     }
 
@@ -4641,7 +4647,7 @@ impl CmdCommitThenGetRequest {
         self.get_version = ::std::option::Option::Some(v);
     }
 
-    pub fn get_get_version<'a>(&self) -> u64 {
+    pub fn get_get_version(&self) -> u64 {
         self.get_version.unwrap_or(0)
     }
 }
@@ -4871,7 +4877,7 @@ impl CmdCommitThenGetResponse {
 
     // Mutable pointer to the field.
     // If field is not initialized, it is initialized with default value first.
-    pub fn mut_error<'a>(&'a mut self) -> &'a mut KeyError {
+    pub fn mut_error(&mut self) -> &mut KeyError {
         if self.error.is_none() {
             self.error.set_default();
         };
@@ -4883,7 +4889,7 @@ impl CmdCommitThenGetResponse {
         self.error.take().unwrap_or_else(|| KeyError::new())
     }
 
-    pub fn get_error<'a>(&'a self) -> &'a KeyError {
+    pub fn get_error(&self) -> &KeyError {
         self.error.as_ref().unwrap_or_else(|| KeyError::default_instance())
     }
 
@@ -4904,7 +4910,7 @@ impl CmdCommitThenGetResponse {
 
     // Mutable pointer to the field.
     // If field is not initialized, it is initialized with default value first.
-    pub fn mut_value<'a>(&'a mut self) -> &'a mut ::std::vec::Vec<u8> {
+    pub fn mut_value(&mut self) -> &mut ::std::vec::Vec<u8> {
         if self.value.is_none() {
             self.value.set_default();
         };
@@ -4916,7 +4922,7 @@ impl CmdCommitThenGetResponse {
         self.value.take().unwrap_or_else(|| ::std::vec::Vec::new())
     }
 
-    pub fn get_value<'a>(&'a self) -> &'a [u8] {
+    pub fn get_value(&self) -> &[u8] {
         match self.value.as_ref() {
             Some(v) => &v,
             None => &[],
@@ -5103,7 +5109,7 @@ impl CmdBatchGetRequest {
     }
 
     // Mutable pointer to the field.
-    pub fn mut_keys<'a>(&'a mut self) -> &'a mut ::protobuf::RepeatedField<::std::vec::Vec<u8>> {
+    pub fn mut_keys(&mut self) -> &mut ::protobuf::RepeatedField<::std::vec::Vec<u8>> {
         &mut self.keys
     }
 
@@ -5112,7 +5118,7 @@ impl CmdBatchGetRequest {
         ::std::mem::replace(&mut self.keys, ::protobuf::RepeatedField::new())
     }
 
-    pub fn get_keys<'a>(&'a self) -> &'a [::std::vec::Vec<u8>] {
+    pub fn get_keys(&self) -> &[::std::vec::Vec<u8>] {
         &self.keys
     }
 
@@ -5131,7 +5137,7 @@ impl CmdBatchGetRequest {
         self.version = ::std::option::Option::Some(v);
     }
 
-    pub fn get_version<'a>(&self) -> u64 {
+    pub fn get_version(&self) -> u64 {
         self.version.unwrap_or(0)
     }
 }
@@ -5313,7 +5319,7 @@ impl CmdBatchGetResponse {
     }
 
     // Mutable pointer to the field.
-    pub fn mut_pairs<'a>(&'a mut self) -> &'a mut ::protobuf::RepeatedField<KvPair> {
+    pub fn mut_pairs(&mut self) -> &mut ::protobuf::RepeatedField<KvPair> {
         &mut self.pairs
     }
 
@@ -5322,7 +5328,7 @@ impl CmdBatchGetResponse {
         ::std::mem::replace(&mut self.pairs, ::protobuf::RepeatedField::new())
     }
 
-    pub fn get_pairs<'a>(&'a self) -> &'a [KvPair] {
+    pub fn get_pairs(&self) -> &[KvPair] {
         &self.pairs
     }
 }
@@ -5510,7 +5516,7 @@ impl Request {
         self.field_type = ::std::option::Option::Some(v);
     }
 
-    pub fn get_field_type<'a>(&self) -> MessageType {
+    pub fn get_field_type(&self) -> MessageType {
         self.field_type.unwrap_or(MessageType::CmdGet)
     }
 
@@ -5531,7 +5537,7 @@ impl Request {
 
     // Mutable pointer to the field.
     // If field is not initialized, it is initialized with default value first.
-    pub fn mut_context<'a>(&'a mut self) -> &'a mut Context {
+    pub fn mut_context(&mut self) -> &mut Context {
         if self.context.is_none() {
             self.context.set_default();
         };
@@ -5543,7 +5549,7 @@ impl Request {
         self.context.take().unwrap_or_else(|| Context::new())
     }
 
-    pub fn get_context<'a>(&'a self) -> &'a Context {
+    pub fn get_context(&self) -> &Context {
         self.context.as_ref().unwrap_or_else(|| Context::default_instance())
     }
 
@@ -5564,7 +5570,7 @@ impl Request {
 
     // Mutable pointer to the field.
     // If field is not initialized, it is initialized with default value first.
-    pub fn mut_cmd_get_req<'a>(&'a mut self) -> &'a mut CmdGetRequest {
+    pub fn mut_cmd_get_req(&mut self) -> &mut CmdGetRequest {
         if self.cmd_get_req.is_none() {
             self.cmd_get_req.set_default();
         };
@@ -5576,7 +5582,7 @@ impl Request {
         self.cmd_get_req.take().unwrap_or_else(|| CmdGetRequest::new())
     }
 
-    pub fn get_cmd_get_req<'a>(&'a self) -> &'a CmdGetRequest {
+    pub fn get_cmd_get_req(&self) -> &CmdGetRequest {
         self.cmd_get_req.as_ref().unwrap_or_else(|| CmdGetRequest::default_instance())
     }
 
@@ -5597,7 +5603,7 @@ impl Request {
 
     // Mutable pointer to the field.
     // If field is not initialized, it is initialized with default value first.
-    pub fn mut_cmd_scan_req<'a>(&'a mut self) -> &'a mut CmdScanRequest {
+    pub fn mut_cmd_scan_req(&mut self) -> &mut CmdScanRequest {
         if self.cmd_scan_req.is_none() {
             self.cmd_scan_req.set_default();
         };
@@ -5609,7 +5615,7 @@ impl Request {
         self.cmd_scan_req.take().unwrap_or_else(|| CmdScanRequest::new())
     }
 
-    pub fn get_cmd_scan_req<'a>(&'a self) -> &'a CmdScanRequest {
+    pub fn get_cmd_scan_req(&self) -> &CmdScanRequest {
         self.cmd_scan_req.as_ref().unwrap_or_else(|| CmdScanRequest::default_instance())
     }
 
@@ -5630,7 +5636,7 @@ impl Request {
 
     // Mutable pointer to the field.
     // If field is not initialized, it is initialized with default value first.
-    pub fn mut_cmd_prewrite_req<'a>(&'a mut self) -> &'a mut CmdPrewriteRequest {
+    pub fn mut_cmd_prewrite_req(&mut self) -> &mut CmdPrewriteRequest {
         if self.cmd_prewrite_req.is_none() {
             self.cmd_prewrite_req.set_default();
         };
@@ -5642,7 +5648,7 @@ impl Request {
         self.cmd_prewrite_req.take().unwrap_or_else(|| CmdPrewriteRequest::new())
     }
 
-    pub fn get_cmd_prewrite_req<'a>(&'a self) -> &'a CmdPrewriteRequest {
+    pub fn get_cmd_prewrite_req(&self) -> &CmdPrewriteRequest {
         self.cmd_prewrite_req.as_ref().unwrap_or_else(|| CmdPrewriteRequest::default_instance())
     }
 
@@ -5663,7 +5669,7 @@ impl Request {
 
     // Mutable pointer to the field.
     // If field is not initialized, it is initialized with default value first.
-    pub fn mut_cmd_commit_req<'a>(&'a mut self) -> &'a mut CmdCommitRequest {
+    pub fn mut_cmd_commit_req(&mut self) -> &mut CmdCommitRequest {
         if self.cmd_commit_req.is_none() {
             self.cmd_commit_req.set_default();
         };
@@ -5675,7 +5681,7 @@ impl Request {
         self.cmd_commit_req.take().unwrap_or_else(|| CmdCommitRequest::new())
     }
 
-    pub fn get_cmd_commit_req<'a>(&'a self) -> &'a CmdCommitRequest {
+    pub fn get_cmd_commit_req(&self) -> &CmdCommitRequest {
         self.cmd_commit_req.as_ref().unwrap_or_else(|| CmdCommitRequest::default_instance())
     }
 
@@ -5696,7 +5702,7 @@ impl Request {
 
     // Mutable pointer to the field.
     // If field is not initialized, it is initialized with default value first.
-    pub fn mut_cmd_cleanup_req<'a>(&'a mut self) -> &'a mut CmdCleanupRequest {
+    pub fn mut_cmd_cleanup_req(&mut self) -> &mut CmdCleanupRequest {
         if self.cmd_cleanup_req.is_none() {
             self.cmd_cleanup_req.set_default();
         };
@@ -5708,7 +5714,7 @@ impl Request {
         self.cmd_cleanup_req.take().unwrap_or_else(|| CmdCleanupRequest::new())
     }
 
-    pub fn get_cmd_cleanup_req<'a>(&'a self) -> &'a CmdCleanupRequest {
+    pub fn get_cmd_cleanup_req(&self) -> &CmdCleanupRequest {
         self.cmd_cleanup_req.as_ref().unwrap_or_else(|| CmdCleanupRequest::default_instance())
     }
 
@@ -5729,7 +5735,7 @@ impl Request {
 
     // Mutable pointer to the field.
     // If field is not initialized, it is initialized with default value first.
-    pub fn mut_cmd_rb_get_req<'a>(&'a mut self) -> &'a mut CmdRollbackThenGetRequest {
+    pub fn mut_cmd_rb_get_req(&mut self) -> &mut CmdRollbackThenGetRequest {
         if self.cmd_rb_get_req.is_none() {
             self.cmd_rb_get_req.set_default();
         };
@@ -5741,7 +5747,7 @@ impl Request {
         self.cmd_rb_get_req.take().unwrap_or_else(|| CmdRollbackThenGetRequest::new())
     }
 
-    pub fn get_cmd_rb_get_req<'a>(&'a self) -> &'a CmdRollbackThenGetRequest {
+    pub fn get_cmd_rb_get_req(&self) -> &CmdRollbackThenGetRequest {
         self.cmd_rb_get_req.as_ref().unwrap_or_else(|| CmdRollbackThenGetRequest::default_instance())
     }
 
@@ -5762,7 +5768,7 @@ impl Request {
 
     // Mutable pointer to the field.
     // If field is not initialized, it is initialized with default value first.
-    pub fn mut_cmd_commit_get_req<'a>(&'a mut self) -> &'a mut CmdCommitThenGetRequest {
+    pub fn mut_cmd_commit_get_req(&mut self) -> &mut CmdCommitThenGetRequest {
         if self.cmd_commit_get_req.is_none() {
             self.cmd_commit_get_req.set_default();
         };
@@ -5774,7 +5780,7 @@ impl Request {
         self.cmd_commit_get_req.take().unwrap_or_else(|| CmdCommitThenGetRequest::new())
     }
 
-    pub fn get_cmd_commit_get_req<'a>(&'a self) -> &'a CmdCommitThenGetRequest {
+    pub fn get_cmd_commit_get_req(&self) -> &CmdCommitThenGetRequest {
         self.cmd_commit_get_req.as_ref().unwrap_or_else(|| CmdCommitThenGetRequest::default_instance())
     }
 
@@ -5795,7 +5801,7 @@ impl Request {
 
     // Mutable pointer to the field.
     // If field is not initialized, it is initialized with default value first.
-    pub fn mut_cmd_batch_get_req<'a>(&'a mut self) -> &'a mut CmdBatchGetRequest {
+    pub fn mut_cmd_batch_get_req(&mut self) -> &mut CmdBatchGetRequest {
         if self.cmd_batch_get_req.is_none() {
             self.cmd_batch_get_req.set_default();
         };
@@ -5807,7 +5813,7 @@ impl Request {
         self.cmd_batch_get_req.take().unwrap_or_else(|| CmdBatchGetRequest::new())
     }
 
-    pub fn get_cmd_batch_get_req<'a>(&'a self) -> &'a CmdBatchGetRequest {
+    pub fn get_cmd_batch_get_req(&self) -> &CmdBatchGetRequest {
         self.cmd_batch_get_req.as_ref().unwrap_or_else(|| CmdBatchGetRequest::default_instance())
     }
 
@@ -5828,7 +5834,7 @@ impl Request {
 
     // Mutable pointer to the field.
     // If field is not initialized, it is initialized with default value first.
-    pub fn mut_cmd_batch_rollback_req<'a>(&'a mut self) -> &'a mut CmdBatchRollbackRequest {
+    pub fn mut_cmd_batch_rollback_req(&mut self) -> &mut CmdBatchRollbackRequest {
         if self.cmd_batch_rollback_req.is_none() {
             self.cmd_batch_rollback_req.set_default();
         };
@@ -5840,7 +5846,7 @@ impl Request {
         self.cmd_batch_rollback_req.take().unwrap_or_else(|| CmdBatchRollbackRequest::new())
     }
 
-    pub fn get_cmd_batch_rollback_req<'a>(&'a self) -> &'a CmdBatchRollbackRequest {
+    pub fn get_cmd_batch_rollback_req(&self) -> &CmdBatchRollbackRequest {
         self.cmd_batch_rollback_req.as_ref().unwrap_or_else(|| CmdBatchRollbackRequest::default_instance())
     }
 }
@@ -6220,7 +6226,7 @@ impl Response {
         self.field_type = ::std::option::Option::Some(v);
     }
 
-    pub fn get_field_type<'a>(&self) -> MessageType {
+    pub fn get_field_type(&self) -> MessageType {
         self.field_type.unwrap_or(MessageType::CmdGet)
     }
 
@@ -6241,7 +6247,7 @@ impl Response {
 
     // Mutable pointer to the field.
     // If field is not initialized, it is initialized with default value first.
-    pub fn mut_region_error<'a>(&'a mut self) -> &'a mut super::errorpb::Error {
+    pub fn mut_region_error(&mut self) -> &mut super::errorpb::Error {
         if self.region_error.is_none() {
             self.region_error.set_default();
         };
@@ -6253,7 +6259,7 @@ impl Response {
         self.region_error.take().unwrap_or_else(|| super::errorpb::Error::new())
     }
 
-    pub fn get_region_error<'a>(&'a self) -> &'a super::errorpb::Error {
+    pub fn get_region_error(&self) -> &super::errorpb::Error {
         self.region_error.as_ref().unwrap_or_else(|| super::errorpb::Error::default_instance())
     }
 
@@ -6274,7 +6280,7 @@ impl Response {
 
     // Mutable pointer to the field.
     // If field is not initialized, it is initialized with default value first.
-    pub fn mut_cmd_get_resp<'a>(&'a mut self) -> &'a mut CmdGetResponse {
+    pub fn mut_cmd_get_resp(&mut self) -> &mut CmdGetResponse {
         if self.cmd_get_resp.is_none() {
             self.cmd_get_resp.set_default();
         };
@@ -6286,7 +6292,7 @@ impl Response {
         self.cmd_get_resp.take().unwrap_or_else(|| CmdGetResponse::new())
     }
 
-    pub fn get_cmd_get_resp<'a>(&'a self) -> &'a CmdGetResponse {
+    pub fn get_cmd_get_resp(&self) -> &CmdGetResponse {
         self.cmd_get_resp.as_ref().unwrap_or_else(|| CmdGetResponse::default_instance())
     }
 
@@ -6307,7 +6313,7 @@ impl Response {
 
     // Mutable pointer to the field.
     // If field is not initialized, it is initialized with default value first.
-    pub fn mut_cmd_scan_resp<'a>(&'a mut self) -> &'a mut CmdScanResponse {
+    pub fn mut_cmd_scan_resp(&mut self) -> &mut CmdScanResponse {
         if self.cmd_scan_resp.is_none() {
             self.cmd_scan_resp.set_default();
         };
@@ -6319,7 +6325,7 @@ impl Response {
         self.cmd_scan_resp.take().unwrap_or_else(|| CmdScanResponse::new())
     }
 
-    pub fn get_cmd_scan_resp<'a>(&'a self) -> &'a CmdScanResponse {
+    pub fn get_cmd_scan_resp(&self) -> &CmdScanResponse {
         self.cmd_scan_resp.as_ref().unwrap_or_else(|| CmdScanResponse::default_instance())
     }
 
@@ -6340,7 +6346,7 @@ impl Response {
 
     // Mutable pointer to the field.
     // If field is not initialized, it is initialized with default value first.
-    pub fn mut_cmd_prewrite_resp<'a>(&'a mut self) -> &'a mut CmdPrewriteResponse {
+    pub fn mut_cmd_prewrite_resp(&mut self) -> &mut CmdPrewriteResponse {
         if self.cmd_prewrite_resp.is_none() {
             self.cmd_prewrite_resp.set_default();
         };
@@ -6352,7 +6358,7 @@ impl Response {
         self.cmd_prewrite_resp.take().unwrap_or_else(|| CmdPrewriteResponse::new())
     }
 
-    pub fn get_cmd_prewrite_resp<'a>(&'a self) -> &'a CmdPrewriteResponse {
+    pub fn get_cmd_prewrite_resp(&self) -> &CmdPrewriteResponse {
         self.cmd_prewrite_resp.as_ref().unwrap_or_else(|| CmdPrewriteResponse::default_instance())
     }
 
@@ -6373,7 +6379,7 @@ impl Response {
 
     // Mutable pointer to the field.
     // If field is not initialized, it is initialized with default value first.
-    pub fn mut_cmd_commit_resp<'a>(&'a mut self) -> &'a mut CmdCommitResponse {
+    pub fn mut_cmd_commit_resp(&mut self) -> &mut CmdCommitResponse {
         if self.cmd_commit_resp.is_none() {
             self.cmd_commit_resp.set_default();
         };
@@ -6385,7 +6391,7 @@ impl Response {
         self.cmd_commit_resp.take().unwrap_or_else(|| CmdCommitResponse::new())
     }
 
-    pub fn get_cmd_commit_resp<'a>(&'a self) -> &'a CmdCommitResponse {
+    pub fn get_cmd_commit_resp(&self) -> &CmdCommitResponse {
         self.cmd_commit_resp.as_ref().unwrap_or_else(|| CmdCommitResponse::default_instance())
     }
 
@@ -6406,7 +6412,7 @@ impl Response {
 
     // Mutable pointer to the field.
     // If field is not initialized, it is initialized with default value first.
-    pub fn mut_cmd_cleanup_resp<'a>(&'a mut self) -> &'a mut CmdCleanupResponse {
+    pub fn mut_cmd_cleanup_resp(&mut self) -> &mut CmdCleanupResponse {
         if self.cmd_cleanup_resp.is_none() {
             self.cmd_cleanup_resp.set_default();
         };
@@ -6418,7 +6424,7 @@ impl Response {
         self.cmd_cleanup_resp.take().unwrap_or_else(|| CmdCleanupResponse::new())
     }
 
-    pub fn get_cmd_cleanup_resp<'a>(&'a self) -> &'a CmdCleanupResponse {
+    pub fn get_cmd_cleanup_resp(&self) -> &CmdCleanupResponse {
         self.cmd_cleanup_resp.as_ref().unwrap_or_else(|| CmdCleanupResponse::default_instance())
     }
 
@@ -6439,7 +6445,7 @@ impl Response {
 
     // Mutable pointer to the field.
     // If field is not initialized, it is initialized with default value first.
-    pub fn mut_cmd_rb_get_resp<'a>(&'a mut self) -> &'a mut CmdRollbackThenGetResponse {
+    pub fn mut_cmd_rb_get_resp(&mut self) -> &mut CmdRollbackThenGetResponse {
         if self.cmd_rb_get_resp.is_none() {
             self.cmd_rb_get_resp.set_default();
         };
@@ -6451,7 +6457,7 @@ impl Response {
         self.cmd_rb_get_resp.take().unwrap_or_else(|| CmdRollbackThenGetResponse::new())
     }
 
-    pub fn get_cmd_rb_get_resp<'a>(&'a self) -> &'a CmdRollbackThenGetResponse {
+    pub fn get_cmd_rb_get_resp(&self) -> &CmdRollbackThenGetResponse {
         self.cmd_rb_get_resp.as_ref().unwrap_or_else(|| CmdRollbackThenGetResponse::default_instance())
     }
 
@@ -6472,7 +6478,7 @@ impl Response {
 
     // Mutable pointer to the field.
     // If field is not initialized, it is initialized with default value first.
-    pub fn mut_cmd_commit_get_resp<'a>(&'a mut self) -> &'a mut CmdCommitThenGetResponse {
+    pub fn mut_cmd_commit_get_resp(&mut self) -> &mut CmdCommitThenGetResponse {
         if self.cmd_commit_get_resp.is_none() {
             self.cmd_commit_get_resp.set_default();
         };
@@ -6484,7 +6490,7 @@ impl Response {
         self.cmd_commit_get_resp.take().unwrap_or_else(|| CmdCommitThenGetResponse::new())
     }
 
-    pub fn get_cmd_commit_get_resp<'a>(&'a self) -> &'a CmdCommitThenGetResponse {
+    pub fn get_cmd_commit_get_resp(&self) -> &CmdCommitThenGetResponse {
         self.cmd_commit_get_resp.as_ref().unwrap_or_else(|| CmdCommitThenGetResponse::default_instance())
     }
 
@@ -6505,7 +6511,7 @@ impl Response {
 
     // Mutable pointer to the field.
     // If field is not initialized, it is initialized with default value first.
-    pub fn mut_cmd_batch_get_resp<'a>(&'a mut self) -> &'a mut CmdBatchGetResponse {
+    pub fn mut_cmd_batch_get_resp(&mut self) -> &mut CmdBatchGetResponse {
         if self.cmd_batch_get_resp.is_none() {
             self.cmd_batch_get_resp.set_default();
         };
@@ -6517,7 +6523,7 @@ impl Response {
         self.cmd_batch_get_resp.take().unwrap_or_else(|| CmdBatchGetResponse::new())
     }
 
-    pub fn get_cmd_batch_get_resp<'a>(&'a self) -> &'a CmdBatchGetResponse {
+    pub fn get_cmd_batch_get_resp(&self) -> &CmdBatchGetResponse {
         self.cmd_batch_get_resp.as_ref().unwrap_or_else(|| CmdBatchGetResponse::default_instance())
     }
 
@@ -6538,7 +6544,7 @@ impl Response {
 
     // Mutable pointer to the field.
     // If field is not initialized, it is initialized with default value first.
-    pub fn mut_cmd_batch_rollback_resp<'a>(&'a mut self) -> &'a mut CmdBatchRollbackResponse {
+    pub fn mut_cmd_batch_rollback_resp(&mut self) -> &mut CmdBatchRollbackResponse {
         if self.cmd_batch_rollback_resp.is_none() {
             self.cmd_batch_rollback_resp.set_default();
         };
@@ -6550,7 +6556,7 @@ impl Response {
         self.cmd_batch_rollback_resp.take().unwrap_or_else(|| CmdBatchRollbackResponse::new())
     }
 
-    pub fn get_cmd_batch_rollback_resp<'a>(&'a self) -> &'a CmdBatchRollbackResponse {
+    pub fn get_cmd_batch_rollback_resp(&self) -> &CmdBatchRollbackResponse {
         self.cmd_batch_rollback_resp.as_ref().unwrap_or_else(|| CmdBatchRollbackResponse::default_instance())
     }
 }
