@@ -5,8 +5,6 @@
 #![allow(unknown_lints)]
 #![allow(clippy)]
 
-#![cfg_attr(rustfmt, rustfmt_skip)]
-
 #![allow(dead_code)]
 #![allow(non_camel_case_types)]
 #![allow(non_snake_case)]
@@ -66,7 +64,7 @@ impl Cluster {
         self.id = ::std::option::Option::Some(v);
     }
 
-    pub fn get_id(&self) -> u64 {
+    pub fn get_id<'a>(&self) -> u64 {
         self.id.unwrap_or(0)
     }
 
@@ -85,7 +83,7 @@ impl Cluster {
         self.max_peer_count = ::std::option::Option::Some(v);
     }
 
-    pub fn get_max_peer_count(&self) -> u32 {
+    pub fn get_max_peer_count<'a>(&self) -> u32 {
         self.max_peer_count.unwrap_or(0)
     }
 }
@@ -277,7 +275,7 @@ impl Store {
         self.id = ::std::option::Option::Some(v);
     }
 
-    pub fn get_id(&self) -> u64 {
+    pub fn get_id<'a>(&self) -> u64 {
         self.id.unwrap_or(0)
     }
 
@@ -298,7 +296,7 @@ impl Store {
 
     // Mutable pointer to the field.
     // If field is not initialized, it is initialized with default value first.
-    pub fn mut_address(&mut self) -> &mut ::std::string::String {
+    pub fn mut_address<'a>(&'a mut self) -> &'a mut ::std::string::String {
         if self.address.is_none() {
             self.address.set_default();
         };
@@ -310,7 +308,7 @@ impl Store {
         self.address.take().unwrap_or_else(|| ::std::string::String::new())
     }
 
-    pub fn get_address(&self) -> &str {
+    pub fn get_address<'a>(&'a self) -> &'a str {
         match self.address.as_ref() {
             Some(v) => &v,
             None => "",
@@ -501,7 +499,7 @@ impl RegionEpoch {
         self.conf_ver = ::std::option::Option::Some(v);
     }
 
-    pub fn get_conf_ver(&self) -> u64 {
+    pub fn get_conf_ver<'a>(&self) -> u64 {
         self.conf_ver.unwrap_or(0)
     }
 
@@ -520,7 +518,7 @@ impl RegionEpoch {
         self.version = ::std::option::Option::Some(v);
     }
 
-    pub fn get_version(&self) -> u64 {
+    pub fn get_version<'a>(&self) -> u64 {
         self.version.unwrap_or(0)
     }
 }
@@ -718,7 +716,7 @@ impl Region {
         self.id = ::std::option::Option::Some(v);
     }
 
-    pub fn get_id(&self) -> u64 {
+    pub fn get_id<'a>(&self) -> u64 {
         self.id.unwrap_or(0)
     }
 
@@ -739,7 +737,7 @@ impl Region {
 
     // Mutable pointer to the field.
     // If field is not initialized, it is initialized with default value first.
-    pub fn mut_start_key(&mut self) -> &mut ::std::vec::Vec<u8> {
+    pub fn mut_start_key<'a>(&'a mut self) -> &'a mut ::std::vec::Vec<u8> {
         if self.start_key.is_none() {
             self.start_key.set_default();
         };
@@ -751,7 +749,7 @@ impl Region {
         self.start_key.take().unwrap_or_else(|| ::std::vec::Vec::new())
     }
 
-    pub fn get_start_key(&self) -> &[u8] {
+    pub fn get_start_key<'a>(&'a self) -> &'a [u8] {
         match self.start_key.as_ref() {
             Some(v) => &v,
             None => &[],
@@ -775,7 +773,7 @@ impl Region {
 
     // Mutable pointer to the field.
     // If field is not initialized, it is initialized with default value first.
-    pub fn mut_end_key(&mut self) -> &mut ::std::vec::Vec<u8> {
+    pub fn mut_end_key<'a>(&'a mut self) -> &'a mut ::std::vec::Vec<u8> {
         if self.end_key.is_none() {
             self.end_key.set_default();
         };
@@ -787,7 +785,7 @@ impl Region {
         self.end_key.take().unwrap_or_else(|| ::std::vec::Vec::new())
     }
 
-    pub fn get_end_key(&self) -> &[u8] {
+    pub fn get_end_key<'a>(&'a self) -> &'a [u8] {
         match self.end_key.as_ref() {
             Some(v) => &v,
             None => &[],
@@ -811,7 +809,7 @@ impl Region {
 
     // Mutable pointer to the field.
     // If field is not initialized, it is initialized with default value first.
-    pub fn mut_region_epoch(&mut self) -> &mut RegionEpoch {
+    pub fn mut_region_epoch<'a>(&'a mut self) -> &'a mut RegionEpoch {
         if self.region_epoch.is_none() {
             self.region_epoch.set_default();
         };
@@ -823,7 +821,7 @@ impl Region {
         self.region_epoch.take().unwrap_or_else(|| RegionEpoch::new())
     }
 
-    pub fn get_region_epoch(&self) -> &RegionEpoch {
+    pub fn get_region_epoch<'a>(&'a self) -> &'a RegionEpoch {
         self.region_epoch.as_ref().unwrap_or_else(|| RegionEpoch::default_instance())
     }
 
@@ -839,7 +837,7 @@ impl Region {
     }
 
     // Mutable pointer to the field.
-    pub fn mut_peers(&mut self) -> &mut ::protobuf::RepeatedField<Peer> {
+    pub fn mut_peers<'a>(&'a mut self) -> &'a mut ::protobuf::RepeatedField<Peer> {
         &mut self.peers
     }
 
@@ -848,7 +846,7 @@ impl Region {
         ::std::mem::replace(&mut self.peers, ::protobuf::RepeatedField::new())
     }
 
-    pub fn get_peers(&self) -> &[Peer] {
+    pub fn get_peers<'a>(&'a self) -> &'a [Peer] {
         &self.peers
     }
 }
@@ -1089,7 +1087,7 @@ impl Peer {
         self.id = ::std::option::Option::Some(v);
     }
 
-    pub fn get_id(&self) -> u64 {
+    pub fn get_id<'a>(&self) -> u64 {
         self.id.unwrap_or(0)
     }
 
@@ -1108,7 +1106,7 @@ impl Peer {
         self.store_id = ::std::option::Option::Some(v);
     }
 
-    pub fn get_store_id(&self) -> u64 {
+    pub fn get_store_id<'a>(&self) -> u64 {
         self.store_id.unwrap_or(0)
     }
 }
