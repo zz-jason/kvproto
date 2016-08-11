@@ -28,9 +28,7 @@ var _ = math.Inf
 
 // This is a compile-time assertion to ensure that this generated file
 // is compatible with the proto package it is being compiled against.
-// A compilation error at this line likely means your copy of the
-// proto package needs to be updated.
-const _ = proto.ProtoPackageIsVersion2 // please upgrade the proto package
+const _ = proto.ProtoPackageIsVersion1
 
 type Cluster struct {
 	Id *uint64 `protobuf:"varint,1,opt,name=id" json:"id,omitempty"`
@@ -193,8 +191,6 @@ func init() {
 	proto.RegisterType((*Region)(nil), "metapb.Region")
 	proto.RegisterType((*Peer)(nil), "metapb.Peer")
 }
-
-func init() { proto.RegisterFile("metapb.proto", fileDescriptor0) }
 
 var fileDescriptor0 = []byte{
 	// 234 bytes of a gzipped FileDescriptorProto

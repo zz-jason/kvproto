@@ -29,9 +29,7 @@ var _ = math.Inf
 
 // This is a compile-time assertion to ensure that this generated file
 // is compatible with the proto package it is being compiled against.
-// A compilation error at this line likely means your copy of the
-// proto package needs to be updated.
-const _ = proto.ProtoPackageIsVersion2 // please upgrade the proto package
+const _ = proto.ProtoPackageIsVersion1
 
 type MessageType int32
 
@@ -185,8 +183,6 @@ func init() {
 	proto.RegisterType((*Message)(nil), "msgpb.Message")
 	proto.RegisterEnum("msgpb.MessageType", MessageType_name, MessageType_value)
 }
-
-func init() { proto.RegisterFile("msgpb.proto", fileDescriptor0) }
 
 var fileDescriptor0 = []byte{
 	// 351 bytes of a gzipped FileDescriptorProto
