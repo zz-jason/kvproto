@@ -14,15 +14,6 @@ message GetResponse {
     optional bytes value = 1;
 }
 
-message SeekRequest {
-    optional bytes key = 1;
-}
-
-message SeekResponse {
-    optional bytes key   = 1;
-    optional bytes value = 2;
-}
-
 message PutRequest {
     optional string cf    = 1;
     optional bytes  key   = 2;
@@ -53,7 +44,6 @@ message SnapResponse {
 enum CmdType {
     Invalid     = 0;
     Get         = 1;
-    Seek        = 2;
     Put         = 3;
     Delete      = 4;
     Snap        = 5;
@@ -62,7 +52,6 @@ enum CmdType {
 message Request {
     optional CmdType        cmd_type    = 1;
     optional GetRequest     get         = 2;
-    optional SeekRequest    seek        = 3;
     optional PutRequest     put         = 4;
     optional DeleteRequest  delete      = 5;
     optional SnapRequest    snap        = 6;
@@ -71,7 +60,6 @@ message Request {
 message Response {
     optional CmdType        cmd_type    = 1;
     optional GetResponse    get         = 2;
-    optional SeekResponse   seek        = 3;
     optional PutResponse    put         = 4;
     optional DeleteResponse delete      = 5;
     optional SnapResponse   snap        = 6;
