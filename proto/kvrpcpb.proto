@@ -100,6 +100,7 @@ message CmdCommitRequest {
     optional uint64  start_version  = 1 [(gogoproto.nullable) = false];
     repeated bytes   keys           = 2;
     optional uint64  commit_version = 3 [(gogoproto.nullable) = false];
+    optional bytes   binlog         = 4;
 }
 
 message CmdCommitResponse {
