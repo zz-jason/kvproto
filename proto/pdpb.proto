@@ -142,6 +142,12 @@ message RegionHeartbeatRequest {
     // Pending peers are the peers that the leader can't consider as
     // working followers.
     repeated metapb.Peer pending_peers  = 4;
+    // Bytes read/written during this period.
+    optional uint64 bytes_written       = 5;
+    optional uint64 bytes_read          = 6;
+    // Keys read/written during this period.
+    optional uint64 keys_written        = 7;
+    optional uint64 keys_read           = 8;
 }
 
 message ChangePeer {
