@@ -19,10 +19,6 @@ GOGO_ROOT=${GOPATH}/src/${gogo_protobuf_url}
 GO_OUT_M=
 GO_INSTALL='go install'
 
-cmd_exists () {
-    which "$1" 1>/dev/null 2>&1
-}
-
 echo "install gogoproto code/generator ..."
 ${GO_INSTALL} ${gogo_protobuf_url}/proto
 ${GO_INSTALL} ${gogo_protobuf_url}/protoc-gen-gofast
@@ -59,7 +55,7 @@ ret=0
 for file in `ls *.proto`
     do
     base_name=$(basename $file ".proto")
-    protoc -I.:${GOGO_ROOT}:${GOGO_ROOT}/protobuf --gofast_out=$GO_OUT_M:../pkg/$base_name $file || ret=$?
+    protoc -I.:${GOGO_ROOT}:${GOGO_ROOT}/protobuf --gofast_out=plugins=grpc,$GO_OUT_M:../pkg/$base_name $file || ret=$?
     cd ../pkg/$base_name
     sed -i.bak -E 's/import _ \"gogoproto\"//g' *.pb.go
     sed -i.bak -E 's/import fmt \"fmt\"//g' *.pb.go

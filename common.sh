@@ -13,3 +13,15 @@ check_protoc_version() {
     echo "protoc version not match, version 3.1.x is needed, current version: ${version}"
     return 1
 }
+
+push () {
+    pushd $1 >/dev/null 2>&1
+}
+
+pop () {
+    popd $1 >/dev/null 2>&1
+}
+
+cmd_exists () {
+    which "$1" 1>/dev/null 2>&1
+}
