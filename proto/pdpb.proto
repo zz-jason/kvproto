@@ -217,6 +217,8 @@ message StoreStats {
     optional uint32 applying_snap_count  = 8 [(gogoproto.nullable) = false];
     // If the store is busy
     optional bool is_busy                = 9 [(gogoproto.nullable) = false];
+    // Actually used space by db
+    optional uint64 used_size            = 10 [(gogoproto.nullable) = false];
 }
 
 message StoreHeartbeatRequest {
