@@ -30,6 +30,11 @@ enum CommandPri {
     High = 2;
 }
 
+enum IsolationLevel {
+    SI = 0; // SI = snapshot isolation
+    RU = 1; // RU = read uncommitted
+}
+
 message Context {
     reserved 4;
     reserved "read_quorum";
@@ -38,6 +43,7 @@ message Context {
     metapb.Peer peer = 3;
     uint64 term = 5;
     CommandPri priority = 6;
+    IsolationLevel isolation_level = 7;
 }
 
 message GetRequest {
