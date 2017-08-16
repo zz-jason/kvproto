@@ -14,16 +14,12 @@ test:
 	go build ./pkg/...
 	cargo check
 
-go: link_gopath_src
+go: 
 	# Standalone GOPATH
 	GOPATH=$(CURDIR)/_vendor ./generate_go.sh
 
-rust: link_gopath_src
+rust: 
 	GOPATH=$(CURDIR)/_vendor ./generate_rust.sh
-
-link_gopath_src:
-	rm -f _vendor/src
-	ln -s ./vendor _vendor/src
 
 update_go_pkg:
 	which glide >/dev/null || curl https://glide.sh/get | sh
@@ -40,4 +36,4 @@ endif
 	mkdir -p _vendor
 	mv vendor _vendor
 
-.PHONY: update_go_pkg link_gopath_src all
+.PHONY: update_go_pkg all
