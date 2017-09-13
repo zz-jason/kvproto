@@ -1,0 +1,130 @@
+syntax = "proto3";
+package debugpb;
+
+import "eraftpb.proto";
+import "kvrpcpb.proto";
+import "raft_serverpb.proto";
+import "gogoproto/gogo.proto";
+
+option (gogoproto.sizer_all) = true;
+option (gogoproto.marshaler_all) = true;
+option (gogoproto.unmarshaler_all) = true;
+
+option java_package = "com.pingcap.tikv.kvproto";
+
+// Debug service for TiKV.
+//
+// Errors are defined as follow:
+//   - OK: Okay, we are good!
+//   - UNKNOWN: For unknown reason.
+//   - NOT_FOUND: It is key or region not found, it's based on context, detailed
+//                reason can be found in grpc message.
+//   - OUT_OF_RANGE: If the requested region's leader is on other TiKV.
+// Note: It bypasses raft layer.
+service Debug {
+    // Read a value arbitrarily for a encoded key.
+    rpc get(GetRequest) returns (GetResponse) {}
+
+    // Read MVCC info arbitrarily for raw key.
+    rpc mvcc(MvccRequest) returns (MvccResponse) {}
+
+    // Read raft info.
+    rpc raft_log(RaftLogRequest) returns (RaftLogResponse) {}
+    rpc region_info(RegionInfoRequest) returns (RegionInfoResponse) {}
+
+    // Calculate size of a region or a cf.
+    // Note: DO NOT CALL IT IN PRODUCTION, it's really expensive.
+    rpc size(SizeRequest) returns (SizeResponse) {}
+
+    // Scan a specific range.
+    // Note: DO NOT CALL IT IN PRODUCTION, it's really expensive.
+    rpc scan(ScanRequest) returns (stream ScanResponse) {}
+}
+
+message GetRequest {
+    string cf = 1;
+    bytes key_encoded = 2;
+}
+
+message GetResponse {
+    bytes value = 1;
+}
+
+message MvccRequest {
+    enum By {
+        INVALID = 0;
+        KEY = 1;
+        START_TS = 2;
+    }
+
+    By by = 1;
+    string key = 2;
+    uint64 start_ts = 3;
+}
+
+// Missing part:
+//   1. Lock type in lock.
+//   2. Short value in lock.
+//   3. Short value in write.
+message MvccResponse {
+    message Entry {
+        string key = 1;
+        kvrpcpb.MvccInfo info = 2;
+    }
+
+    repeated Entry entries = 1;
+}
+
+message RaftLogRequest {
+    uint64 region_id = 1;
+    uint64 log_index = 2;
+}
+
+message RaftLogResponse {
+    eraftpb.Entry entry = 1;
+}
+
+message RegionInfoRequest {
+    // If region_id is 0, then get all region's info.
+    uint64 region_id = 1;
+}
+
+message RegionInfoResponse {
+    message Info {
+        raft_serverpb.RaftLocalState raft_local_state = 1;
+        raft_serverpb.RaftApplyState raft_apply_state = 2;
+    }
+
+    repeated Info info = 1;
+}
+
+message SizeRequest {
+    // If region_id is 0, then calcate all region's size.
+    uint64 region_id = 1;
+    // If there is no cf provided, then calcate all cf.
+    repeated string cfs = 2;
+}
+
+message SizeResponse {
+    uint64 size = 1;
+}
+
+message ScanRequest {
+    // Filte scan response.
+    message Filter {
+        uint64 limit = 1;
+        uint64 start_ts = 2;
+        uint64 commit_ts = 3;
+        bool key_only = 4;
+        repeated string cfs = 5;
+    }
+
+    bytes from_key_encoded = 1;
+    bytes to_key_encoded = 2;
+    Filter filter = 3;
+}
+
+message ScanResponse {
+    bytes key_encoded = 1;
+    kvrpcpb.MvccInfo info = 2;
+}
