@@ -41,6 +41,13 @@ service Debug {
     rpc scan(ScanRequest) returns (stream ScanResponse) {}
 }
 
+enum CF {
+    INVALID = 0;
+    DEFAULT = 1;
+    WRITE = 2;
+    LOCK = 3;
+}
+
 message GetRequest {
     string cf = 1;
     bytes key_encoded = 2;
@@ -94,10 +101,8 @@ message RegionInfoResponse {
 }
 
 message SizeRequest {
-    // If region_id is 0, then calcate all region's size.
     uint64 region_id = 1;
-    // If there is no cf provided, then calcate all cf.
-    repeated string cfs = 2;
+    repeated CF cfs = 2;
 }
 
 message SizeResponse {
@@ -111,7 +116,7 @@ message ScanRequest {
         uint64 start_ts = 2;
         uint64 commit_ts = 3;
         bool key_only = 4;
-        repeated string cfs = 5;
+        repeated CF cfs = 5;
     }
 
     bytes from_key_encoded = 1;
