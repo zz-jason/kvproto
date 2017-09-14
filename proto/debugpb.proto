@@ -16,10 +16,10 @@ option java_package = "com.pingcap.tikv.kvproto";
 //
 // Errors are defined as follow:
 //   - OK: Okay, we are good!
-//   - UNKNOWN: For unknown reason.
+//   - UNKNOWN: For unknown error.
+//   - INVALID_ARGUMENT: Something goes wrong within requests.
 //   - NOT_FOUND: It is key or region not found, it's based on context, detailed
 //                reason can be found in grpc message.
-//   - OUT_OF_RANGE: If the requested region's leader is on other TiKV.
 // Note: It bypasses raft layer.
 service Debug {
     // Read a value arbitrarily for a encoded key.
@@ -85,17 +85,12 @@ message RaftLogResponse {
 }
 
 message RegionInfoRequest {
-    // If region_id is 0, then get all region's info.
     uint64 region_id = 1;
 }
 
 message RegionInfoResponse {
-    message Info {
-        raft_serverpb.RaftLocalState raft_local_state = 1;
-        raft_serverpb.RaftApplyState raft_apply_state = 2;
-    }
-
-    repeated Info info = 1;
+    raft_serverpb.RaftLocalState raft_local_state = 1;
+    raft_serverpb.RaftApplyState raft_apply_state = 2;
 }
 
 message SizeRequest {
