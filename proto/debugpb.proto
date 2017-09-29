@@ -38,6 +38,10 @@ service Debug {
     // Note: DO NOT CALL IT IN PRODUCTION, it's really expensive.
     //       Server uses keys directly w/o any encoding.
     rpc ScanMvcc(ScanMvccRequest) returns (stream ScanMvccResponse) {}
+
+    // Compact a column family in a specified range.
+    // Note: Server uses keys directly w/o any encoding.
+    rpc Compact(CompactRequest) returns (CompactResponse) {}
 }
 
 enum DB {
@@ -98,4 +102,14 @@ message ScanMvccRequest {
 message ScanMvccResponse {
     bytes key = 1;
     kvrpcpb.MvccInfo info = 2;
+}
+
+message CompactRequest {
+    DB db = 1;
+    string cf = 2;
+    bytes from_key = 3;
+    bytes to_key = 4;
+}
+
+message CompactResponse {
 }
