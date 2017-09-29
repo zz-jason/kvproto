@@ -39,6 +39,8 @@ service Debug {
     //       Server uses keys directly w/o any encoding.
     rpc ScanMvcc(ScanMvccRequest) returns (stream ScanMvccResponse) {}
 
+    // Compact a column family in a specified range.
+    // Note: Server uses keys directly w/o any encoding.
     rpc Compact(CompactRequest) returns (CompactResponse) {}
 }
 
