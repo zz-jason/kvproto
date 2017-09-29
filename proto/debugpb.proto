@@ -38,6 +38,8 @@ service Debug {
     // Note: DO NOT CALL IT IN PRODUCTION, it's really expensive.
     //       Server uses keys directly w/o any encoding.
     rpc ScanMvcc(ScanMvccRequest) returns (stream ScanMvccResponse) {}
+
+    rpc Compact(CompactRequest) returns (CompactResponse) {}
 }
 
 enum DB {
@@ -98,4 +100,13 @@ message ScanMvccRequest {
 message ScanMvccResponse {
     bytes key = 1;
     kvrpcpb.MvccInfo info = 2;
+}
+
+message CompactRequest {
+    bytes from_key = 1;
+    bytes to_key = 2;
+    string cf = 3;
+}
+
+message CompactResponse {
 }
