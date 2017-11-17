@@ -15,6 +15,7 @@ impl From<eraftpb::ConfChangeType> for pdpb::ConfChangeType {
         match ct {
             eraftpb::ConfChangeType::AddNode => pdpb::ConfChangeType::AddNode,
             eraftpb::ConfChangeType::RemoveNode => pdpb::ConfChangeType::RemoveNode,
+            eraftpb::ConfChangeType::AddLearnerNode => unimplemented!(),
         }
     }
 }
