@@ -1,6 +1,6 @@
 syntax = "proto3";
 
-package importpb;
+package import_sstpb;
 
 import "metapb.proto";
 import "errorpb.proto";
@@ -12,79 +12,6 @@ option (gogoproto.marshaler_all) = true;
 option (gogoproto.unmarshaler_all) = true;
 
 option java_package = "com.pingcap.tikv.kvproto";
-
-// ImportKV provides a service to import key-value pairs to TiKV.
-//
-// In order to import key-value pairs to TiKV, the user should:
-// 1. Open an engine identified by an UUID.
-// 2. Open write streams to write key-value batch to the opened engine.
-//    Different streams/clients can write to the same engine concurrently.
-// 3. Close the engine after all write batches are finished. An engine can only
-//    be closed when all write streams are closed. An engine can only be closed
-//    once, and it can not be opened again once it is closed.
-service ImportKV {
-    // Open an engine.
-    rpc Open(OpenRequest) returns (OpenResponse) {}
-    // Open a write stream to the engine.
-    rpc Write(stream WriteRequest) returns (WriteResponse) {}
-    // Close the engine.
-    rpc Close(CloseRequest) returns (CloseResponse) {}
-}
-
-message OpenRequest {
-    bytes uuid = 1;
-}
-
-message OpenResponse {
-}
-
-message WriteHead {
-    bytes uuid = 1;
-}
-
-message Mutation {
-    enum OP {
-        Put = 0;
-    }
-    OP op = 1;
-    bytes key = 2;
-    bytes value = 3;
-}
-
-message WriteBatch {
-    uint64 commit_ts = 1;
-    repeated Mutation mutations = 2;
-}
-
-message WriteRequest {
-    oneof chunk {
-        WriteHead head = 1;
-        WriteBatch batch = 2;
-    }
-}
-
-message WriteResponse {
-    Error error = 1;
-}
-
-message CloseRequest {
-    bytes uuid = 1;
-}
-
-message CloseResponse {
-    Error error = 1;
-}
-
-message Error {
-    message EngineNotFound {
-        bytes uuid = 1;
-    }
-    // This can happen if the client hasn't opened the engine, or the server
-    // restarts while the client is writing or closing. An unclosed engine will
-    // be removed on server restart, so the client should not continue but
-    // restart the previous job in that case.
-    EngineNotFound engine_not_found = 1;
-}
 
 // ImportSST provides a service to import a generated SST file to a region in TiKV.
 //
@@ -102,10 +29,26 @@ message Error {
 // file's metadata, to guarantee that the region's epoch must be the same
 // between the SST file is uploaded and ingested later.
 service ImportSST {
+    // Switch to normal/import mode.
+    rpc SwitchMode(SwitchModeRequest) returns (SwitchModeResponse) {}
     // Upload an SST file to a server.
     rpc Upload(stream UploadRequest) returns (UploadResponse) {}
     // Ingest an uploaded SST file to a region.
     rpc Ingest(IngestRequest) returns (IngestResponse) {}
+    // Compact the specific range for better performance.
+    rpc Compact(CompactRequest) returns (CompactResponse) {}
+}
+
+enum SwitchMode {
+    Normal = 0;
+    Import = 1;
+}
+
+message SwitchModeRequest {
+    SwitchMode mode = 1;
+}
+
+message SwitchModeResponse {
 }
 
 message Range {
@@ -140,4 +83,15 @@ message IngestRequest {
 
 message IngestResponse {
     errorpb.Error error = 1;
+}
+
+message CompactRequest {
+    // Compact files in the range and above the output level.
+    // Compact all files if the range is not specified.
+    // Compact all files to the bottommost level if the output level is -1.
+    Range range = 1;
+    int32 output_level = 2;
+}
+
+message CompactResponse {
 }
