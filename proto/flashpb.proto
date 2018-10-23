@@ -1,0 +1,37 @@
+syntax = "proto3";
+package flashpb;
+
+import "raft_cmdpb.proto";
+import "raft_serverpb.proto";
+
+message FlashRequetHeader {
+    uint64 region_id = 1;
+
+    // Flush in-memory data to disk.
+    bool sync_log = 2;
+}
+
+message FlashRequet {
+    FlashRequetHeader header = 1;
+
+    // We don't enclose normal requests and administrator request
+    // at same time.
+
+    // kv put / delete
+    repeated raft_cmdpb.RaftCmdRequest requests = 2;
+
+    // region metadata manipulation command.
+    raft_cmdpb.AdminRequest admin_request = 3;
+    // region metadata manipulation result.
+    raft_cmdpb.AdminResponse admin_response = 4;
+}
+
+message FlashResponseHeader {
+    uint64 region_id = 1;
+}
+
+message FlashResponse {
+    FlashResponseHeader header = 1;
+
+    raft_serverpb.RaftApplyState apply_state = 2;
+}
