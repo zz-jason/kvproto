@@ -1,25 +1,25 @@
 syntax = "proto3";
-package flashpb;
+package enginepb;
 
 import "metapb.proto";
 import "raft_cmdpb.proto";
 import "raft_serverpb.proto";
 
-message FlashRequetHeader {
+message CommandRequetHeader {
     uint64 region_id = 1;
 
     // Flush in-memory data to disk.
     bool sync_log = 2;
 }
 
-message FlashRequet {
-    FlashRequetHeader header = 1;
+message CommandRequet {
+    CommandRequetHeader header = 1;
 
     // We don't enclose normal requests and administrator request
     // at same time.
 
     // kv put / delete
-    repeated raft_cmdpb.RaftCmdRequest requests = 2;
+    repeated raft_cmdpb.Request requests = 2;
 
     // region metadata manipulation command.
     raft_cmdpb.AdminRequest admin_request = 3;
@@ -27,37 +27,36 @@ message FlashRequet {
     raft_cmdpb.AdminResponse admin_response = 4;
 }
 
-message FlashResponseHeader {
+message ResponseHeader {
     uint64 region_id = 1;
 }
 
-message FlashResponse {
-    FlashResponseHeader header = 1;
+message CommandResponse {
+    ResponseHeader header = 1;
 
     raft_serverpb.RaftApplyState apply_state = 2;
 }
 
-message FlashSnapshotData {
+message SnapshotData {
     string cf = 1;
     uint32 checksum = 2;
     repeated raft_serverpb.KeyValue data = 3;
 }
 
-message FlashSnapshotRequest {
-    FlashRequetHeader header = 1;
-
+message SnapshotRequest {
     oneof chunk {
         // The first message for snapshots.
-        metapb.Region region = 2;
+        // It contains the latest region information after applied snapshot.
+        metapb.Region region = 1;
 
         // Following messages are always data.
-        FlashSnapshotData data = 3;
-
-        // Indicates the end of snapshots.
-        raft_serverpb.Done done = 4;
+        SnapshotData data = 2;
     }
 }
 
-message FlashSnapshotResponse {
-    FlashResponseHeader header = 1;
+message SnapshotDone {}
+
+service Engine {
+    rpc ApplyCommand(stream CommandRequet) returns (stream CommandResponse) {}
+    rpc ApplySnapshot(stream SnapshotRequest) returns (SnapshotDone) {}
 }
