@@ -8,6 +8,8 @@ use raft::eraftpb;
 pub mod coprocessor;
 pub mod debugpb_grpc;
 pub mod debugpb;
+pub mod enginepb_grpc;
+pub mod enginepb;
 pub mod errorpb;
 pub mod import_kvpb_grpc;
 pub mod import_kvpb;
