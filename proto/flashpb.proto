@@ -1,6 +1,7 @@
 syntax = "proto3";
 package flashpb;
 
+import "metapb.proto";
 import "raft_cmdpb.proto";
 import "raft_serverpb.proto";
 
@@ -34,4 +35,29 @@ message FlashResponse {
     FlashResponseHeader header = 1;
 
     raft_serverpb.RaftApplyState apply_state = 2;
+}
+
+message FlashSnapshotData {
+    string cf = 1;
+    uint32 checksum = 2;
+    repeated raft_serverpb.KeyValue data = 3;
+}
+
+message FlashSnapshotRequest {
+    FlashRequetHeader header = 1;
+
+    oneof chunk {
+        // The first message for snapshots.
+        metapb.Region region = 2;
+
+        // Following messages are always data.
+        FlashSnapshotData data = 3;
+
+        // Indicates the end of snapshots.
+        raft_serverpb.Done done = 4;
+    }
+}
+
+message FlashSnapshotResponse {
+    FlashResponseHeader header = 1;
 }
