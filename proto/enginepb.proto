@@ -47,6 +47,11 @@ message CommandResponseBatch {
     repeated CommandResponse responses = 1;
 }
 
+message SnapshotState {
+    metapb.Region region = 1;
+    raft_serverpb.RaftApplyState apply_state = 2;
+}
+
 message SnapshotData {
     string cf = 1;
     uint32 checksum = 2;
@@ -57,7 +62,7 @@ message SnapshotRequest {
     oneof chunk {
         // The first message for snapshots.
         // It contains the latest region information after applied snapshot.
-        metapb.Region region = 1;
+        SnapshotState state = 1;
 
         // Following messages are always data.
         SnapshotData data = 2;
