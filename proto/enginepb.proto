@@ -33,12 +33,12 @@ message CommandRequestBatch {
     repeated CommandRequest requests = 1;
 }
 
-message ResponseHeader {
+message CommandResponseHeader {
     uint64 region_id = 1;
 }
 
 message CommandResponse {
-    ResponseHeader header = 1;
+    CommandResponseHeader header = 1;
 
     raft_serverpb.RaftApplyState apply_state = 2;
 }
