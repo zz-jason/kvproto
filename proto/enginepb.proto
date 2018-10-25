@@ -5,15 +5,17 @@ import "metapb.proto";
 import "raft_cmdpb.proto";
 import "raft_serverpb.proto";
 
-message CommandRequetHeader {
+message CommandRequestHeader {
     uint64 region_id = 1;
 
     // Flush in-memory data to disk.
     bool sync_log = 2;
+
+    uint64 index = 3;
 }
 
-message CommandRequet {
-    CommandRequetHeader header = 1;
+message CommandRequest {
+    CommandRequestHeader header = 1;
 
     // We don't enclose normal requests and administrator request
     // at same time.
@@ -27,6 +29,10 @@ message CommandRequet {
     raft_cmdpb.AdminResponse admin_response = 4;
 }
 
+message CommandRequestBatch {
+    repeated CommandRequest requests = 1;
+}
+
 message ResponseHeader {
     uint64 region_id = 1;
 }
@@ -35,6 +41,10 @@ message CommandResponse {
     ResponseHeader header = 1;
 
     raft_serverpb.RaftApplyState apply_state = 2;
+}
+
+message CommandResponseBatch {
+    repeated CommandResponse responses = 1;
 }
 
 message SnapshotData {
@@ -57,6 +67,6 @@ message SnapshotRequest {
 message SnapshotDone {}
 
 service Engine {
-    rpc ApplyCommand(stream CommandRequet) returns (stream CommandResponse) {}
+    rpc ApplyCommandBatch(stream CommandRequestBatch) returns (stream CommandResponseBatch) {}
     rpc ApplySnapshot(stream SnapshotRequest) returns (SnapshotDone) {}
 }
