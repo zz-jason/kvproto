@@ -759,7 +759,7 @@ impl ::protobuf::reflect::ProtobufValue for CommandRequestBatch {
 }
 
 #[derive(PartialEq,Clone,Default)]
-pub struct ResponseHeader {
+pub struct CommandResponseHeader {
     // message fields
     pub region_id: u64,
     // special fields
@@ -767,8 +767,8 @@ pub struct ResponseHeader {
     cached_size: ::protobuf::CachedSize,
 }
 
-impl ResponseHeader {
-    pub fn new() -> ResponseHeader {
+impl CommandResponseHeader {
+    pub fn new() -> CommandResponseHeader {
         ::std::default::Default::default()
     }
 
@@ -788,7 +788,7 @@ impl ResponseHeader {
     }
 }
 
-impl ::protobuf::Message for ResponseHeader {
+impl ::protobuf::Message for CommandResponseHeader {
     fn is_initialized(&self) -> bool {
         true
     }
@@ -858,8 +858,8 @@ impl ::protobuf::Message for ResponseHeader {
         Self::descriptor_static()
     }
 
-    fn new() -> ResponseHeader {
-        ResponseHeader::new()
+    fn new() -> CommandResponseHeader {
+        CommandResponseHeader::new()
     }
 
     fn descriptor_static() -> &'static ::protobuf::reflect::MessageDescriptor {
@@ -872,11 +872,11 @@ impl ::protobuf::Message for ResponseHeader {
                 let mut fields = ::std::vec::Vec::new();
                 fields.push(::protobuf::reflect::accessor::make_simple_field_accessor::<_, ::protobuf::types::ProtobufTypeUint64>(
                     "region_id",
-                    |m: &ResponseHeader| { &m.region_id },
-                    |m: &mut ResponseHeader| { &mut m.region_id },
+                    |m: &CommandResponseHeader| { &m.region_id },
+                    |m: &mut CommandResponseHeader| { &mut m.region_id },
                 ));
-                ::protobuf::reflect::MessageDescriptor::new::<ResponseHeader>(
-                    "ResponseHeader",
+                ::protobuf::reflect::MessageDescriptor::new::<CommandResponseHeader>(
+                    "CommandResponseHeader",
                     fields,
                     file_descriptor_proto()
                 )
@@ -884,31 +884,31 @@ impl ::protobuf::Message for ResponseHeader {
         }
     }
 
-    fn default_instance() -> &'static ResponseHeader {
-        static mut instance: ::protobuf::lazy::Lazy<ResponseHeader> = ::protobuf::lazy::Lazy {
+    fn default_instance() -> &'static CommandResponseHeader {
+        static mut instance: ::protobuf::lazy::Lazy<CommandResponseHeader> = ::protobuf::lazy::Lazy {
             lock: ::protobuf::lazy::ONCE_INIT,
-            ptr: 0 as *const ResponseHeader,
+            ptr: 0 as *const CommandResponseHeader,
         };
         unsafe {
-            instance.get(ResponseHeader::new)
+            instance.get(CommandResponseHeader::new)
         }
     }
 }
 
-impl ::protobuf::Clear for ResponseHeader {
+impl ::protobuf::Clear for CommandResponseHeader {
     fn clear(&mut self) {
         self.clear_region_id();
         self.unknown_fields.clear();
     }
 }
 
-impl ::std::fmt::Debug for ResponseHeader {
+impl ::std::fmt::Debug for CommandResponseHeader {
     fn fmt(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
         ::protobuf::text_format::fmt(self, f)
     }
 }
 
-impl ::protobuf::reflect::ProtobufValue for ResponseHeader {
+impl ::protobuf::reflect::ProtobufValue for CommandResponseHeader {
     fn as_ref(&self) -> ::protobuf::reflect::ProtobufValueRef {
         ::protobuf::reflect::ProtobufValueRef::Message(self)
     }
@@ -917,7 +917,7 @@ impl ::protobuf::reflect::ProtobufValue for ResponseHeader {
 #[derive(PartialEq,Clone,Default)]
 pub struct CommandResponse {
     // message fields
-    pub header: ::protobuf::SingularPtrField<ResponseHeader>,
+    pub header: ::protobuf::SingularPtrField<CommandResponseHeader>,
     pub apply_state: ::protobuf::SingularPtrField<super::raft_serverpb::RaftApplyState>,
     // special fields
     unknown_fields: ::protobuf::UnknownFields,
@@ -929,7 +929,7 @@ impl CommandResponse {
         ::std::default::Default::default()
     }
 
-    // .enginepb.ResponseHeader header = 1;
+    // .enginepb.CommandResponseHeader header = 1;
 
     pub fn clear_header(&mut self) {
         self.header.clear();
@@ -940,13 +940,13 @@ impl CommandResponse {
     }
 
     // Param is passed by value, moved
-    pub fn set_header(&mut self, v: ResponseHeader) {
+    pub fn set_header(&mut self, v: CommandResponseHeader) {
         self.header = ::protobuf::SingularPtrField::some(v);
     }
 
     // Mutable pointer to the field.
     // If field is not initialized, it is initialized with default value first.
-    pub fn mut_header(&mut self) -> &mut ResponseHeader {
+    pub fn mut_header(&mut self) -> &mut CommandResponseHeader {
         if self.header.is_none() {
             self.header.set_default();
         }
@@ -954,12 +954,12 @@ impl CommandResponse {
     }
 
     // Take field
-    pub fn take_header(&mut self) -> ResponseHeader {
-        self.header.take().unwrap_or_else(|| ResponseHeader::new())
+    pub fn take_header(&mut self) -> CommandResponseHeader {
+        self.header.take().unwrap_or_else(|| CommandResponseHeader::new())
     }
 
-    pub fn get_header(&self) -> &ResponseHeader {
-        self.header.as_ref().unwrap_or_else(|| ResponseHeader::default_instance())
+    pub fn get_header(&self) -> &CommandResponseHeader {
+        self.header.as_ref().unwrap_or_else(|| CommandResponseHeader::default_instance())
     }
 
     // .raft_serverpb.RaftApplyState apply_state = 2;
@@ -1099,7 +1099,7 @@ impl ::protobuf::Message for CommandResponse {
         unsafe {
             descriptor.get(|| {
                 let mut fields = ::std::vec::Vec::new();
-                fields.push(::protobuf::reflect::accessor::make_singular_ptr_field_accessor::<_, ::protobuf::types::ProtobufTypeMessage<ResponseHeader>>(
+                fields.push(::protobuf::reflect::accessor::make_singular_ptr_field_accessor::<_, ::protobuf::types::ProtobufTypeMessage<CommandResponseHeader>>(
                     "header",
                     |m: &CommandResponse| { &m.header },
                     |m: &mut CommandResponse| { &mut m.header },
@@ -1314,6 +1314,241 @@ impl ::std::fmt::Debug for CommandResponseBatch {
 }
 
 impl ::protobuf::reflect::ProtobufValue for CommandResponseBatch {
+    fn as_ref(&self) -> ::protobuf::reflect::ProtobufValueRef {
+        ::protobuf::reflect::ProtobufValueRef::Message(self)
+    }
+}
+
+#[derive(PartialEq,Clone,Default)]
+pub struct SnapshotState {
+    // message fields
+    pub region: ::protobuf::SingularPtrField<super::metapb::Region>,
+    pub apply_state: ::protobuf::SingularPtrField<super::raft_serverpb::RaftApplyState>,
+    // special fields
+    unknown_fields: ::protobuf::UnknownFields,
+    cached_size: ::protobuf::CachedSize,
+}
+
+impl SnapshotState {
+    pub fn new() -> SnapshotState {
+        ::std::default::Default::default()
+    }
+
+    // .metapb.Region region = 1;
+
+    pub fn clear_region(&mut self) {
+        self.region.clear();
+    }
+
+    pub fn has_region(&self) -> bool {
+        self.region.is_some()
+    }
+
+    // Param is passed by value, moved
+    pub fn set_region(&mut self, v: super::metapb::Region) {
+        self.region = ::protobuf::SingularPtrField::some(v);
+    }
+
+    // Mutable pointer to the field.
+    // If field is not initialized, it is initialized with default value first.
+    pub fn mut_region(&mut self) -> &mut super::metapb::Region {
+        if self.region.is_none() {
+            self.region.set_default();
+        }
+        self.region.as_mut().unwrap()
+    }
+
+    // Take field
+    pub fn take_region(&mut self) -> super::metapb::Region {
+        self.region.take().unwrap_or_else(|| super::metapb::Region::new())
+    }
+
+    pub fn get_region(&self) -> &super::metapb::Region {
+        self.region.as_ref().unwrap_or_else(|| super::metapb::Region::default_instance())
+    }
+
+    // .raft_serverpb.RaftApplyState apply_state = 2;
+
+    pub fn clear_apply_state(&mut self) {
+        self.apply_state.clear();
+    }
+
+    pub fn has_apply_state(&self) -> bool {
+        self.apply_state.is_some()
+    }
+
+    // Param is passed by value, moved
+    pub fn set_apply_state(&mut self, v: super::raft_serverpb::RaftApplyState) {
+        self.apply_state = ::protobuf::SingularPtrField::some(v);
+    }
+
+    // Mutable pointer to the field.
+    // If field is not initialized, it is initialized with default value first.
+    pub fn mut_apply_state(&mut self) -> &mut super::raft_serverpb::RaftApplyState {
+        if self.apply_state.is_none() {
+            self.apply_state.set_default();
+        }
+        self.apply_state.as_mut().unwrap()
+    }
+
+    // Take field
+    pub fn take_apply_state(&mut self) -> super::raft_serverpb::RaftApplyState {
+        self.apply_state.take().unwrap_or_else(|| super::raft_serverpb::RaftApplyState::new())
+    }
+
+    pub fn get_apply_state(&self) -> &super::raft_serverpb::RaftApplyState {
+        self.apply_state.as_ref().unwrap_or_else(|| super::raft_serverpb::RaftApplyState::default_instance())
+    }
+}
+
+impl ::protobuf::Message for SnapshotState {
+    fn is_initialized(&self) -> bool {
+        for v in &self.region {
+            if !v.is_initialized() {
+                return false;
+            }
+        };
+        for v in &self.apply_state {
+            if !v.is_initialized() {
+                return false;
+            }
+        };
+        true
+    }
+
+    fn merge_from(&mut self, is: &mut ::protobuf::CodedInputStream) -> ::protobuf::ProtobufResult<()> {
+        while !is.eof()? {
+            let (field_number, wire_type) = is.read_tag_unpack()?;
+            match field_number {
+                1 => {
+                    ::protobuf::rt::read_singular_message_into(wire_type, is, &mut self.region)?;
+                },
+                2 => {
+                    ::protobuf::rt::read_singular_message_into(wire_type, is, &mut self.apply_state)?;
+                },
+                _ => {
+                    ::protobuf::rt::read_unknown_or_skip_group(field_number, wire_type, is, self.mut_unknown_fields())?;
+                },
+            };
+        }
+        ::std::result::Result::Ok(())
+    }
+
+    // Compute sizes of nested messages
+    #[allow(unused_variables)]
+    fn compute_size(&self) -> u32 {
+        let mut my_size = 0;
+        if let Some(ref v) = self.region.as_ref() {
+            let len = v.compute_size();
+            my_size += 1 + ::protobuf::rt::compute_raw_varint32_size(len) + len;
+        }
+        if let Some(ref v) = self.apply_state.as_ref() {
+            let len = v.compute_size();
+            my_size += 1 + ::protobuf::rt::compute_raw_varint32_size(len) + len;
+        }
+        my_size += ::protobuf::rt::unknown_fields_size(self.get_unknown_fields());
+        self.cached_size.set(my_size);
+        my_size
+    }
+
+    fn write_to_with_cached_sizes(&self, os: &mut ::protobuf::CodedOutputStream) -> ::protobuf::ProtobufResult<()> {
+        if let Some(ref v) = self.region.as_ref() {
+            os.write_tag(1, ::protobuf::wire_format::WireTypeLengthDelimited)?;
+            os.write_raw_varint32(v.get_cached_size())?;
+            v.write_to_with_cached_sizes(os)?;
+        }
+        if let Some(ref v) = self.apply_state.as_ref() {
+            os.write_tag(2, ::protobuf::wire_format::WireTypeLengthDelimited)?;
+            os.write_raw_varint32(v.get_cached_size())?;
+            v.write_to_with_cached_sizes(os)?;
+        }
+        os.write_unknown_fields(self.get_unknown_fields())?;
+        ::std::result::Result::Ok(())
+    }
+
+    fn get_cached_size(&self) -> u32 {
+        self.cached_size.get()
+    }
+
+    fn get_unknown_fields(&self) -> &::protobuf::UnknownFields {
+        &self.unknown_fields
+    }
+
+    fn mut_unknown_fields(&mut self) -> &mut ::protobuf::UnknownFields {
+        &mut self.unknown_fields
+    }
+
+    fn as_any(&self) -> &::std::any::Any {
+        self as &::std::any::Any
+    }
+    fn as_any_mut(&mut self) -> &mut ::std::any::Any {
+        self as &mut ::std::any::Any
+    }
+    fn into_any(self: Box<Self>) -> ::std::boxed::Box<::std::any::Any> {
+        self
+    }
+
+    fn descriptor(&self) -> &'static ::protobuf::reflect::MessageDescriptor {
+        Self::descriptor_static()
+    }
+
+    fn new() -> SnapshotState {
+        SnapshotState::new()
+    }
+
+    fn descriptor_static() -> &'static ::protobuf::reflect::MessageDescriptor {
+        static mut descriptor: ::protobuf::lazy::Lazy<::protobuf::reflect::MessageDescriptor> = ::protobuf::lazy::Lazy {
+            lock: ::protobuf::lazy::ONCE_INIT,
+            ptr: 0 as *const ::protobuf::reflect::MessageDescriptor,
+        };
+        unsafe {
+            descriptor.get(|| {
+                let mut fields = ::std::vec::Vec::new();
+                fields.push(::protobuf::reflect::accessor::make_singular_ptr_field_accessor::<_, ::protobuf::types::ProtobufTypeMessage<super::metapb::Region>>(
+                    "region",
+                    |m: &SnapshotState| { &m.region },
+                    |m: &mut SnapshotState| { &mut m.region },
+                ));
+                fields.push(::protobuf::reflect::accessor::make_singular_ptr_field_accessor::<_, ::protobuf::types::ProtobufTypeMessage<super::raft_serverpb::RaftApplyState>>(
+                    "apply_state",
+                    |m: &SnapshotState| { &m.apply_state },
+                    |m: &mut SnapshotState| { &mut m.apply_state },
+                ));
+                ::protobuf::reflect::MessageDescriptor::new::<SnapshotState>(
+                    "SnapshotState",
+                    fields,
+                    file_descriptor_proto()
+                )
+            })
+        }
+    }
+
+    fn default_instance() -> &'static SnapshotState {
+        static mut instance: ::protobuf::lazy::Lazy<SnapshotState> = ::protobuf::lazy::Lazy {
+            lock: ::protobuf::lazy::ONCE_INIT,
+            ptr: 0 as *const SnapshotState,
+        };
+        unsafe {
+            instance.get(SnapshotState::new)
+        }
+    }
+}
+
+impl ::protobuf::Clear for SnapshotState {
+    fn clear(&mut self) {
+        self.clear_region();
+        self.clear_apply_state();
+        self.unknown_fields.clear();
+    }
+}
+
+impl ::std::fmt::Debug for SnapshotState {
+    fn fmt(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
+        ::protobuf::text_format::fmt(self, f)
+    }
+}
+
+impl ::protobuf::reflect::ProtobufValue for SnapshotState {
     fn as_ref(&self) -> ::protobuf::reflect::ProtobufValueRef {
         ::protobuf::reflect::ProtobufValueRef::Message(self)
     }
@@ -1577,7 +1812,7 @@ pub struct SnapshotRequest {
 
 #[derive(Clone,PartialEq)]
 pub enum SnapshotRequest_oneof_chunk {
-    region(super::metapb::Region),
+    state(SnapshotState),
     data(SnapshotData),
 }
 
@@ -1586,52 +1821,52 @@ impl SnapshotRequest {
         ::std::default::Default::default()
     }
 
-    // .metapb.Region region = 1;
+    // .enginepb.SnapshotState state = 1;
 
-    pub fn clear_region(&mut self) {
+    pub fn clear_state(&mut self) {
         self.chunk = ::std::option::Option::None;
     }
 
-    pub fn has_region(&self) -> bool {
+    pub fn has_state(&self) -> bool {
         match self.chunk {
-            ::std::option::Option::Some(SnapshotRequest_oneof_chunk::region(..)) => true,
+            ::std::option::Option::Some(SnapshotRequest_oneof_chunk::state(..)) => true,
             _ => false,
         }
     }
 
     // Param is passed by value, moved
-    pub fn set_region(&mut self, v: super::metapb::Region) {
-        self.chunk = ::std::option::Option::Some(SnapshotRequest_oneof_chunk::region(v))
+    pub fn set_state(&mut self, v: SnapshotState) {
+        self.chunk = ::std::option::Option::Some(SnapshotRequest_oneof_chunk::state(v))
     }
 
     // Mutable pointer to the field.
-    pub fn mut_region(&mut self) -> &mut super::metapb::Region {
-        if let ::std::option::Option::Some(SnapshotRequest_oneof_chunk::region(_)) = self.chunk {
+    pub fn mut_state(&mut self) -> &mut SnapshotState {
+        if let ::std::option::Option::Some(SnapshotRequest_oneof_chunk::state(_)) = self.chunk {
         } else {
-            self.chunk = ::std::option::Option::Some(SnapshotRequest_oneof_chunk::region(super::metapb::Region::new()));
+            self.chunk = ::std::option::Option::Some(SnapshotRequest_oneof_chunk::state(SnapshotState::new()));
         }
         match self.chunk {
-            ::std::option::Option::Some(SnapshotRequest_oneof_chunk::region(ref mut v)) => v,
+            ::std::option::Option::Some(SnapshotRequest_oneof_chunk::state(ref mut v)) => v,
             _ => panic!(),
         }
     }
 
     // Take field
-    pub fn take_region(&mut self) -> super::metapb::Region {
-        if self.has_region() {
+    pub fn take_state(&mut self) -> SnapshotState {
+        if self.has_state() {
             match self.chunk.take() {
-                ::std::option::Option::Some(SnapshotRequest_oneof_chunk::region(v)) => v,
+                ::std::option::Option::Some(SnapshotRequest_oneof_chunk::state(v)) => v,
                 _ => panic!(),
             }
         } else {
-            super::metapb::Region::new()
+            SnapshotState::new()
         }
     }
 
-    pub fn get_region(&self) -> &super::metapb::Region {
+    pub fn get_state(&self) -> &SnapshotState {
         match self.chunk {
-            ::std::option::Option::Some(SnapshotRequest_oneof_chunk::region(ref v)) => v,
-            _ => super::metapb::Region::default_instance(),
+            ::std::option::Option::Some(SnapshotRequest_oneof_chunk::state(ref v)) => v,
+            _ => SnapshotState::default_instance(),
         }
     }
 
@@ -1687,7 +1922,7 @@ impl SnapshotRequest {
 
 impl ::protobuf::Message for SnapshotRequest {
     fn is_initialized(&self) -> bool {
-        if let Some(SnapshotRequest_oneof_chunk::region(ref v)) = self.chunk {
+        if let Some(SnapshotRequest_oneof_chunk::state(ref v)) = self.chunk {
             if !v.is_initialized() {
                 return false;
             }
@@ -1708,7 +1943,7 @@ impl ::protobuf::Message for SnapshotRequest {
                     if wire_type != ::protobuf::wire_format::WireTypeLengthDelimited {
                         return ::std::result::Result::Err(::protobuf::rt::unexpected_wire_type(wire_type));
                     }
-                    self.chunk = ::std::option::Option::Some(SnapshotRequest_oneof_chunk::region(is.read_message()?));
+                    self.chunk = ::std::option::Option::Some(SnapshotRequest_oneof_chunk::state(is.read_message()?));
                 },
                 2 => {
                     if wire_type != ::protobuf::wire_format::WireTypeLengthDelimited {
@@ -1730,7 +1965,7 @@ impl ::protobuf::Message for SnapshotRequest {
         let mut my_size = 0;
         if let ::std::option::Option::Some(ref v) = self.chunk {
             match v {
-                &SnapshotRequest_oneof_chunk::region(ref v) => {
+                &SnapshotRequest_oneof_chunk::state(ref v) => {
                     let len = v.compute_size();
                     my_size += 1 + ::protobuf::rt::compute_raw_varint32_size(len) + len;
                 },
@@ -1748,7 +1983,7 @@ impl ::protobuf::Message for SnapshotRequest {
     fn write_to_with_cached_sizes(&self, os: &mut ::protobuf::CodedOutputStream) -> ::protobuf::ProtobufResult<()> {
         if let ::std::option::Option::Some(ref v) = self.chunk {
             match v {
-                &SnapshotRequest_oneof_chunk::region(ref v) => {
+                &SnapshotRequest_oneof_chunk::state(ref v) => {
                     os.write_tag(1, ::protobuf::wire_format::WireTypeLengthDelimited)?;
                     os.write_raw_varint32(v.get_cached_size())?;
                     v.write_to_with_cached_sizes(os)?;
@@ -1802,10 +2037,10 @@ impl ::protobuf::Message for SnapshotRequest {
         unsafe {
             descriptor.get(|| {
                 let mut fields = ::std::vec::Vec::new();
-                fields.push(::protobuf::reflect::accessor::make_singular_message_accessor::<_, super::metapb::Region>(
-                    "region",
-                    SnapshotRequest::has_region,
-                    SnapshotRequest::get_region,
+                fields.push(::protobuf::reflect::accessor::make_singular_message_accessor::<_, SnapshotState>(
+                    "state",
+                    SnapshotRequest::has_state,
+                    SnapshotRequest::get_state,
                 ));
                 fields.push(::protobuf::reflect::accessor::make_singular_message_accessor::<_, SnapshotData>(
                     "data",
@@ -1834,7 +2069,7 @@ impl ::protobuf::Message for SnapshotRequest {
 
 impl ::protobuf::Clear for SnapshotRequest {
     fn clear(&mut self) {
-        self.clear_region();
+        self.clear_state();
         self.clear_data();
         self.unknown_fields.clear();
     }
@@ -1983,50 +2218,53 @@ static file_descriptor_proto_data: &'static [u8] = b"\
     \radmin_request\x18\x03\x20\x01(\x0b2\x18.raft_cmdpb.AdminRequestR\x0cad\
     minRequest\x12@\n\x0eadmin_response\x18\x04\x20\x01(\x0b2\x19.raft_cmdpb\
     .AdminResponseR\radminResponse\"K\n\x13CommandRequestBatch\x124\n\x08req\
-    uests\x18\x01\x20\x03(\x0b2\x18.enginepb.CommandRequestR\x08requests\"-\
-    \n\x0eResponseHeader\x12\x1b\n\tregion_id\x18\x01\x20\x01(\x04R\x08regio\
-    nId\"\x83\x01\n\x0fCommandResponse\x120\n\x06header\x18\x01\x20\x01(\x0b\
-    2\x18.enginepb.ResponseHeaderR\x06header\x12>\n\x0bapply_state\x18\x02\
-    \x20\x01(\x0b2\x1d.raft_serverpb.RaftApplyStateR\napplyState\"O\n\x14Com\
-    mandResponseBatch\x127\n\tresponses\x18\x01\x20\x03(\x0b2\x19.enginepb.C\
-    ommandResponseR\tresponses\"g\n\x0cSnapshotData\x12\x0e\n\x02cf\x18\x01\
-    \x20\x01(\tR\x02cf\x12\x1a\n\x08checksum\x18\x02\x20\x01(\rR\x08checksum\
-    \x12+\n\x04data\x18\x03\x20\x03(\x0b2\x17.raft_serverpb.KeyValueR\x04dat\
-    a\"r\n\x0fSnapshotRequest\x12(\n\x06region\x18\x01\x20\x01(\x0b2\x0e.met\
-    apb.RegionH\0R\x06region\x12,\n\x04data\x18\x02\x20\x01(\x0b2\x16.engine\
-    pb.SnapshotDataH\0R\x04dataB\x07\n\x05chunk\"\x0e\n\x0cSnapshotDone2\xaa\
-    \x01\n\x06Engine\x12X\n\x11ApplyCommandBatch\x12\x1d.enginepb.CommandReq\
-    uestBatch\x1a\x1e.enginepb.CommandResponseBatch\"\0(\x010\x01\x12F\n\rAp\
-    plySnapshot\x12\x19.enginepb.SnapshotRequest\x1a\x16.enginepb.SnapshotDo\
-    ne\"\0(\x01J\xc4\x0f\n\x06\x12\x04\0\0G\x01\n\x08\n\x01\x0c\x12\x03\0\0\
-    \x12\n\x08\n\x01\x02\x12\x03\x01\x08\x10\n\t\n\x02\x03\0\x12\x03\x03\x07\
-    \x15\n\t\n\x02\x03\x01\x12\x03\x04\x07\x19\n\t\n\x02\x03\x02\x12\x03\x05\
-    \x07\x1c\n\n\n\x02\x04\0\x12\x04\x07\0\x0e\x01\n\n\n\x03\x04\0\x01\x12\
-    \x03\x07\x08\x1c\n\x0b\n\x04\x04\0\x02\0\x12\x03\x08\x04\x19\n\r\n\x05\
-    \x04\0\x02\0\x04\x12\x04\x08\x04\x07\x1e\n\x0c\n\x05\x04\0\x02\0\x05\x12\
-    \x03\x08\x04\n\n\x0c\n\x05\x04\0\x02\0\x01\x12\x03\x08\x0b\x14\n\x0c\n\
-    \x05\x04\0\x02\0\x03\x12\x03\x08\x17\x18\n,\n\x04\x04\0\x02\x01\x12\x03\
-    \x0b\x04\x16\x1a\x1f\x20Flush\x20in-memory\x20data\x20to\x20disk.\n\n\r\
-    \n\x05\x04\0\x02\x01\x04\x12\x04\x0b\x04\x08\x19\n\x0c\n\x05\x04\0\x02\
-    \x01\x05\x12\x03\x0b\x04\x08\n\x0c\n\x05\x04\0\x02\x01\x01\x12\x03\x0b\t\
-    \x11\n\x0c\n\x05\x04\0\x02\x01\x03\x12\x03\x0b\x14\x15\n\x0b\n\x04\x04\0\
-    \x02\x02\x12\x03\r\x04\x15\n\r\n\x05\x04\0\x02\x02\x04\x12\x04\r\x04\x0b\
-    \x16\n\x0c\n\x05\x04\0\x02\x02\x05\x12\x03\r\x04\n\n\x0c\n\x05\x04\0\x02\
-    \x02\x01\x12\x03\r\x0b\x10\n\x0c\n\x05\x04\0\x02\x02\x03\x12\x03\r\x13\
-    \x14\n\n\n\x02\x04\x01\x12\x04\x10\0\x1d\x01\n\n\n\x03\x04\x01\x01\x12\
-    \x03\x10\x08\x16\n\x0b\n\x04\x04\x01\x02\0\x12\x03\x11\x04$\n\r\n\x05\
-    \x04\x01\x02\0\x04\x12\x04\x11\x04\x10\x18\n\x0c\n\x05\x04\x01\x02\0\x06\
-    \x12\x03\x11\x04\x18\n\x0c\n\x05\x04\x01\x02\0\x01\x12\x03\x11\x19\x1f\n\
-    \x0c\n\x05\x04\x01\x02\0\x03\x12\x03\x11\"#\nk\n\x04\x04\x01\x02\x01\x12\
-    \x03\x17\x04-\x1a\x11\x20kv\x20put\x20/\x20delete\n2K\x20We\x20don't\x20\
-    enclose\x20normal\x20requests\x20and\x20administrator\x20request\n\x20at\
-    \x20same\x20time.\n\n\x0c\n\x05\x04\x01\x02\x01\x04\x12\x03\x17\x04\x0c\
-    \n\x0c\n\x05\x04\x01\x02\x01\x06\x12\x03\x17\r\x1f\n\x0c\n\x05\x04\x01\
-    \x02\x01\x01\x12\x03\x17\x20(\n\x0c\n\x05\x04\x01\x02\x01\x03\x12\x03\
-    \x17+,\n4\n\x04\x04\x01\x02\x02\x12\x03\x1a\x04.\x1a'\x20region\x20metad\
-    ata\x20manipulation\x20command.\n\n\r\n\x05\x04\x01\x02\x02\x04\x12\x04\
-    \x1a\x04\x17-\n\x0c\n\x05\x04\x01\x02\x02\x06\x12\x03\x1a\x04\x1b\n\x0c\
-    \n\x05\x04\x01\x02\x02\x01\x12\x03\x1a\x1c)\n\x0c\n\x05\x04\x01\x02\x02\
+    uests\x18\x01\x20\x03(\x0b2\x18.enginepb.CommandRequestR\x08requests\"4\
+    \n\x15CommandResponseHeader\x12\x1b\n\tregion_id\x18\x01\x20\x01(\x04R\
+    \x08regionId\"\x8a\x01\n\x0fCommandResponse\x127\n\x06header\x18\x01\x20\
+    \x01(\x0b2\x1f.enginepb.CommandResponseHeaderR\x06header\x12>\n\x0bapply\
+    _state\x18\x02\x20\x01(\x0b2\x1d.raft_serverpb.RaftApplyStateR\napplySta\
+    te\"O\n\x14CommandResponseBatch\x127\n\tresponses\x18\x01\x20\x03(\x0b2\
+    \x19.enginepb.CommandResponseR\tresponses\"w\n\rSnapshotState\x12&\n\x06\
+    region\x18\x01\x20\x01(\x0b2\x0e.metapb.RegionR\x06region\x12>\n\x0bappl\
+    y_state\x18\x02\x20\x01(\x0b2\x1d.raft_serverpb.RaftApplyStateR\napplySt\
+    ate\"g\n\x0cSnapshotData\x12\x0e\n\x02cf\x18\x01\x20\x01(\tR\x02cf\x12\
+    \x1a\n\x08checksum\x18\x02\x20\x01(\rR\x08checksum\x12+\n\x04data\x18\
+    \x03\x20\x03(\x0b2\x17.raft_serverpb.KeyValueR\x04data\"y\n\x0fSnapshotR\
+    equest\x12/\n\x05state\x18\x01\x20\x01(\x0b2\x17.enginepb.SnapshotStateH\
+    \0R\x05state\x12,\n\x04data\x18\x02\x20\x01(\x0b2\x16.enginepb.SnapshotD\
+    ataH\0R\x04dataB\x07\n\x05chunk\"\x0e\n\x0cSnapshotDone2\xaa\x01\n\x06En\
+    gine\x12X\n\x11ApplyCommandBatch\x12\x1d.enginepb.CommandRequestBatch\
+    \x1a\x1e.enginepb.CommandResponseBatch\"\0(\x010\x01\x12F\n\rApplySnapsh\
+    ot\x12\x19.enginepb.SnapshotRequest\x1a\x16.enginepb.SnapshotDone\"\0(\
+    \x01J\xe8\x10\n\x06\x12\x04\0\0L\x01\n\x08\n\x01\x0c\x12\x03\0\0\x12\n\
+    \x08\n\x01\x02\x12\x03\x01\x08\x10\n\t\n\x02\x03\0\x12\x03\x03\x07\x15\n\
+    \t\n\x02\x03\x01\x12\x03\x04\x07\x19\n\t\n\x02\x03\x02\x12\x03\x05\x07\
+    \x1c\n\n\n\x02\x04\0\x12\x04\x07\0\x0e\x01\n\n\n\x03\x04\0\x01\x12\x03\
+    \x07\x08\x1c\n\x0b\n\x04\x04\0\x02\0\x12\x03\x08\x04\x19\n\r\n\x05\x04\0\
+    \x02\0\x04\x12\x04\x08\x04\x07\x1e\n\x0c\n\x05\x04\0\x02\0\x05\x12\x03\
+    \x08\x04\n\n\x0c\n\x05\x04\0\x02\0\x01\x12\x03\x08\x0b\x14\n\x0c\n\x05\
+    \x04\0\x02\0\x03\x12\x03\x08\x17\x18\n,\n\x04\x04\0\x02\x01\x12\x03\x0b\
+    \x04\x16\x1a\x1f\x20Flush\x20in-memory\x20data\x20to\x20disk.\n\n\r\n\
+    \x05\x04\0\x02\x01\x04\x12\x04\x0b\x04\x08\x19\n\x0c\n\x05\x04\0\x02\x01\
+    \x05\x12\x03\x0b\x04\x08\n\x0c\n\x05\x04\0\x02\x01\x01\x12\x03\x0b\t\x11\
+    \n\x0c\n\x05\x04\0\x02\x01\x03\x12\x03\x0b\x14\x15\n\x0b\n\x04\x04\0\x02\
+    \x02\x12\x03\r\x04\x15\n\r\n\x05\x04\0\x02\x02\x04\x12\x04\r\x04\x0b\x16\
+    \n\x0c\n\x05\x04\0\x02\x02\x05\x12\x03\r\x04\n\n\x0c\n\x05\x04\0\x02\x02\
+    \x01\x12\x03\r\x0b\x10\n\x0c\n\x05\x04\0\x02\x02\x03\x12\x03\r\x13\x14\n\
+    \n\n\x02\x04\x01\x12\x04\x10\0\x1d\x01\n\n\n\x03\x04\x01\x01\x12\x03\x10\
+    \x08\x16\n\x0b\n\x04\x04\x01\x02\0\x12\x03\x11\x04$\n\r\n\x05\x04\x01\
+    \x02\0\x04\x12\x04\x11\x04\x10\x18\n\x0c\n\x05\x04\x01\x02\0\x06\x12\x03\
+    \x11\x04\x18\n\x0c\n\x05\x04\x01\x02\0\x01\x12\x03\x11\x19\x1f\n\x0c\n\
+    \x05\x04\x01\x02\0\x03\x12\x03\x11\"#\nk\n\x04\x04\x01\x02\x01\x12\x03\
+    \x17\x04-\x1a\x11\x20kv\x20put\x20/\x20delete\n2K\x20We\x20don't\x20encl\
+    ose\x20normal\x20requests\x20and\x20administrator\x20request\n\x20at\x20\
+    same\x20time.\n\n\x0c\n\x05\x04\x01\x02\x01\x04\x12\x03\x17\x04\x0c\n\
+    \x0c\n\x05\x04\x01\x02\x01\x06\x12\x03\x17\r\x1f\n\x0c\n\x05\x04\x01\x02\
+    \x01\x01\x12\x03\x17\x20(\n\x0c\n\x05\x04\x01\x02\x01\x03\x12\x03\x17+,\
+    \n4\n\x04\x04\x01\x02\x02\x12\x03\x1a\x04.\x1a'\x20region\x20metadata\
+    \x20manipulation\x20command.\n\n\r\n\x05\x04\x01\x02\x02\x04\x12\x04\x1a\
+    \x04\x17-\n\x0c\n\x05\x04\x01\x02\x02\x06\x12\x03\x1a\x04\x1b\n\x0c\n\
+    \x05\x04\x01\x02\x02\x01\x12\x03\x1a\x1c)\n\x0c\n\x05\x04\x01\x02\x02\
     \x03\x12\x03\x1a,-\n3\n\x04\x04\x01\x02\x03\x12\x03\x1c\x040\x1a&\x20reg\
     ion\x20metadata\x20manipulation\x20result.\n\n\r\n\x05\x04\x01\x02\x03\
     \x04\x12\x04\x1c\x04\x1a.\n\x0c\n\x05\x04\x01\x02\x03\x06\x12\x03\x1c\
@@ -2036,52 +2274,59 @@ static file_descriptor_proto_data: &'static [u8] = b"\
     \x03\x20\x04)\n\x0c\n\x05\x04\x02\x02\0\x04\x12\x03\x20\x04\x0c\n\x0c\n\
     \x05\x04\x02\x02\0\x06\x12\x03\x20\r\x1b\n\x0c\n\x05\x04\x02\x02\0\x01\
     \x12\x03\x20\x1c$\n\x0c\n\x05\x04\x02\x02\0\x03\x12\x03\x20'(\n\n\n\x02\
-    \x04\x03\x12\x04#\0%\x01\n\n\n\x03\x04\x03\x01\x12\x03#\x08\x16\n\x0b\n\
+    \x04\x03\x12\x04#\0%\x01\n\n\n\x03\x04\x03\x01\x12\x03#\x08\x1d\n\x0b\n\
     \x04\x04\x03\x02\0\x12\x03$\x04\x19\n\r\n\x05\x04\x03\x02\0\x04\x12\x04$\
-    \x04#\x18\n\x0c\n\x05\x04\x03\x02\0\x05\x12\x03$\x04\n\n\x0c\n\x05\x04\
+    \x04#\x1f\n\x0c\n\x05\x04\x03\x02\0\x05\x12\x03$\x04\n\n\x0c\n\x05\x04\
     \x03\x02\0\x01\x12\x03$\x0b\x14\n\x0c\n\x05\x04\x03\x02\0\x03\x12\x03$\
     \x17\x18\n\n\n\x02\x04\x04\x12\x04'\0+\x01\n\n\n\x03\x04\x04\x01\x12\x03\
-    '\x08\x17\n\x0b\n\x04\x04\x04\x02\0\x12\x03(\x04\x1e\n\r\n\x05\x04\x04\
-    \x02\0\x04\x12\x04(\x04'\x19\n\x0c\n\x05\x04\x04\x02\0\x06\x12\x03(\x04\
-    \x12\n\x0c\n\x05\x04\x04\x02\0\x01\x12\x03(\x13\x19\n\x0c\n\x05\x04\x04\
-    \x02\0\x03\x12\x03(\x1c\x1d\n\x0b\n\x04\x04\x04\x02\x01\x12\x03*\x041\n\
-    \r\n\x05\x04\x04\x02\x01\x04\x12\x04*\x04(\x1e\n\x0c\n\x05\x04\x04\x02\
-    \x01\x06\x12\x03*\x04\x20\n\x0c\n\x05\x04\x04\x02\x01\x01\x12\x03*!,\n\
-    \x0c\n\x05\x04\x04\x02\x01\x03\x12\x03*/0\n\n\n\x02\x04\x05\x12\x04-\0/\
-    \x01\n\n\n\x03\x04\x05\x01\x12\x03-\x08\x1c\n\x0b\n\x04\x04\x05\x02\0\
-    \x12\x03.\x04+\n\x0c\n\x05\x04\x05\x02\0\x04\x12\x03.\x04\x0c\n\x0c\n\
-    \x05\x04\x05\x02\0\x06\x12\x03.\r\x1c\n\x0c\n\x05\x04\x05\x02\0\x01\x12\
-    \x03.\x1d&\n\x0c\n\x05\x04\x05\x02\0\x03\x12\x03.)*\n\n\n\x02\x04\x06\
-    \x12\x041\05\x01\n\n\n\x03\x04\x06\x01\x12\x031\x08\x14\n\x0b\n\x04\x04\
-    \x06\x02\0\x12\x032\x04\x12\n\r\n\x05\x04\x06\x02\0\x04\x12\x042\x041\
-    \x16\n\x0c\n\x05\x04\x06\x02\0\x05\x12\x032\x04\n\n\x0c\n\x05\x04\x06\
-    \x02\0\x01\x12\x032\x0b\r\n\x0c\n\x05\x04\x06\x02\0\x03\x12\x032\x10\x11\
-    \n\x0b\n\x04\x04\x06\x02\x01\x12\x033\x04\x18\n\r\n\x05\x04\x06\x02\x01\
-    \x04\x12\x043\x042\x12\n\x0c\n\x05\x04\x06\x02\x01\x05\x12\x033\x04\n\n\
-    \x0c\n\x05\x04\x06\x02\x01\x01\x12\x033\x0b\x13\n\x0c\n\x05\x04\x06\x02\
-    \x01\x03\x12\x033\x16\x17\n\x0b\n\x04\x04\x06\x02\x02\x12\x034\x04-\n\
-    \x0c\n\x05\x04\x06\x02\x02\x04\x12\x034\x04\x0c\n\x0c\n\x05\x04\x06\x02\
-    \x02\x06\x12\x034\r#\n\x0c\n\x05\x04\x06\x02\x02\x01\x12\x034$(\n\x0c\n\
-    \x05\x04\x06\x02\x02\x03\x12\x034+,\n\n\n\x02\x04\x07\x12\x047\0@\x01\n\
-    \n\n\x03\x04\x07\x01\x12\x037\x08\x17\n\x0c\n\x04\x04\x07\x08\0\x12\x048\
-    \x04?\x05\n\x0c\n\x05\x04\x07\x08\0\x01\x12\x038\n\x0f\nr\n\x04\x04\x07\
-    \x02\0\x12\x03;\x08!\x1ae\x20The\x20first\x20message\x20for\x20snapshots\
-    .\n\x20It\x20contains\x20the\x20latest\x20region\x20information\x20after\
-    \x20applied\x20snapshot.\n\n\x0c\n\x05\x04\x07\x02\0\x06\x12\x03;\x08\
-    \x15\n\x0c\n\x05\x04\x07\x02\0\x01\x12\x03;\x16\x1c\n\x0c\n\x05\x04\x07\
-    \x02\0\x03\x12\x03;\x1f\x20\n2\n\x04\x04\x07\x02\x01\x12\x03>\x08\x1e\
-    \x1a%\x20Following\x20messages\x20are\x20always\x20data.\n\n\x0c\n\x05\
-    \x04\x07\x02\x01\x06\x12\x03>\x08\x14\n\x0c\n\x05\x04\x07\x02\x01\x01\
-    \x12\x03>\x15\x19\n\x0c\n\x05\x04\x07\x02\x01\x03\x12\x03>\x1c\x1d\n\t\n\
-    \x02\x04\x08\x12\x03B\0\x17\n\n\n\x03\x04\x08\x01\x12\x03B\x08\x14\n\n\n\
-    \x02\x06\0\x12\x04D\0G\x01\n\n\n\x03\x06\0\x01\x12\x03D\x08\x0e\n\x0b\n\
-    \x04\x06\0\x02\0\x12\x03E\x04^\n\x0c\n\x05\x06\0\x02\0\x01\x12\x03E\x08\
-    \x19\n\x0c\n\x05\x06\0\x02\0\x05\x12\x03E\x1a\x20\n\x0c\n\x05\x06\0\x02\
-    \0\x02\x12\x03E!4\n\x0c\n\x05\x06\0\x02\0\x06\x12\x03E?E\n\x0c\n\x05\x06\
-    \0\x02\0\x03\x12\x03EFZ\n\x0b\n\x04\x06\0\x02\x01\x12\x03F\x04G\n\x0c\n\
-    \x05\x06\0\x02\x01\x01\x12\x03F\x08\x15\n\x0c\n\x05\x06\0\x02\x01\x05\
-    \x12\x03F\x16\x1c\n\x0c\n\x05\x06\0\x02\x01\x02\x12\x03F\x1d,\n\x0c\n\
-    \x05\x06\0\x02\x01\x03\x12\x03F7Cb\x06proto3\
+    '\x08\x17\n\x0b\n\x04\x04\x04\x02\0\x12\x03(\x04%\n\r\n\x05\x04\x04\x02\
+    \0\x04\x12\x04(\x04'\x19\n\x0c\n\x05\x04\x04\x02\0\x06\x12\x03(\x04\x19\
+    \n\x0c\n\x05\x04\x04\x02\0\x01\x12\x03(\x1a\x20\n\x0c\n\x05\x04\x04\x02\
+    \0\x03\x12\x03(#$\n\x0b\n\x04\x04\x04\x02\x01\x12\x03*\x041\n\r\n\x05\
+    \x04\x04\x02\x01\x04\x12\x04*\x04(%\n\x0c\n\x05\x04\x04\x02\x01\x06\x12\
+    \x03*\x04\x20\n\x0c\n\x05\x04\x04\x02\x01\x01\x12\x03*!,\n\x0c\n\x05\x04\
+    \x04\x02\x01\x03\x12\x03*/0\n\n\n\x02\x04\x05\x12\x04-\0/\x01\n\n\n\x03\
+    \x04\x05\x01\x12\x03-\x08\x1c\n\x0b\n\x04\x04\x05\x02\0\x12\x03.\x04+\n\
+    \x0c\n\x05\x04\x05\x02\0\x04\x12\x03.\x04\x0c\n\x0c\n\x05\x04\x05\x02\0\
+    \x06\x12\x03.\r\x1c\n\x0c\n\x05\x04\x05\x02\0\x01\x12\x03.\x1d&\n\x0c\n\
+    \x05\x04\x05\x02\0\x03\x12\x03.)*\n\n\n\x02\x04\x06\x12\x041\04\x01\n\n\
+    \n\x03\x04\x06\x01\x12\x031\x08\x15\n\x0b\n\x04\x04\x06\x02\0\x12\x032\
+    \x04\x1d\n\r\n\x05\x04\x06\x02\0\x04\x12\x042\x041\x17\n\x0c\n\x05\x04\
+    \x06\x02\0\x06\x12\x032\x04\x11\n\x0c\n\x05\x04\x06\x02\0\x01\x12\x032\
+    \x12\x18\n\x0c\n\x05\x04\x06\x02\0\x03\x12\x032\x1b\x1c\n\x0b\n\x04\x04\
+    \x06\x02\x01\x12\x033\x041\n\r\n\x05\x04\x06\x02\x01\x04\x12\x043\x042\
+    \x1d\n\x0c\n\x05\x04\x06\x02\x01\x06\x12\x033\x04\x20\n\x0c\n\x05\x04\
+    \x06\x02\x01\x01\x12\x033!,\n\x0c\n\x05\x04\x06\x02\x01\x03\x12\x033/0\n\
+    \n\n\x02\x04\x07\x12\x046\0:\x01\n\n\n\x03\x04\x07\x01\x12\x036\x08\x14\
+    \n\x0b\n\x04\x04\x07\x02\0\x12\x037\x04\x12\n\r\n\x05\x04\x07\x02\0\x04\
+    \x12\x047\x046\x16\n\x0c\n\x05\x04\x07\x02\0\x05\x12\x037\x04\n\n\x0c\n\
+    \x05\x04\x07\x02\0\x01\x12\x037\x0b\r\n\x0c\n\x05\x04\x07\x02\0\x03\x12\
+    \x037\x10\x11\n\x0b\n\x04\x04\x07\x02\x01\x12\x038\x04\x18\n\r\n\x05\x04\
+    \x07\x02\x01\x04\x12\x048\x047\x12\n\x0c\n\x05\x04\x07\x02\x01\x05\x12\
+    \x038\x04\n\n\x0c\n\x05\x04\x07\x02\x01\x01\x12\x038\x0b\x13\n\x0c\n\x05\
+    \x04\x07\x02\x01\x03\x12\x038\x16\x17\n\x0b\n\x04\x04\x07\x02\x02\x12\
+    \x039\x04-\n\x0c\n\x05\x04\x07\x02\x02\x04\x12\x039\x04\x0c\n\x0c\n\x05\
+    \x04\x07\x02\x02\x06\x12\x039\r#\n\x0c\n\x05\x04\x07\x02\x02\x01\x12\x03\
+    9$(\n\x0c\n\x05\x04\x07\x02\x02\x03\x12\x039+,\n\n\n\x02\x04\x08\x12\x04\
+    <\0E\x01\n\n\n\x03\x04\x08\x01\x12\x03<\x08\x17\n\x0c\n\x04\x04\x08\x08\
+    \0\x12\x04=\x04D\x05\n\x0c\n\x05\x04\x08\x08\0\x01\x12\x03=\n\x0f\nr\n\
+    \x04\x04\x08\x02\0\x12\x03@\x08\x20\x1ae\x20The\x20first\x20message\x20f\
+    or\x20snapshots.\n\x20It\x20contains\x20the\x20latest\x20region\x20infor\
+    mation\x20after\x20applied\x20snapshot.\n\n\x0c\n\x05\x04\x08\x02\0\x06\
+    \x12\x03@\x08\x15\n\x0c\n\x05\x04\x08\x02\0\x01\x12\x03@\x16\x1b\n\x0c\n\
+    \x05\x04\x08\x02\0\x03\x12\x03@\x1e\x1f\n2\n\x04\x04\x08\x02\x01\x12\x03\
+    C\x08\x1e\x1a%\x20Following\x20messages\x20are\x20always\x20data.\n\n\
+    \x0c\n\x05\x04\x08\x02\x01\x06\x12\x03C\x08\x14\n\x0c\n\x05\x04\x08\x02\
+    \x01\x01\x12\x03C\x15\x19\n\x0c\n\x05\x04\x08\x02\x01\x03\x12\x03C\x1c\
+    \x1d\n\t\n\x02\x04\t\x12\x03G\0\x17\n\n\n\x03\x04\t\x01\x12\x03G\x08\x14\
+    \n\n\n\x02\x06\0\x12\x04I\0L\x01\n\n\n\x03\x06\0\x01\x12\x03I\x08\x0e\n\
+    \x0b\n\x04\x06\0\x02\0\x12\x03J\x04^\n\x0c\n\x05\x06\0\x02\0\x01\x12\x03\
+    J\x08\x19\n\x0c\n\x05\x06\0\x02\0\x05\x12\x03J\x1a\x20\n\x0c\n\x05\x06\0\
+    \x02\0\x02\x12\x03J!4\n\x0c\n\x05\x06\0\x02\0\x06\x12\x03J?E\n\x0c\n\x05\
+    \x06\0\x02\0\x03\x12\x03JFZ\n\x0b\n\x04\x06\0\x02\x01\x12\x03K\x04G\n\
+    \x0c\n\x05\x06\0\x02\x01\x01\x12\x03K\x08\x15\n\x0c\n\x05\x06\0\x02\x01\
+    \x05\x12\x03K\x16\x1c\n\x0c\n\x05\x06\0\x02\x01\x02\x12\x03K\x1d,\n\x0c\
+    \n\x05\x06\0\x02\x01\x03\x12\x03K7Cb\x06proto3\
 ";
 
 static mut file_descriptor_proto_lazy: ::protobuf::lazy::Lazy<::protobuf::descriptor::FileDescriptorProto> = ::protobuf::lazy::Lazy {
