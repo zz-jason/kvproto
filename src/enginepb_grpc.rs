@@ -18,9 +18,9 @@
 #![allow(unused_imports)]
 #![allow(unused_results)]
 
-const METHOD_ENGINE_APPLY_COMMAND: ::grpcio::Method<super::enginepb::CommandRequet, super::enginepb::CommandResponse> = ::grpcio::Method {
+const METHOD_ENGINE_APPLY_COMMAND_BATCH: ::grpcio::Method<super::enginepb::CommandRequestBatch, super::enginepb::CommandResponseBatch> = ::grpcio::Method {
     ty: ::grpcio::MethodType::Duplex,
-    name: "/enginepb.Engine/ApplyCommand",
+    name: "/enginepb.Engine/ApplyCommandBatch",
     req_mar: ::grpcio::Marshaller { ser: ::grpcio::pb_ser, de: ::grpcio::pb_de },
     resp_mar: ::grpcio::Marshaller { ser: ::grpcio::pb_ser, de: ::grpcio::pb_de },
 };
@@ -43,12 +43,12 @@ impl EngineClient {
         }
     }
 
-    pub fn apply_command_opt(&self, opt: ::grpcio::CallOption) -> ::grpcio::Result<(::grpcio::ClientDuplexSender<super::enginepb::CommandRequet>, ::grpcio::ClientDuplexReceiver<super::enginepb::CommandResponse>)> {
-        self.client.duplex_streaming(&METHOD_ENGINE_APPLY_COMMAND, opt)
+    pub fn apply_command_batch_opt(&self, opt: ::grpcio::CallOption) -> ::grpcio::Result<(::grpcio::ClientDuplexSender<super::enginepb::CommandRequestBatch>, ::grpcio::ClientDuplexReceiver<super::enginepb::CommandResponseBatch>)> {
+        self.client.duplex_streaming(&METHOD_ENGINE_APPLY_COMMAND_BATCH, opt)
     }
 
-    pub fn apply_command(&self) -> ::grpcio::Result<(::grpcio::ClientDuplexSender<super::enginepb::CommandRequet>, ::grpcio::ClientDuplexReceiver<super::enginepb::CommandResponse>)> {
-        self.apply_command_opt(::grpcio::CallOption::default())
+    pub fn apply_command_batch(&self) -> ::grpcio::Result<(::grpcio::ClientDuplexSender<super::enginepb::CommandRequestBatch>, ::grpcio::ClientDuplexReceiver<super::enginepb::CommandResponseBatch>)> {
+        self.apply_command_batch_opt(::grpcio::CallOption::default())
     }
 
     pub fn apply_snapshot_opt(&self, opt: ::grpcio::CallOption) -> ::grpcio::Result<(::grpcio::ClientCStreamSender<super::enginepb::SnapshotRequest>, ::grpcio::ClientCStreamReceiver<super::enginepb::SnapshotDone>)> {
@@ -64,15 +64,15 @@ impl EngineClient {
 }
 
 pub trait Engine {
-    fn apply_command(&mut self, ctx: ::grpcio::RpcContext, stream: ::grpcio::RequestStream<super::enginepb::CommandRequet>, sink: ::grpcio::DuplexSink<super::enginepb::CommandResponse>);
+    fn apply_command_batch(&mut self, ctx: ::grpcio::RpcContext, stream: ::grpcio::RequestStream<super::enginepb::CommandRequestBatch>, sink: ::grpcio::DuplexSink<super::enginepb::CommandResponseBatch>);
     fn apply_snapshot(&mut self, ctx: ::grpcio::RpcContext, stream: ::grpcio::RequestStream<super::enginepb::SnapshotRequest>, sink: ::grpcio::ClientStreamingSink<super::enginepb::SnapshotDone>);
 }
 
 pub fn create_engine<S: Engine + Send + Clone + 'static>(s: S) -> ::grpcio::Service {
     let mut builder = ::grpcio::ServiceBuilder::new();
     let mut instance = s.clone();
-    builder = builder.add_duplex_streaming_handler(&METHOD_ENGINE_APPLY_COMMAND, move |ctx, req, resp| {
-        instance.apply_command(ctx, req, resp)
+    builder = builder.add_duplex_streaming_handler(&METHOD_ENGINE_APPLY_COMMAND_BATCH, move |ctx, req, resp| {
+        instance.apply_command_batch(ctx, req, resp)
     });
     let mut instance = s.clone();
     builder = builder.add_client_streaming_handler(&METHOD_ENGINE_APPLY_SNAPSHOT, move |ctx, req, resp| {

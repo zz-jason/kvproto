@@ -22,17 +22,18 @@ use protobuf::Message as Message_imported_for_functions;
 use protobuf::ProtobufEnum as ProtobufEnum_imported_for_functions;
 
 #[derive(PartialEq,Clone,Default)]
-pub struct CommandRequetHeader {
+pub struct CommandRequestHeader {
     // message fields
     pub region_id: u64,
     pub sync_log: bool,
+    pub index: u64,
     // special fields
     unknown_fields: ::protobuf::UnknownFields,
     cached_size: ::protobuf::CachedSize,
 }
 
-impl CommandRequetHeader {
-    pub fn new() -> CommandRequetHeader {
+impl CommandRequestHeader {
+    pub fn new() -> CommandRequestHeader {
         ::std::default::Default::default()
     }
 
@@ -65,9 +66,24 @@ impl CommandRequetHeader {
     pub fn get_sync_log(&self) -> bool {
         self.sync_log
     }
+
+    // uint64 index = 3;
+
+    pub fn clear_index(&mut self) {
+        self.index = 0;
+    }
+
+    // Param is passed by value, moved
+    pub fn set_index(&mut self, v: u64) {
+        self.index = v;
+    }
+
+    pub fn get_index(&self) -> u64 {
+        self.index
+    }
 }
 
-impl ::protobuf::Message for CommandRequetHeader {
+impl ::protobuf::Message for CommandRequestHeader {
     fn is_initialized(&self) -> bool {
         true
     }
@@ -90,6 +106,13 @@ impl ::protobuf::Message for CommandRequetHeader {
                     let tmp = is.read_bool()?;
                     self.sync_log = tmp;
                 },
+                3 => {
+                    if wire_type != ::protobuf::wire_format::WireTypeVarint {
+                        return ::std::result::Result::Err(::protobuf::rt::unexpected_wire_type(wire_type));
+                    }
+                    let tmp = is.read_uint64()?;
+                    self.index = tmp;
+                },
                 _ => {
                     ::protobuf::rt::read_unknown_or_skip_group(field_number, wire_type, is, self.mut_unknown_fields())?;
                 },
@@ -108,6 +131,9 @@ impl ::protobuf::Message for CommandRequetHeader {
         if self.sync_log != false {
             my_size += 2;
         }
+        if self.index != 0 {
+            my_size += ::protobuf::rt::value_size(3, self.index, ::protobuf::wire_format::WireTypeVarint);
+        }
         my_size += ::protobuf::rt::unknown_fields_size(self.get_unknown_fields());
         self.cached_size.set(my_size);
         my_size
@@ -119,6 +145,9 @@ impl ::protobuf::Message for CommandRequetHeader {
         }
         if self.sync_log != false {
             os.write_bool(2, self.sync_log)?;
+        }
+        if self.index != 0 {
+            os.write_uint64(3, self.index)?;
         }
         os.write_unknown_fields(self.get_unknown_fields())?;
         ::std::result::Result::Ok(())
@@ -150,8 +179,8 @@ impl ::protobuf::Message for CommandRequetHeader {
         Self::descriptor_static()
     }
 
-    fn new() -> CommandRequetHeader {
-        CommandRequetHeader::new()
+    fn new() -> CommandRequestHeader {
+        CommandRequestHeader::new()
     }
 
     fn descriptor_static() -> &'static ::protobuf::reflect::MessageDescriptor {
@@ -164,16 +193,21 @@ impl ::protobuf::Message for CommandRequetHeader {
                 let mut fields = ::std::vec::Vec::new();
                 fields.push(::protobuf::reflect::accessor::make_simple_field_accessor::<_, ::protobuf::types::ProtobufTypeUint64>(
                     "region_id",
-                    |m: &CommandRequetHeader| { &m.region_id },
-                    |m: &mut CommandRequetHeader| { &mut m.region_id },
+                    |m: &CommandRequestHeader| { &m.region_id },
+                    |m: &mut CommandRequestHeader| { &mut m.region_id },
                 ));
                 fields.push(::protobuf::reflect::accessor::make_simple_field_accessor::<_, ::protobuf::types::ProtobufTypeBool>(
                     "sync_log",
-                    |m: &CommandRequetHeader| { &m.sync_log },
-                    |m: &mut CommandRequetHeader| { &mut m.sync_log },
+                    |m: &CommandRequestHeader| { &m.sync_log },
+                    |m: &mut CommandRequestHeader| { &mut m.sync_log },
                 ));
-                ::protobuf::reflect::MessageDescriptor::new::<CommandRequetHeader>(
-                    "CommandRequetHeader",
+                fields.push(::protobuf::reflect::accessor::make_simple_field_accessor::<_, ::protobuf::types::ProtobufTypeUint64>(
+                    "index",
+                    |m: &CommandRequestHeader| { &m.index },
+                    |m: &mut CommandRequestHeader| { &mut m.index },
+                ));
+                ::protobuf::reflect::MessageDescriptor::new::<CommandRequestHeader>(
+                    "CommandRequestHeader",
                     fields,
                     file_descriptor_proto()
                 )
@@ -181,41 +215,42 @@ impl ::protobuf::Message for CommandRequetHeader {
         }
     }
 
-    fn default_instance() -> &'static CommandRequetHeader {
-        static mut instance: ::protobuf::lazy::Lazy<CommandRequetHeader> = ::protobuf::lazy::Lazy {
+    fn default_instance() -> &'static CommandRequestHeader {
+        static mut instance: ::protobuf::lazy::Lazy<CommandRequestHeader> = ::protobuf::lazy::Lazy {
             lock: ::protobuf::lazy::ONCE_INIT,
-            ptr: 0 as *const CommandRequetHeader,
+            ptr: 0 as *const CommandRequestHeader,
         };
         unsafe {
-            instance.get(CommandRequetHeader::new)
+            instance.get(CommandRequestHeader::new)
         }
     }
 }
 
-impl ::protobuf::Clear for CommandRequetHeader {
+impl ::protobuf::Clear for CommandRequestHeader {
     fn clear(&mut self) {
         self.clear_region_id();
         self.clear_sync_log();
+        self.clear_index();
         self.unknown_fields.clear();
     }
 }
 
-impl ::std::fmt::Debug for CommandRequetHeader {
+impl ::std::fmt::Debug for CommandRequestHeader {
     fn fmt(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
         ::protobuf::text_format::fmt(self, f)
     }
 }
 
-impl ::protobuf::reflect::ProtobufValue for CommandRequetHeader {
+impl ::protobuf::reflect::ProtobufValue for CommandRequestHeader {
     fn as_ref(&self) -> ::protobuf::reflect::ProtobufValueRef {
         ::protobuf::reflect::ProtobufValueRef::Message(self)
     }
 }
 
 #[derive(PartialEq,Clone,Default)]
-pub struct CommandRequet {
+pub struct CommandRequest {
     // message fields
-    pub header: ::protobuf::SingularPtrField<CommandRequetHeader>,
+    pub header: ::protobuf::SingularPtrField<CommandRequestHeader>,
     pub requests: ::protobuf::RepeatedField<super::raft_cmdpb::Request>,
     pub admin_request: ::protobuf::SingularPtrField<super::raft_cmdpb::AdminRequest>,
     pub admin_response: ::protobuf::SingularPtrField<super::raft_cmdpb::AdminResponse>,
@@ -224,12 +259,12 @@ pub struct CommandRequet {
     cached_size: ::protobuf::CachedSize,
 }
 
-impl CommandRequet {
-    pub fn new() -> CommandRequet {
+impl CommandRequest {
+    pub fn new() -> CommandRequest {
         ::std::default::Default::default()
     }
 
-    // .enginepb.CommandRequetHeader header = 1;
+    // .enginepb.CommandRequestHeader header = 1;
 
     pub fn clear_header(&mut self) {
         self.header.clear();
@@ -240,13 +275,13 @@ impl CommandRequet {
     }
 
     // Param is passed by value, moved
-    pub fn set_header(&mut self, v: CommandRequetHeader) {
+    pub fn set_header(&mut self, v: CommandRequestHeader) {
         self.header = ::protobuf::SingularPtrField::some(v);
     }
 
     // Mutable pointer to the field.
     // If field is not initialized, it is initialized with default value first.
-    pub fn mut_header(&mut self) -> &mut CommandRequetHeader {
+    pub fn mut_header(&mut self) -> &mut CommandRequestHeader {
         if self.header.is_none() {
             self.header.set_default();
         }
@@ -254,12 +289,12 @@ impl CommandRequet {
     }
 
     // Take field
-    pub fn take_header(&mut self) -> CommandRequetHeader {
-        self.header.take().unwrap_or_else(|| CommandRequetHeader::new())
+    pub fn take_header(&mut self) -> CommandRequestHeader {
+        self.header.take().unwrap_or_else(|| CommandRequestHeader::new())
     }
 
-    pub fn get_header(&self) -> &CommandRequetHeader {
-        self.header.as_ref().unwrap_or_else(|| CommandRequetHeader::default_instance())
+    pub fn get_header(&self) -> &CommandRequestHeader {
+        self.header.as_ref().unwrap_or_else(|| CommandRequestHeader::default_instance())
     }
 
     // repeated .raft_cmdpb.Request requests = 2;
@@ -354,7 +389,7 @@ impl CommandRequet {
     }
 }
 
-impl ::protobuf::Message for CommandRequet {
+impl ::protobuf::Message for CommandRequest {
     fn is_initialized(&self) -> bool {
         for v in &self.header {
             if !v.is_initialized() {
@@ -479,8 +514,8 @@ impl ::protobuf::Message for CommandRequet {
         Self::descriptor_static()
     }
 
-    fn new() -> CommandRequet {
-        CommandRequet::new()
+    fn new() -> CommandRequest {
+        CommandRequest::new()
     }
 
     fn descriptor_static() -> &'static ::protobuf::reflect::MessageDescriptor {
@@ -491,28 +526,28 @@ impl ::protobuf::Message for CommandRequet {
         unsafe {
             descriptor.get(|| {
                 let mut fields = ::std::vec::Vec::new();
-                fields.push(::protobuf::reflect::accessor::make_singular_ptr_field_accessor::<_, ::protobuf::types::ProtobufTypeMessage<CommandRequetHeader>>(
+                fields.push(::protobuf::reflect::accessor::make_singular_ptr_field_accessor::<_, ::protobuf::types::ProtobufTypeMessage<CommandRequestHeader>>(
                     "header",
-                    |m: &CommandRequet| { &m.header },
-                    |m: &mut CommandRequet| { &mut m.header },
+                    |m: &CommandRequest| { &m.header },
+                    |m: &mut CommandRequest| { &mut m.header },
                 ));
                 fields.push(::protobuf::reflect::accessor::make_repeated_field_accessor::<_, ::protobuf::types::ProtobufTypeMessage<super::raft_cmdpb::Request>>(
                     "requests",
-                    |m: &CommandRequet| { &m.requests },
-                    |m: &mut CommandRequet| { &mut m.requests },
+                    |m: &CommandRequest| { &m.requests },
+                    |m: &mut CommandRequest| { &mut m.requests },
                 ));
                 fields.push(::protobuf::reflect::accessor::make_singular_ptr_field_accessor::<_, ::protobuf::types::ProtobufTypeMessage<super::raft_cmdpb::AdminRequest>>(
                     "admin_request",
-                    |m: &CommandRequet| { &m.admin_request },
-                    |m: &mut CommandRequet| { &mut m.admin_request },
+                    |m: &CommandRequest| { &m.admin_request },
+                    |m: &mut CommandRequest| { &mut m.admin_request },
                 ));
                 fields.push(::protobuf::reflect::accessor::make_singular_ptr_field_accessor::<_, ::protobuf::types::ProtobufTypeMessage<super::raft_cmdpb::AdminResponse>>(
                     "admin_response",
-                    |m: &CommandRequet| { &m.admin_response },
-                    |m: &mut CommandRequet| { &mut m.admin_response },
+                    |m: &CommandRequest| { &m.admin_response },
+                    |m: &mut CommandRequest| { &mut m.admin_response },
                 ));
-                ::protobuf::reflect::MessageDescriptor::new::<CommandRequet>(
-                    "CommandRequet",
+                ::protobuf::reflect::MessageDescriptor::new::<CommandRequest>(
+                    "CommandRequest",
                     fields,
                     file_descriptor_proto()
                 )
@@ -520,18 +555,18 @@ impl ::protobuf::Message for CommandRequet {
         }
     }
 
-    fn default_instance() -> &'static CommandRequet {
-        static mut instance: ::protobuf::lazy::Lazy<CommandRequet> = ::protobuf::lazy::Lazy {
+    fn default_instance() -> &'static CommandRequest {
+        static mut instance: ::protobuf::lazy::Lazy<CommandRequest> = ::protobuf::lazy::Lazy {
             lock: ::protobuf::lazy::ONCE_INIT,
-            ptr: 0 as *const CommandRequet,
+            ptr: 0 as *const CommandRequest,
         };
         unsafe {
-            instance.get(CommandRequet::new)
+            instance.get(CommandRequest::new)
         }
     }
 }
 
-impl ::protobuf::Clear for CommandRequet {
+impl ::protobuf::Clear for CommandRequest {
     fn clear(&mut self) {
         self.clear_header();
         self.clear_requests();
@@ -541,13 +576,183 @@ impl ::protobuf::Clear for CommandRequet {
     }
 }
 
-impl ::std::fmt::Debug for CommandRequet {
+impl ::std::fmt::Debug for CommandRequest {
     fn fmt(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
         ::protobuf::text_format::fmt(self, f)
     }
 }
 
-impl ::protobuf::reflect::ProtobufValue for CommandRequet {
+impl ::protobuf::reflect::ProtobufValue for CommandRequest {
+    fn as_ref(&self) -> ::protobuf::reflect::ProtobufValueRef {
+        ::protobuf::reflect::ProtobufValueRef::Message(self)
+    }
+}
+
+#[derive(PartialEq,Clone,Default)]
+pub struct CommandRequestBatch {
+    // message fields
+    pub requests: ::protobuf::RepeatedField<CommandRequest>,
+    // special fields
+    unknown_fields: ::protobuf::UnknownFields,
+    cached_size: ::protobuf::CachedSize,
+}
+
+impl CommandRequestBatch {
+    pub fn new() -> CommandRequestBatch {
+        ::std::default::Default::default()
+    }
+
+    // repeated .enginepb.CommandRequest requests = 1;
+
+    pub fn clear_requests(&mut self) {
+        self.requests.clear();
+    }
+
+    // Param is passed by value, moved
+    pub fn set_requests(&mut self, v: ::protobuf::RepeatedField<CommandRequest>) {
+        self.requests = v;
+    }
+
+    // Mutable pointer to the field.
+    pub fn mut_requests(&mut self) -> &mut ::protobuf::RepeatedField<CommandRequest> {
+        &mut self.requests
+    }
+
+    // Take field
+    pub fn take_requests(&mut self) -> ::protobuf::RepeatedField<CommandRequest> {
+        ::std::mem::replace(&mut self.requests, ::protobuf::RepeatedField::new())
+    }
+
+    pub fn get_requests(&self) -> &[CommandRequest] {
+        &self.requests
+    }
+}
+
+impl ::protobuf::Message for CommandRequestBatch {
+    fn is_initialized(&self) -> bool {
+        for v in &self.requests {
+            if !v.is_initialized() {
+                return false;
+            }
+        };
+        true
+    }
+
+    fn merge_from(&mut self, is: &mut ::protobuf::CodedInputStream) -> ::protobuf::ProtobufResult<()> {
+        while !is.eof()? {
+            let (field_number, wire_type) = is.read_tag_unpack()?;
+            match field_number {
+                1 => {
+                    ::protobuf::rt::read_repeated_message_into(wire_type, is, &mut self.requests)?;
+                },
+                _ => {
+                    ::protobuf::rt::read_unknown_or_skip_group(field_number, wire_type, is, self.mut_unknown_fields())?;
+                },
+            };
+        }
+        ::std::result::Result::Ok(())
+    }
+
+    // Compute sizes of nested messages
+    #[allow(unused_variables)]
+    fn compute_size(&self) -> u32 {
+        let mut my_size = 0;
+        for value in &self.requests {
+            let len = value.compute_size();
+            my_size += 1 + ::protobuf::rt::compute_raw_varint32_size(len) + len;
+        };
+        my_size += ::protobuf::rt::unknown_fields_size(self.get_unknown_fields());
+        self.cached_size.set(my_size);
+        my_size
+    }
+
+    fn write_to_with_cached_sizes(&self, os: &mut ::protobuf::CodedOutputStream) -> ::protobuf::ProtobufResult<()> {
+        for v in &self.requests {
+            os.write_tag(1, ::protobuf::wire_format::WireTypeLengthDelimited)?;
+            os.write_raw_varint32(v.get_cached_size())?;
+            v.write_to_with_cached_sizes(os)?;
+        };
+        os.write_unknown_fields(self.get_unknown_fields())?;
+        ::std::result::Result::Ok(())
+    }
+
+    fn get_cached_size(&self) -> u32 {
+        self.cached_size.get()
+    }
+
+    fn get_unknown_fields(&self) -> &::protobuf::UnknownFields {
+        &self.unknown_fields
+    }
+
+    fn mut_unknown_fields(&mut self) -> &mut ::protobuf::UnknownFields {
+        &mut self.unknown_fields
+    }
+
+    fn as_any(&self) -> &::std::any::Any {
+        self as &::std::any::Any
+    }
+    fn as_any_mut(&mut self) -> &mut ::std::any::Any {
+        self as &mut ::std::any::Any
+    }
+    fn into_any(self: Box<Self>) -> ::std::boxed::Box<::std::any::Any> {
+        self
+    }
+
+    fn descriptor(&self) -> &'static ::protobuf::reflect::MessageDescriptor {
+        Self::descriptor_static()
+    }
+
+    fn new() -> CommandRequestBatch {
+        CommandRequestBatch::new()
+    }
+
+    fn descriptor_static() -> &'static ::protobuf::reflect::MessageDescriptor {
+        static mut descriptor: ::protobuf::lazy::Lazy<::protobuf::reflect::MessageDescriptor> = ::protobuf::lazy::Lazy {
+            lock: ::protobuf::lazy::ONCE_INIT,
+            ptr: 0 as *const ::protobuf::reflect::MessageDescriptor,
+        };
+        unsafe {
+            descriptor.get(|| {
+                let mut fields = ::std::vec::Vec::new();
+                fields.push(::protobuf::reflect::accessor::make_repeated_field_accessor::<_, ::protobuf::types::ProtobufTypeMessage<CommandRequest>>(
+                    "requests",
+                    |m: &CommandRequestBatch| { &m.requests },
+                    |m: &mut CommandRequestBatch| { &mut m.requests },
+                ));
+                ::protobuf::reflect::MessageDescriptor::new::<CommandRequestBatch>(
+                    "CommandRequestBatch",
+                    fields,
+                    file_descriptor_proto()
+                )
+            })
+        }
+    }
+
+    fn default_instance() -> &'static CommandRequestBatch {
+        static mut instance: ::protobuf::lazy::Lazy<CommandRequestBatch> = ::protobuf::lazy::Lazy {
+            lock: ::protobuf::lazy::ONCE_INIT,
+            ptr: 0 as *const CommandRequestBatch,
+        };
+        unsafe {
+            instance.get(CommandRequestBatch::new)
+        }
+    }
+}
+
+impl ::protobuf::Clear for CommandRequestBatch {
+    fn clear(&mut self) {
+        self.clear_requests();
+        self.unknown_fields.clear();
+    }
+}
+
+impl ::std::fmt::Debug for CommandRequestBatch {
+    fn fmt(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
+        ::protobuf::text_format::fmt(self, f)
+    }
+}
+
+impl ::protobuf::reflect::ProtobufValue for CommandRequestBatch {
     fn as_ref(&self) -> ::protobuf::reflect::ProtobufValueRef {
         ::protobuf::reflect::ProtobufValueRef::Message(self)
     }
@@ -939,6 +1144,176 @@ impl ::std::fmt::Debug for CommandResponse {
 }
 
 impl ::protobuf::reflect::ProtobufValue for CommandResponse {
+    fn as_ref(&self) -> ::protobuf::reflect::ProtobufValueRef {
+        ::protobuf::reflect::ProtobufValueRef::Message(self)
+    }
+}
+
+#[derive(PartialEq,Clone,Default)]
+pub struct CommandResponseBatch {
+    // message fields
+    pub responses: ::protobuf::RepeatedField<CommandResponse>,
+    // special fields
+    unknown_fields: ::protobuf::UnknownFields,
+    cached_size: ::protobuf::CachedSize,
+}
+
+impl CommandResponseBatch {
+    pub fn new() -> CommandResponseBatch {
+        ::std::default::Default::default()
+    }
+
+    // repeated .enginepb.CommandResponse responses = 1;
+
+    pub fn clear_responses(&mut self) {
+        self.responses.clear();
+    }
+
+    // Param is passed by value, moved
+    pub fn set_responses(&mut self, v: ::protobuf::RepeatedField<CommandResponse>) {
+        self.responses = v;
+    }
+
+    // Mutable pointer to the field.
+    pub fn mut_responses(&mut self) -> &mut ::protobuf::RepeatedField<CommandResponse> {
+        &mut self.responses
+    }
+
+    // Take field
+    pub fn take_responses(&mut self) -> ::protobuf::RepeatedField<CommandResponse> {
+        ::std::mem::replace(&mut self.responses, ::protobuf::RepeatedField::new())
+    }
+
+    pub fn get_responses(&self) -> &[CommandResponse] {
+        &self.responses
+    }
+}
+
+impl ::protobuf::Message for CommandResponseBatch {
+    fn is_initialized(&self) -> bool {
+        for v in &self.responses {
+            if !v.is_initialized() {
+                return false;
+            }
+        };
+        true
+    }
+
+    fn merge_from(&mut self, is: &mut ::protobuf::CodedInputStream) -> ::protobuf::ProtobufResult<()> {
+        while !is.eof()? {
+            let (field_number, wire_type) = is.read_tag_unpack()?;
+            match field_number {
+                1 => {
+                    ::protobuf::rt::read_repeated_message_into(wire_type, is, &mut self.responses)?;
+                },
+                _ => {
+                    ::protobuf::rt::read_unknown_or_skip_group(field_number, wire_type, is, self.mut_unknown_fields())?;
+                },
+            };
+        }
+        ::std::result::Result::Ok(())
+    }
+
+    // Compute sizes of nested messages
+    #[allow(unused_variables)]
+    fn compute_size(&self) -> u32 {
+        let mut my_size = 0;
+        for value in &self.responses {
+            let len = value.compute_size();
+            my_size += 1 + ::protobuf::rt::compute_raw_varint32_size(len) + len;
+        };
+        my_size += ::protobuf::rt::unknown_fields_size(self.get_unknown_fields());
+        self.cached_size.set(my_size);
+        my_size
+    }
+
+    fn write_to_with_cached_sizes(&self, os: &mut ::protobuf::CodedOutputStream) -> ::protobuf::ProtobufResult<()> {
+        for v in &self.responses {
+            os.write_tag(1, ::protobuf::wire_format::WireTypeLengthDelimited)?;
+            os.write_raw_varint32(v.get_cached_size())?;
+            v.write_to_with_cached_sizes(os)?;
+        };
+        os.write_unknown_fields(self.get_unknown_fields())?;
+        ::std::result::Result::Ok(())
+    }
+
+    fn get_cached_size(&self) -> u32 {
+        self.cached_size.get()
+    }
+
+    fn get_unknown_fields(&self) -> &::protobuf::UnknownFields {
+        &self.unknown_fields
+    }
+
+    fn mut_unknown_fields(&mut self) -> &mut ::protobuf::UnknownFields {
+        &mut self.unknown_fields
+    }
+
+    fn as_any(&self) -> &::std::any::Any {
+        self as &::std::any::Any
+    }
+    fn as_any_mut(&mut self) -> &mut ::std::any::Any {
+        self as &mut ::std::any::Any
+    }
+    fn into_any(self: Box<Self>) -> ::std::boxed::Box<::std::any::Any> {
+        self
+    }
+
+    fn descriptor(&self) -> &'static ::protobuf::reflect::MessageDescriptor {
+        Self::descriptor_static()
+    }
+
+    fn new() -> CommandResponseBatch {
+        CommandResponseBatch::new()
+    }
+
+    fn descriptor_static() -> &'static ::protobuf::reflect::MessageDescriptor {
+        static mut descriptor: ::protobuf::lazy::Lazy<::protobuf::reflect::MessageDescriptor> = ::protobuf::lazy::Lazy {
+            lock: ::protobuf::lazy::ONCE_INIT,
+            ptr: 0 as *const ::protobuf::reflect::MessageDescriptor,
+        };
+        unsafe {
+            descriptor.get(|| {
+                let mut fields = ::std::vec::Vec::new();
+                fields.push(::protobuf::reflect::accessor::make_repeated_field_accessor::<_, ::protobuf::types::ProtobufTypeMessage<CommandResponse>>(
+                    "responses",
+                    |m: &CommandResponseBatch| { &m.responses },
+                    |m: &mut CommandResponseBatch| { &mut m.responses },
+                ));
+                ::protobuf::reflect::MessageDescriptor::new::<CommandResponseBatch>(
+                    "CommandResponseBatch",
+                    fields,
+                    file_descriptor_proto()
+                )
+            })
+        }
+    }
+
+    fn default_instance() -> &'static CommandResponseBatch {
+        static mut instance: ::protobuf::lazy::Lazy<CommandResponseBatch> = ::protobuf::lazy::Lazy {
+            lock: ::protobuf::lazy::ONCE_INIT,
+            ptr: 0 as *const CommandResponseBatch,
+        };
+        unsafe {
+            instance.get(CommandResponseBatch::new)
+        }
+    }
+}
+
+impl ::protobuf::Clear for CommandResponseBatch {
+    fn clear(&mut self) {
+        self.clear_responses();
+        self.unknown_fields.clear();
+    }
+}
+
+impl ::std::fmt::Debug for CommandResponseBatch {
+    fn fmt(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
+        ::protobuf::text_format::fmt(self, f)
+    }
+}
+
+impl ::protobuf::reflect::ProtobufValue for CommandResponseBatch {
     fn as_ref(&self) -> ::protobuf::reflect::ProtobufValueRef {
         ::protobuf::reflect::ProtobufValueRef::Message(self)
     }
@@ -1599,98 +1974,114 @@ impl ::protobuf::reflect::ProtobufValue for SnapshotDone {
 
 static file_descriptor_proto_data: &'static [u8] = b"\
     \n\x0eenginepb.proto\x12\x08enginepb\x1a\x0cmetapb.proto\x1a\x10raft_cmd\
-    pb.proto\x1a\x13raft_serverpb.proto\"M\n\x13CommandRequetHeader\x12\x1b\
+    pb.proto\x1a\x13raft_serverpb.proto\"d\n\x14CommandRequestHeader\x12\x1b\
     \n\tregion_id\x18\x01\x20\x01(\x04R\x08regionId\x12\x19\n\x08sync_log\
-    \x18\x02\x20\x01(\x08R\x07syncLog\"\xf8\x01\n\rCommandRequet\x125\n\x06h\
-    eader\x18\x01\x20\x01(\x0b2\x1d.enginepb.CommandRequetHeaderR\x06header\
-    \x12/\n\x08requests\x18\x02\x20\x03(\x0b2\x13.raft_cmdpb.RequestR\x08req\
-    uests\x12=\n\radmin_request\x18\x03\x20\x01(\x0b2\x18.raft_cmdpb.AdminRe\
-    questR\x0cadminRequest\x12@\n\x0eadmin_response\x18\x04\x20\x01(\x0b2\
-    \x19.raft_cmdpb.AdminResponseR\radminResponse\"-\n\x0eResponseHeader\x12\
-    \x1b\n\tregion_id\x18\x01\x20\x01(\x04R\x08regionId\"\x83\x01\n\x0fComma\
-    ndResponse\x120\n\x06header\x18\x01\x20\x01(\x0b2\x18.enginepb.ResponseH\
-    eaderR\x06header\x12>\n\x0bapply_state\x18\x02\x20\x01(\x0b2\x1d.raft_se\
-    rverpb.RaftApplyStateR\napplyState\"g\n\x0cSnapshotData\x12\x0e\n\x02cf\
-    \x18\x01\x20\x01(\tR\x02cf\x12\x1a\n\x08checksum\x18\x02\x20\x01(\rR\x08\
-    checksum\x12+\n\x04data\x18\x03\x20\x03(\x0b2\x17.raft_serverpb.KeyValue\
-    R\x04data\"r\n\x0fSnapshotRequest\x12(\n\x06region\x18\x01\x20\x01(\x0b2\
-    \x0e.metapb.RegionH\0R\x06region\x12,\n\x04data\x18\x02\x20\x01(\x0b2\
-    \x16.enginepb.SnapshotDataH\0R\x04dataB\x07\n\x05chunk\"\x0e\n\x0cSnapsh\
-    otDone2\x9a\x01\n\x06Engine\x12H\n\x0cApplyCommand\x12\x17.enginepb.Comm\
-    andRequet\x1a\x19.enginepb.CommandResponse\"\0(\x010\x01\x12F\n\rApplySn\
-    apshot\x12\x19.enginepb.SnapshotRequest\x1a\x16.enginepb.SnapshotDone\"\
-    \0(\x01J\xc4\r\n\x06\x12\x04\0\0=\x01\n\x08\n\x01\x0c\x12\x03\0\0\x12\n\
-    \x08\n\x01\x02\x12\x03\x01\x08\x10\n\t\n\x02\x03\0\x12\x03\x03\x07\x15\n\
-    \t\n\x02\x03\x01\x12\x03\x04\x07\x19\n\t\n\x02\x03\x02\x12\x03\x05\x07\
-    \x1c\n\n\n\x02\x04\0\x12\x04\x07\0\x0c\x01\n\n\n\x03\x04\0\x01\x12\x03\
-    \x07\x08\x1b\n\x0b\n\x04\x04\0\x02\0\x12\x03\x08\x04\x19\n\r\n\x05\x04\0\
-    \x02\0\x04\x12\x04\x08\x04\x07\x1d\n\x0c\n\x05\x04\0\x02\0\x05\x12\x03\
-    \x08\x04\n\n\x0c\n\x05\x04\0\x02\0\x01\x12\x03\x08\x0b\x14\n\x0c\n\x05\
-    \x04\0\x02\0\x03\x12\x03\x08\x17\x18\n,\n\x04\x04\0\x02\x01\x12\x03\x0b\
-    \x04\x16\x1a\x1f\x20Flush\x20in-memory\x20data\x20to\x20disk.\n\n\r\n\
-    \x05\x04\0\x02\x01\x04\x12\x04\x0b\x04\x08\x19\n\x0c\n\x05\x04\0\x02\x01\
-    \x05\x12\x03\x0b\x04\x08\n\x0c\n\x05\x04\0\x02\x01\x01\x12\x03\x0b\t\x11\
-    \n\x0c\n\x05\x04\0\x02\x01\x03\x12\x03\x0b\x14\x15\n\n\n\x02\x04\x01\x12\
-    \x04\x0e\0\x1b\x01\n\n\n\x03\x04\x01\x01\x12\x03\x0e\x08\x15\n\x0b\n\x04\
-    \x04\x01\x02\0\x12\x03\x0f\x04#\n\r\n\x05\x04\x01\x02\0\x04\x12\x04\x0f\
-    \x04\x0e\x17\n\x0c\n\x05\x04\x01\x02\0\x06\x12\x03\x0f\x04\x17\n\x0c\n\
-    \x05\x04\x01\x02\0\x01\x12\x03\x0f\x18\x1e\n\x0c\n\x05\x04\x01\x02\0\x03\
-    \x12\x03\x0f!\"\nk\n\x04\x04\x01\x02\x01\x12\x03\x15\x04-\x1a\x11\x20kv\
-    \x20put\x20/\x20delete\n2K\x20We\x20don't\x20enclose\x20normal\x20reques\
-    ts\x20and\x20administrator\x20request\n\x20at\x20same\x20time.\n\n\x0c\n\
-    \x05\x04\x01\x02\x01\x04\x12\x03\x15\x04\x0c\n\x0c\n\x05\x04\x01\x02\x01\
-    \x06\x12\x03\x15\r\x1f\n\x0c\n\x05\x04\x01\x02\x01\x01\x12\x03\x15\x20(\
-    \n\x0c\n\x05\x04\x01\x02\x01\x03\x12\x03\x15+,\n4\n\x04\x04\x01\x02\x02\
-    \x12\x03\x18\x04.\x1a'\x20region\x20metadata\x20manipulation\x20command.\
-    \n\n\r\n\x05\x04\x01\x02\x02\x04\x12\x04\x18\x04\x15-\n\x0c\n\x05\x04\
-    \x01\x02\x02\x06\x12\x03\x18\x04\x1b\n\x0c\n\x05\x04\x01\x02\x02\x01\x12\
-    \x03\x18\x1c)\n\x0c\n\x05\x04\x01\x02\x02\x03\x12\x03\x18,-\n3\n\x04\x04\
-    \x01\x02\x03\x12\x03\x1a\x040\x1a&\x20region\x20metadata\x20manipulation\
-    \x20result.\n\n\r\n\x05\x04\x01\x02\x03\x04\x12\x04\x1a\x04\x18.\n\x0c\n\
-    \x05\x04\x01\x02\x03\x06\x12\x03\x1a\x04\x1c\n\x0c\n\x05\x04\x01\x02\x03\
-    \x01\x12\x03\x1a\x1d+\n\x0c\n\x05\x04\x01\x02\x03\x03\x12\x03\x1a./\n\n\
-    \n\x02\x04\x02\x12\x04\x1d\0\x1f\x01\n\n\n\x03\x04\x02\x01\x12\x03\x1d\
-    \x08\x16\n\x0b\n\x04\x04\x02\x02\0\x12\x03\x1e\x04\x19\n\r\n\x05\x04\x02\
-    \x02\0\x04\x12\x04\x1e\x04\x1d\x18\n\x0c\n\x05\x04\x02\x02\0\x05\x12\x03\
-    \x1e\x04\n\n\x0c\n\x05\x04\x02\x02\0\x01\x12\x03\x1e\x0b\x14\n\x0c\n\x05\
-    \x04\x02\x02\0\x03\x12\x03\x1e\x17\x18\n\n\n\x02\x04\x03\x12\x04!\0%\x01\
-    \n\n\n\x03\x04\x03\x01\x12\x03!\x08\x17\n\x0b\n\x04\x04\x03\x02\0\x12\
-    \x03\"\x04\x1e\n\r\n\x05\x04\x03\x02\0\x04\x12\x04\"\x04!\x19\n\x0c\n\
-    \x05\x04\x03\x02\0\x06\x12\x03\"\x04\x12\n\x0c\n\x05\x04\x03\x02\0\x01\
-    \x12\x03\"\x13\x19\n\x0c\n\x05\x04\x03\x02\0\x03\x12\x03\"\x1c\x1d\n\x0b\
-    \n\x04\x04\x03\x02\x01\x12\x03$\x041\n\r\n\x05\x04\x03\x02\x01\x04\x12\
-    \x04$\x04\"\x1e\n\x0c\n\x05\x04\x03\x02\x01\x06\x12\x03$\x04\x20\n\x0c\n\
-    \x05\x04\x03\x02\x01\x01\x12\x03$!,\n\x0c\n\x05\x04\x03\x02\x01\x03\x12\
-    \x03$/0\n\n\n\x02\x04\x04\x12\x04'\0+\x01\n\n\n\x03\x04\x04\x01\x12\x03'\
-    \x08\x14\n\x0b\n\x04\x04\x04\x02\0\x12\x03(\x04\x12\n\r\n\x05\x04\x04\
-    \x02\0\x04\x12\x04(\x04'\x16\n\x0c\n\x05\x04\x04\x02\0\x05\x12\x03(\x04\
-    \n\n\x0c\n\x05\x04\x04\x02\0\x01\x12\x03(\x0b\r\n\x0c\n\x05\x04\x04\x02\
-    \0\x03\x12\x03(\x10\x11\n\x0b\n\x04\x04\x04\x02\x01\x12\x03)\x04\x18\n\r\
-    \n\x05\x04\x04\x02\x01\x04\x12\x04)\x04(\x12\n\x0c\n\x05\x04\x04\x02\x01\
-    \x05\x12\x03)\x04\n\n\x0c\n\x05\x04\x04\x02\x01\x01\x12\x03)\x0b\x13\n\
-    \x0c\n\x05\x04\x04\x02\x01\x03\x12\x03)\x16\x17\n\x0b\n\x04\x04\x04\x02\
-    \x02\x12\x03*\x04-\n\x0c\n\x05\x04\x04\x02\x02\x04\x12\x03*\x04\x0c\n\
-    \x0c\n\x05\x04\x04\x02\x02\x06\x12\x03*\r#\n\x0c\n\x05\x04\x04\x02\x02\
-    \x01\x12\x03*$(\n\x0c\n\x05\x04\x04\x02\x02\x03\x12\x03*+,\n\n\n\x02\x04\
-    \x05\x12\x04-\06\x01\n\n\n\x03\x04\x05\x01\x12\x03-\x08\x17\n\x0c\n\x04\
-    \x04\x05\x08\0\x12\x04.\x045\x05\n\x0c\n\x05\x04\x05\x08\0\x01\x12\x03.\
-    \n\x0f\nr\n\x04\x04\x05\x02\0\x12\x031\x08!\x1ae\x20The\x20first\x20mess\
-    age\x20for\x20snapshots.\n\x20It\x20contains\x20the\x20latest\x20region\
-    \x20information\x20after\x20applied\x20snapshot.\n\n\x0c\n\x05\x04\x05\
-    \x02\0\x06\x12\x031\x08\x15\n\x0c\n\x05\x04\x05\x02\0\x01\x12\x031\x16\
-    \x1c\n\x0c\n\x05\x04\x05\x02\0\x03\x12\x031\x1f\x20\n2\n\x04\x04\x05\x02\
-    \x01\x12\x034\x08\x1e\x1a%\x20Following\x20messages\x20are\x20always\x20\
-    data.\n\n\x0c\n\x05\x04\x05\x02\x01\x06\x12\x034\x08\x14\n\x0c\n\x05\x04\
-    \x05\x02\x01\x01\x12\x034\x15\x19\n\x0c\n\x05\x04\x05\x02\x01\x03\x12\
-    \x034\x1c\x1d\n\t\n\x02\x04\x06\x12\x038\0\x17\n\n\n\x03\x04\x06\x01\x12\
-    \x038\x08\x14\n\n\n\x02\x06\0\x12\x04:\0=\x01\n\n\n\x03\x06\0\x01\x12\
-    \x03:\x08\x0e\n\x0b\n\x04\x06\0\x02\0\x12\x03;\x04N\n\x0c\n\x05\x06\0\
-    \x02\0\x01\x12\x03;\x08\x14\n\x0c\n\x05\x06\0\x02\0\x05\x12\x03;\x15\x1b\
-    \n\x0c\n\x05\x06\0\x02\0\x02\x12\x03;\x1c)\n\x0c\n\x05\x06\0\x02\0\x06\
-    \x12\x03;4:\n\x0c\n\x05\x06\0\x02\0\x03\x12\x03;;J\n\x0b\n\x04\x06\0\x02\
-    \x01\x12\x03<\x04G\n\x0c\n\x05\x06\0\x02\x01\x01\x12\x03<\x08\x15\n\x0c\
-    \n\x05\x06\0\x02\x01\x05\x12\x03<\x16\x1c\n\x0c\n\x05\x06\0\x02\x01\x02\
-    \x12\x03<\x1d,\n\x0c\n\x05\x06\0\x02\x01\x03\x12\x03<7Cb\x06proto3\
+    \x18\x02\x20\x01(\x08R\x07syncLog\x12\x14\n\x05index\x18\x03\x20\x01(\
+    \x04R\x05index\"\xfa\x01\n\x0eCommandRequest\x126\n\x06header\x18\x01\
+    \x20\x01(\x0b2\x1e.enginepb.CommandRequestHeaderR\x06header\x12/\n\x08re\
+    quests\x18\x02\x20\x03(\x0b2\x13.raft_cmdpb.RequestR\x08requests\x12=\n\
+    \radmin_request\x18\x03\x20\x01(\x0b2\x18.raft_cmdpb.AdminRequestR\x0cad\
+    minRequest\x12@\n\x0eadmin_response\x18\x04\x20\x01(\x0b2\x19.raft_cmdpb\
+    .AdminResponseR\radminResponse\"K\n\x13CommandRequestBatch\x124\n\x08req\
+    uests\x18\x01\x20\x03(\x0b2\x18.enginepb.CommandRequestR\x08requests\"-\
+    \n\x0eResponseHeader\x12\x1b\n\tregion_id\x18\x01\x20\x01(\x04R\x08regio\
+    nId\"\x83\x01\n\x0fCommandResponse\x120\n\x06header\x18\x01\x20\x01(\x0b\
+    2\x18.enginepb.ResponseHeaderR\x06header\x12>\n\x0bapply_state\x18\x02\
+    \x20\x01(\x0b2\x1d.raft_serverpb.RaftApplyStateR\napplyState\"O\n\x14Com\
+    mandResponseBatch\x127\n\tresponses\x18\x01\x20\x03(\x0b2\x19.enginepb.C\
+    ommandResponseR\tresponses\"g\n\x0cSnapshotData\x12\x0e\n\x02cf\x18\x01\
+    \x20\x01(\tR\x02cf\x12\x1a\n\x08checksum\x18\x02\x20\x01(\rR\x08checksum\
+    \x12+\n\x04data\x18\x03\x20\x03(\x0b2\x17.raft_serverpb.KeyValueR\x04dat\
+    a\"r\n\x0fSnapshotRequest\x12(\n\x06region\x18\x01\x20\x01(\x0b2\x0e.met\
+    apb.RegionH\0R\x06region\x12,\n\x04data\x18\x02\x20\x01(\x0b2\x16.engine\
+    pb.SnapshotDataH\0R\x04dataB\x07\n\x05chunk\"\x0e\n\x0cSnapshotDone2\xaa\
+    \x01\n\x06Engine\x12X\n\x11ApplyCommandBatch\x12\x1d.enginepb.CommandReq\
+    uestBatch\x1a\x1e.enginepb.CommandResponseBatch\"\0(\x010\x01\x12F\n\rAp\
+    plySnapshot\x12\x19.enginepb.SnapshotRequest\x1a\x16.enginepb.SnapshotDo\
+    ne\"\0(\x01J\xc4\x0f\n\x06\x12\x04\0\0G\x01\n\x08\n\x01\x0c\x12\x03\0\0\
+    \x12\n\x08\n\x01\x02\x12\x03\x01\x08\x10\n\t\n\x02\x03\0\x12\x03\x03\x07\
+    \x15\n\t\n\x02\x03\x01\x12\x03\x04\x07\x19\n\t\n\x02\x03\x02\x12\x03\x05\
+    \x07\x1c\n\n\n\x02\x04\0\x12\x04\x07\0\x0e\x01\n\n\n\x03\x04\0\x01\x12\
+    \x03\x07\x08\x1c\n\x0b\n\x04\x04\0\x02\0\x12\x03\x08\x04\x19\n\r\n\x05\
+    \x04\0\x02\0\x04\x12\x04\x08\x04\x07\x1e\n\x0c\n\x05\x04\0\x02\0\x05\x12\
+    \x03\x08\x04\n\n\x0c\n\x05\x04\0\x02\0\x01\x12\x03\x08\x0b\x14\n\x0c\n\
+    \x05\x04\0\x02\0\x03\x12\x03\x08\x17\x18\n,\n\x04\x04\0\x02\x01\x12\x03\
+    \x0b\x04\x16\x1a\x1f\x20Flush\x20in-memory\x20data\x20to\x20disk.\n\n\r\
+    \n\x05\x04\0\x02\x01\x04\x12\x04\x0b\x04\x08\x19\n\x0c\n\x05\x04\0\x02\
+    \x01\x05\x12\x03\x0b\x04\x08\n\x0c\n\x05\x04\0\x02\x01\x01\x12\x03\x0b\t\
+    \x11\n\x0c\n\x05\x04\0\x02\x01\x03\x12\x03\x0b\x14\x15\n\x0b\n\x04\x04\0\
+    \x02\x02\x12\x03\r\x04\x15\n\r\n\x05\x04\0\x02\x02\x04\x12\x04\r\x04\x0b\
+    \x16\n\x0c\n\x05\x04\0\x02\x02\x05\x12\x03\r\x04\n\n\x0c\n\x05\x04\0\x02\
+    \x02\x01\x12\x03\r\x0b\x10\n\x0c\n\x05\x04\0\x02\x02\x03\x12\x03\r\x13\
+    \x14\n\n\n\x02\x04\x01\x12\x04\x10\0\x1d\x01\n\n\n\x03\x04\x01\x01\x12\
+    \x03\x10\x08\x16\n\x0b\n\x04\x04\x01\x02\0\x12\x03\x11\x04$\n\r\n\x05\
+    \x04\x01\x02\0\x04\x12\x04\x11\x04\x10\x18\n\x0c\n\x05\x04\x01\x02\0\x06\
+    \x12\x03\x11\x04\x18\n\x0c\n\x05\x04\x01\x02\0\x01\x12\x03\x11\x19\x1f\n\
+    \x0c\n\x05\x04\x01\x02\0\x03\x12\x03\x11\"#\nk\n\x04\x04\x01\x02\x01\x12\
+    \x03\x17\x04-\x1a\x11\x20kv\x20put\x20/\x20delete\n2K\x20We\x20don't\x20\
+    enclose\x20normal\x20requests\x20and\x20administrator\x20request\n\x20at\
+    \x20same\x20time.\n\n\x0c\n\x05\x04\x01\x02\x01\x04\x12\x03\x17\x04\x0c\
+    \n\x0c\n\x05\x04\x01\x02\x01\x06\x12\x03\x17\r\x1f\n\x0c\n\x05\x04\x01\
+    \x02\x01\x01\x12\x03\x17\x20(\n\x0c\n\x05\x04\x01\x02\x01\x03\x12\x03\
+    \x17+,\n4\n\x04\x04\x01\x02\x02\x12\x03\x1a\x04.\x1a'\x20region\x20metad\
+    ata\x20manipulation\x20command.\n\n\r\n\x05\x04\x01\x02\x02\x04\x12\x04\
+    \x1a\x04\x17-\n\x0c\n\x05\x04\x01\x02\x02\x06\x12\x03\x1a\x04\x1b\n\x0c\
+    \n\x05\x04\x01\x02\x02\x01\x12\x03\x1a\x1c)\n\x0c\n\x05\x04\x01\x02\x02\
+    \x03\x12\x03\x1a,-\n3\n\x04\x04\x01\x02\x03\x12\x03\x1c\x040\x1a&\x20reg\
+    ion\x20metadata\x20manipulation\x20result.\n\n\r\n\x05\x04\x01\x02\x03\
+    \x04\x12\x04\x1c\x04\x1a.\n\x0c\n\x05\x04\x01\x02\x03\x06\x12\x03\x1c\
+    \x04\x1c\n\x0c\n\x05\x04\x01\x02\x03\x01\x12\x03\x1c\x1d+\n\x0c\n\x05\
+    \x04\x01\x02\x03\x03\x12\x03\x1c./\n\n\n\x02\x04\x02\x12\x04\x1f\0!\x01\
+    \n\n\n\x03\x04\x02\x01\x12\x03\x1f\x08\x1b\n\x0b\n\x04\x04\x02\x02\0\x12\
+    \x03\x20\x04)\n\x0c\n\x05\x04\x02\x02\0\x04\x12\x03\x20\x04\x0c\n\x0c\n\
+    \x05\x04\x02\x02\0\x06\x12\x03\x20\r\x1b\n\x0c\n\x05\x04\x02\x02\0\x01\
+    \x12\x03\x20\x1c$\n\x0c\n\x05\x04\x02\x02\0\x03\x12\x03\x20'(\n\n\n\x02\
+    \x04\x03\x12\x04#\0%\x01\n\n\n\x03\x04\x03\x01\x12\x03#\x08\x16\n\x0b\n\
+    \x04\x04\x03\x02\0\x12\x03$\x04\x19\n\r\n\x05\x04\x03\x02\0\x04\x12\x04$\
+    \x04#\x18\n\x0c\n\x05\x04\x03\x02\0\x05\x12\x03$\x04\n\n\x0c\n\x05\x04\
+    \x03\x02\0\x01\x12\x03$\x0b\x14\n\x0c\n\x05\x04\x03\x02\0\x03\x12\x03$\
+    \x17\x18\n\n\n\x02\x04\x04\x12\x04'\0+\x01\n\n\n\x03\x04\x04\x01\x12\x03\
+    '\x08\x17\n\x0b\n\x04\x04\x04\x02\0\x12\x03(\x04\x1e\n\r\n\x05\x04\x04\
+    \x02\0\x04\x12\x04(\x04'\x19\n\x0c\n\x05\x04\x04\x02\0\x06\x12\x03(\x04\
+    \x12\n\x0c\n\x05\x04\x04\x02\0\x01\x12\x03(\x13\x19\n\x0c\n\x05\x04\x04\
+    \x02\0\x03\x12\x03(\x1c\x1d\n\x0b\n\x04\x04\x04\x02\x01\x12\x03*\x041\n\
+    \r\n\x05\x04\x04\x02\x01\x04\x12\x04*\x04(\x1e\n\x0c\n\x05\x04\x04\x02\
+    \x01\x06\x12\x03*\x04\x20\n\x0c\n\x05\x04\x04\x02\x01\x01\x12\x03*!,\n\
+    \x0c\n\x05\x04\x04\x02\x01\x03\x12\x03*/0\n\n\n\x02\x04\x05\x12\x04-\0/\
+    \x01\n\n\n\x03\x04\x05\x01\x12\x03-\x08\x1c\n\x0b\n\x04\x04\x05\x02\0\
+    \x12\x03.\x04+\n\x0c\n\x05\x04\x05\x02\0\x04\x12\x03.\x04\x0c\n\x0c\n\
+    \x05\x04\x05\x02\0\x06\x12\x03.\r\x1c\n\x0c\n\x05\x04\x05\x02\0\x01\x12\
+    \x03.\x1d&\n\x0c\n\x05\x04\x05\x02\0\x03\x12\x03.)*\n\n\n\x02\x04\x06\
+    \x12\x041\05\x01\n\n\n\x03\x04\x06\x01\x12\x031\x08\x14\n\x0b\n\x04\x04\
+    \x06\x02\0\x12\x032\x04\x12\n\r\n\x05\x04\x06\x02\0\x04\x12\x042\x041\
+    \x16\n\x0c\n\x05\x04\x06\x02\0\x05\x12\x032\x04\n\n\x0c\n\x05\x04\x06\
+    \x02\0\x01\x12\x032\x0b\r\n\x0c\n\x05\x04\x06\x02\0\x03\x12\x032\x10\x11\
+    \n\x0b\n\x04\x04\x06\x02\x01\x12\x033\x04\x18\n\r\n\x05\x04\x06\x02\x01\
+    \x04\x12\x043\x042\x12\n\x0c\n\x05\x04\x06\x02\x01\x05\x12\x033\x04\n\n\
+    \x0c\n\x05\x04\x06\x02\x01\x01\x12\x033\x0b\x13\n\x0c\n\x05\x04\x06\x02\
+    \x01\x03\x12\x033\x16\x17\n\x0b\n\x04\x04\x06\x02\x02\x12\x034\x04-\n\
+    \x0c\n\x05\x04\x06\x02\x02\x04\x12\x034\x04\x0c\n\x0c\n\x05\x04\x06\x02\
+    \x02\x06\x12\x034\r#\n\x0c\n\x05\x04\x06\x02\x02\x01\x12\x034$(\n\x0c\n\
+    \x05\x04\x06\x02\x02\x03\x12\x034+,\n\n\n\x02\x04\x07\x12\x047\0@\x01\n\
+    \n\n\x03\x04\x07\x01\x12\x037\x08\x17\n\x0c\n\x04\x04\x07\x08\0\x12\x048\
+    \x04?\x05\n\x0c\n\x05\x04\x07\x08\0\x01\x12\x038\n\x0f\nr\n\x04\x04\x07\
+    \x02\0\x12\x03;\x08!\x1ae\x20The\x20first\x20message\x20for\x20snapshots\
+    .\n\x20It\x20contains\x20the\x20latest\x20region\x20information\x20after\
+    \x20applied\x20snapshot.\n\n\x0c\n\x05\x04\x07\x02\0\x06\x12\x03;\x08\
+    \x15\n\x0c\n\x05\x04\x07\x02\0\x01\x12\x03;\x16\x1c\n\x0c\n\x05\x04\x07\
+    \x02\0\x03\x12\x03;\x1f\x20\n2\n\x04\x04\x07\x02\x01\x12\x03>\x08\x1e\
+    \x1a%\x20Following\x20messages\x20are\x20always\x20data.\n\n\x0c\n\x05\
+    \x04\x07\x02\x01\x06\x12\x03>\x08\x14\n\x0c\n\x05\x04\x07\x02\x01\x01\
+    \x12\x03>\x15\x19\n\x0c\n\x05\x04\x07\x02\x01\x03\x12\x03>\x1c\x1d\n\t\n\
+    \x02\x04\x08\x12\x03B\0\x17\n\n\n\x03\x04\x08\x01\x12\x03B\x08\x14\n\n\n\
+    \x02\x06\0\x12\x04D\0G\x01\n\n\n\x03\x06\0\x01\x12\x03D\x08\x0e\n\x0b\n\
+    \x04\x06\0\x02\0\x12\x03E\x04^\n\x0c\n\x05\x06\0\x02\0\x01\x12\x03E\x08\
+    \x19\n\x0c\n\x05\x06\0\x02\0\x05\x12\x03E\x1a\x20\n\x0c\n\x05\x06\0\x02\
+    \0\x02\x12\x03E!4\n\x0c\n\x05\x06\0\x02\0\x06\x12\x03E?E\n\x0c\n\x05\x06\
+    \0\x02\0\x03\x12\x03EFZ\n\x0b\n\x04\x06\0\x02\x01\x12\x03F\x04G\n\x0c\n\
+    \x05\x06\0\x02\x01\x01\x12\x03F\x08\x15\n\x0c\n\x05\x06\0\x02\x01\x05\
+    \x12\x03F\x16\x1c\n\x0c\n\x05\x06\0\x02\x01\x02\x12\x03F\x1d,\n\x0c\n\
+    \x05\x06\0\x02\x01\x03\x12\x03F7Cb\x06proto3\
 ";
 
 static mut file_descriptor_proto_lazy: ::protobuf::lazy::Lazy<::protobuf::descriptor::FileDescriptorProto> = ::protobuf::lazy::Lazy {
