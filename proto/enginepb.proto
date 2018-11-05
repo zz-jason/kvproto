@@ -12,6 +12,7 @@ message CommandRequestHeader {
     bool sync_log = 2;
 
     uint64 index = 3;
+    uint64 term = 4;
 }
 
 message CommandRequest {
@@ -41,6 +42,7 @@ message CommandResponse {
     CommandResponseHeader header = 1;
 
     raft_serverpb.RaftApplyState apply_state = 2;
+    uint64 applied_term = 3;
 }
 
 message CommandResponseBatch {
