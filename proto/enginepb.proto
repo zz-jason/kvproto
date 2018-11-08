@@ -51,7 +51,8 @@ message CommandResponseBatch {
 
 message SnapshotState {
     metapb.Region region = 1;
-    raft_serverpb.RaftApplyState apply_state = 2;
+    metapb.Peer peer = 2;
+    raft_serverpb.RaftApplyState apply_state = 3;
 }
 
 message SnapshotData {
