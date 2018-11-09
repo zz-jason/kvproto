@@ -95,6 +95,13 @@ const METHOD_PD_GET_REGION: ::grpcio::Method<super::pdpb::GetRegionRequest, supe
     resp_mar: ::grpcio::Marshaller { ser: ::grpcio::pb_ser, de: ::grpcio::pb_de },
 };
 
+const METHOD_PD_GET_PREV_REGION: ::grpcio::Method<super::pdpb::GetRegionRequest, super::pdpb::GetRegionResponse> = ::grpcio::Method {
+    ty: ::grpcio::MethodType::Unary,
+    name: "/pdpb.PD/GetPrevRegion",
+    req_mar: ::grpcio::Marshaller { ser: ::grpcio::pb_ser, de: ::grpcio::pb_de },
+    resp_mar: ::grpcio::Marshaller { ser: ::grpcio::pb_ser, de: ::grpcio::pb_de },
+};
+
 const METHOD_PD_GET_REGION_BY_ID: ::grpcio::Method<super::pdpb::GetRegionByIDRequest, super::pdpb::GetRegionResponse> = ::grpcio::Method {
     ty: ::grpcio::MethodType::Unary,
     name: "/pdpb.PD/GetRegionByID",
@@ -116,6 +123,20 @@ const METHOD_PD_REPORT_SPLIT: ::grpcio::Method<super::pdpb::ReportSplitRequest, 
     resp_mar: ::grpcio::Marshaller { ser: ::grpcio::pb_ser, de: ::grpcio::pb_de },
 };
 
+const METHOD_PD_ASK_BATCH_SPLIT: ::grpcio::Method<super::pdpb::AskBatchSplitRequest, super::pdpb::AskBatchSplitResponse> = ::grpcio::Method {
+    ty: ::grpcio::MethodType::Unary,
+    name: "/pdpb.PD/AskBatchSplit",
+    req_mar: ::grpcio::Marshaller { ser: ::grpcio::pb_ser, de: ::grpcio::pb_de },
+    resp_mar: ::grpcio::Marshaller { ser: ::grpcio::pb_ser, de: ::grpcio::pb_de },
+};
+
+const METHOD_PD_REPORT_BATCH_SPLIT: ::grpcio::Method<super::pdpb::ReportBatchSplitRequest, super::pdpb::ReportBatchSplitResponse> = ::grpcio::Method {
+    ty: ::grpcio::MethodType::Unary,
+    name: "/pdpb.PD/ReportBatchSplit",
+    req_mar: ::grpcio::Marshaller { ser: ::grpcio::pb_ser, de: ::grpcio::pb_de },
+    resp_mar: ::grpcio::Marshaller { ser: ::grpcio::pb_ser, de: ::grpcio::pb_de },
+};
+
 const METHOD_PD_GET_CLUSTER_CONFIG: ::grpcio::Method<super::pdpb::GetClusterConfigRequest, super::pdpb::GetClusterConfigResponse> = ::grpcio::Method {
     ty: ::grpcio::MethodType::Unary,
     name: "/pdpb.PD/GetClusterConfig",
@@ -133,6 +154,20 @@ const METHOD_PD_PUT_CLUSTER_CONFIG: ::grpcio::Method<super::pdpb::PutClusterConf
 const METHOD_PD_SCATTER_REGION: ::grpcio::Method<super::pdpb::ScatterRegionRequest, super::pdpb::ScatterRegionResponse> = ::grpcio::Method {
     ty: ::grpcio::MethodType::Unary,
     name: "/pdpb.PD/ScatterRegion",
+    req_mar: ::grpcio::Marshaller { ser: ::grpcio::pb_ser, de: ::grpcio::pb_de },
+    resp_mar: ::grpcio::Marshaller { ser: ::grpcio::pb_ser, de: ::grpcio::pb_de },
+};
+
+const METHOD_PD_GET_GC_SAFE_POINT: ::grpcio::Method<super::pdpb::GetGCSafePointRequest, super::pdpb::GetGCSafePointResponse> = ::grpcio::Method {
+    ty: ::grpcio::MethodType::Unary,
+    name: "/pdpb.PD/GetGCSafePoint",
+    req_mar: ::grpcio::Marshaller { ser: ::grpcio::pb_ser, de: ::grpcio::pb_de },
+    resp_mar: ::grpcio::Marshaller { ser: ::grpcio::pb_ser, de: ::grpcio::pb_de },
+};
+
+const METHOD_PD_UPDATE_GC_SAFE_POINT: ::grpcio::Method<super::pdpb::UpdateGCSafePointRequest, super::pdpb::UpdateGCSafePointResponse> = ::grpcio::Method {
+    ty: ::grpcio::MethodType::Unary,
+    name: "/pdpb.PD/UpdateGCSafePoint",
     req_mar: ::grpcio::Marshaller { ser: ::grpcio::pb_ser, de: ::grpcio::pb_de },
     resp_mar: ::grpcio::Marshaller { ser: ::grpcio::pb_ser, de: ::grpcio::pb_de },
 };
@@ -308,6 +343,22 @@ impl PdClient {
         self.get_region_async_opt(req, ::grpcio::CallOption::default())
     }
 
+    pub fn get_prev_region_opt(&self, req: &super::pdpb::GetRegionRequest, opt: ::grpcio::CallOption) -> ::grpcio::Result<super::pdpb::GetRegionResponse> {
+        self.client.unary_call(&METHOD_PD_GET_PREV_REGION, req, opt)
+    }
+
+    pub fn get_prev_region(&self, req: &super::pdpb::GetRegionRequest) -> ::grpcio::Result<super::pdpb::GetRegionResponse> {
+        self.get_prev_region_opt(req, ::grpcio::CallOption::default())
+    }
+
+    pub fn get_prev_region_async_opt(&self, req: &super::pdpb::GetRegionRequest, opt: ::grpcio::CallOption) -> ::grpcio::Result<::grpcio::ClientUnaryReceiver<super::pdpb::GetRegionResponse>> {
+        self.client.unary_call_async(&METHOD_PD_GET_PREV_REGION, req, opt)
+    }
+
+    pub fn get_prev_region_async(&self, req: &super::pdpb::GetRegionRequest) -> ::grpcio::Result<::grpcio::ClientUnaryReceiver<super::pdpb::GetRegionResponse>> {
+        self.get_prev_region_async_opt(req, ::grpcio::CallOption::default())
+    }
+
     pub fn get_region_by_id_opt(&self, req: &super::pdpb::GetRegionByIDRequest, opt: ::grpcio::CallOption) -> ::grpcio::Result<super::pdpb::GetRegionResponse> {
         self.client.unary_call(&METHOD_PD_GET_REGION_BY_ID, req, opt)
     }
@@ -354,6 +405,38 @@ impl PdClient {
 
     pub fn report_split_async(&self, req: &super::pdpb::ReportSplitRequest) -> ::grpcio::Result<::grpcio::ClientUnaryReceiver<super::pdpb::ReportSplitResponse>> {
         self.report_split_async_opt(req, ::grpcio::CallOption::default())
+    }
+
+    pub fn ask_batch_split_opt(&self, req: &super::pdpb::AskBatchSplitRequest, opt: ::grpcio::CallOption) -> ::grpcio::Result<super::pdpb::AskBatchSplitResponse> {
+        self.client.unary_call(&METHOD_PD_ASK_BATCH_SPLIT, req, opt)
+    }
+
+    pub fn ask_batch_split(&self, req: &super::pdpb::AskBatchSplitRequest) -> ::grpcio::Result<super::pdpb::AskBatchSplitResponse> {
+        self.ask_batch_split_opt(req, ::grpcio::CallOption::default())
+    }
+
+    pub fn ask_batch_split_async_opt(&self, req: &super::pdpb::AskBatchSplitRequest, opt: ::grpcio::CallOption) -> ::grpcio::Result<::grpcio::ClientUnaryReceiver<super::pdpb::AskBatchSplitResponse>> {
+        self.client.unary_call_async(&METHOD_PD_ASK_BATCH_SPLIT, req, opt)
+    }
+
+    pub fn ask_batch_split_async(&self, req: &super::pdpb::AskBatchSplitRequest) -> ::grpcio::Result<::grpcio::ClientUnaryReceiver<super::pdpb::AskBatchSplitResponse>> {
+        self.ask_batch_split_async_opt(req, ::grpcio::CallOption::default())
+    }
+
+    pub fn report_batch_split_opt(&self, req: &super::pdpb::ReportBatchSplitRequest, opt: ::grpcio::CallOption) -> ::grpcio::Result<super::pdpb::ReportBatchSplitResponse> {
+        self.client.unary_call(&METHOD_PD_REPORT_BATCH_SPLIT, req, opt)
+    }
+
+    pub fn report_batch_split(&self, req: &super::pdpb::ReportBatchSplitRequest) -> ::grpcio::Result<super::pdpb::ReportBatchSplitResponse> {
+        self.report_batch_split_opt(req, ::grpcio::CallOption::default())
+    }
+
+    pub fn report_batch_split_async_opt(&self, req: &super::pdpb::ReportBatchSplitRequest, opt: ::grpcio::CallOption) -> ::grpcio::Result<::grpcio::ClientUnaryReceiver<super::pdpb::ReportBatchSplitResponse>> {
+        self.client.unary_call_async(&METHOD_PD_REPORT_BATCH_SPLIT, req, opt)
+    }
+
+    pub fn report_batch_split_async(&self, req: &super::pdpb::ReportBatchSplitRequest) -> ::grpcio::Result<::grpcio::ClientUnaryReceiver<super::pdpb::ReportBatchSplitResponse>> {
+        self.report_batch_split_async_opt(req, ::grpcio::CallOption::default())
     }
 
     pub fn get_cluster_config_opt(&self, req: &super::pdpb::GetClusterConfigRequest, opt: ::grpcio::CallOption) -> ::grpcio::Result<super::pdpb::GetClusterConfigResponse> {
@@ -403,6 +486,38 @@ impl PdClient {
     pub fn scatter_region_async(&self, req: &super::pdpb::ScatterRegionRequest) -> ::grpcio::Result<::grpcio::ClientUnaryReceiver<super::pdpb::ScatterRegionResponse>> {
         self.scatter_region_async_opt(req, ::grpcio::CallOption::default())
     }
+
+    pub fn get_gc_safe_point_opt(&self, req: &super::pdpb::GetGCSafePointRequest, opt: ::grpcio::CallOption) -> ::grpcio::Result<super::pdpb::GetGCSafePointResponse> {
+        self.client.unary_call(&METHOD_PD_GET_GC_SAFE_POINT, req, opt)
+    }
+
+    pub fn get_gc_safe_point(&self, req: &super::pdpb::GetGCSafePointRequest) -> ::grpcio::Result<super::pdpb::GetGCSafePointResponse> {
+        self.get_gc_safe_point_opt(req, ::grpcio::CallOption::default())
+    }
+
+    pub fn get_gc_safe_point_async_opt(&self, req: &super::pdpb::GetGCSafePointRequest, opt: ::grpcio::CallOption) -> ::grpcio::Result<::grpcio::ClientUnaryReceiver<super::pdpb::GetGCSafePointResponse>> {
+        self.client.unary_call_async(&METHOD_PD_GET_GC_SAFE_POINT, req, opt)
+    }
+
+    pub fn get_gc_safe_point_async(&self, req: &super::pdpb::GetGCSafePointRequest) -> ::grpcio::Result<::grpcio::ClientUnaryReceiver<super::pdpb::GetGCSafePointResponse>> {
+        self.get_gc_safe_point_async_opt(req, ::grpcio::CallOption::default())
+    }
+
+    pub fn update_gc_safe_point_opt(&self, req: &super::pdpb::UpdateGCSafePointRequest, opt: ::grpcio::CallOption) -> ::grpcio::Result<super::pdpb::UpdateGCSafePointResponse> {
+        self.client.unary_call(&METHOD_PD_UPDATE_GC_SAFE_POINT, req, opt)
+    }
+
+    pub fn update_gc_safe_point(&self, req: &super::pdpb::UpdateGCSafePointRequest) -> ::grpcio::Result<super::pdpb::UpdateGCSafePointResponse> {
+        self.update_gc_safe_point_opt(req, ::grpcio::CallOption::default())
+    }
+
+    pub fn update_gc_safe_point_async_opt(&self, req: &super::pdpb::UpdateGCSafePointRequest, opt: ::grpcio::CallOption) -> ::grpcio::Result<::grpcio::ClientUnaryReceiver<super::pdpb::UpdateGCSafePointResponse>> {
+        self.client.unary_call_async(&METHOD_PD_UPDATE_GC_SAFE_POINT, req, opt)
+    }
+
+    pub fn update_gc_safe_point_async(&self, req: &super::pdpb::UpdateGCSafePointRequest) -> ::grpcio::Result<::grpcio::ClientUnaryReceiver<super::pdpb::UpdateGCSafePointResponse>> {
+        self.update_gc_safe_point_async_opt(req, ::grpcio::CallOption::default())
+    }
     pub fn spawn<F>(&self, f: F) where F: ::futures::Future<Item = (), Error = ()> + Send + 'static {
         self.client.spawn(f)
     }
@@ -420,12 +535,17 @@ pub trait Pd {
     fn store_heartbeat(&self, ctx: ::grpcio::RpcContext, req: super::pdpb::StoreHeartbeatRequest, sink: ::grpcio::UnarySink<super::pdpb::StoreHeartbeatResponse>);
     fn region_heartbeat(&self, ctx: ::grpcio::RpcContext, stream: ::grpcio::RequestStream<super::pdpb::RegionHeartbeatRequest>, sink: ::grpcio::DuplexSink<super::pdpb::RegionHeartbeatResponse>);
     fn get_region(&self, ctx: ::grpcio::RpcContext, req: super::pdpb::GetRegionRequest, sink: ::grpcio::UnarySink<super::pdpb::GetRegionResponse>);
+    fn get_prev_region(&self, ctx: ::grpcio::RpcContext, req: super::pdpb::GetRegionRequest, sink: ::grpcio::UnarySink<super::pdpb::GetRegionResponse>);
     fn get_region_by_id(&self, ctx: ::grpcio::RpcContext, req: super::pdpb::GetRegionByIDRequest, sink: ::grpcio::UnarySink<super::pdpb::GetRegionResponse>);
     fn ask_split(&self, ctx: ::grpcio::RpcContext, req: super::pdpb::AskSplitRequest, sink: ::grpcio::UnarySink<super::pdpb::AskSplitResponse>);
     fn report_split(&self, ctx: ::grpcio::RpcContext, req: super::pdpb::ReportSplitRequest, sink: ::grpcio::UnarySink<super::pdpb::ReportSplitResponse>);
+    fn ask_batch_split(&self, ctx: ::grpcio::RpcContext, req: super::pdpb::AskBatchSplitRequest, sink: ::grpcio::UnarySink<super::pdpb::AskBatchSplitResponse>);
+    fn report_batch_split(&self, ctx: ::grpcio::RpcContext, req: super::pdpb::ReportBatchSplitRequest, sink: ::grpcio::UnarySink<super::pdpb::ReportBatchSplitResponse>);
     fn get_cluster_config(&self, ctx: ::grpcio::RpcContext, req: super::pdpb::GetClusterConfigRequest, sink: ::grpcio::UnarySink<super::pdpb::GetClusterConfigResponse>);
     fn put_cluster_config(&self, ctx: ::grpcio::RpcContext, req: super::pdpb::PutClusterConfigRequest, sink: ::grpcio::UnarySink<super::pdpb::PutClusterConfigResponse>);
     fn scatter_region(&self, ctx: ::grpcio::RpcContext, req: super::pdpb::ScatterRegionRequest, sink: ::grpcio::UnarySink<super::pdpb::ScatterRegionResponse>);
+    fn get_gc_safe_point(&self, ctx: ::grpcio::RpcContext, req: super::pdpb::GetGCSafePointRequest, sink: ::grpcio::UnarySink<super::pdpb::GetGCSafePointResponse>);
+    fn update_gc_safe_point(&self, ctx: ::grpcio::RpcContext, req: super::pdpb::UpdateGCSafePointRequest, sink: ::grpcio::UnarySink<super::pdpb::UpdateGCSafePointResponse>);
 }
 
 pub fn create_pd<S: Pd + Send + Clone + 'static>(s: S) -> ::grpcio::Service {
@@ -475,6 +595,10 @@ pub fn create_pd<S: Pd + Send + Clone + 'static>(s: S) -> ::grpcio::Service {
         instance.get_region(ctx, req, resp)
     });
     let instance = s.clone();
+    builder = builder.add_unary_handler(&METHOD_PD_GET_PREV_REGION, move |ctx, req, resp| {
+        instance.get_prev_region(ctx, req, resp)
+    });
+    let instance = s.clone();
     builder = builder.add_unary_handler(&METHOD_PD_GET_REGION_BY_ID, move |ctx, req, resp| {
         instance.get_region_by_id(ctx, req, resp)
     });
@@ -487,6 +611,14 @@ pub fn create_pd<S: Pd + Send + Clone + 'static>(s: S) -> ::grpcio::Service {
         instance.report_split(ctx, req, resp)
     });
     let instance = s.clone();
+    builder = builder.add_unary_handler(&METHOD_PD_ASK_BATCH_SPLIT, move |ctx, req, resp| {
+        instance.ask_batch_split(ctx, req, resp)
+    });
+    let instance = s.clone();
+    builder = builder.add_unary_handler(&METHOD_PD_REPORT_BATCH_SPLIT, move |ctx, req, resp| {
+        instance.report_batch_split(ctx, req, resp)
+    });
+    let instance = s.clone();
     builder = builder.add_unary_handler(&METHOD_PD_GET_CLUSTER_CONFIG, move |ctx, req, resp| {
         instance.get_cluster_config(ctx, req, resp)
     });
@@ -497,6 +629,14 @@ pub fn create_pd<S: Pd + Send + Clone + 'static>(s: S) -> ::grpcio::Service {
     let instance = s.clone();
     builder = builder.add_unary_handler(&METHOD_PD_SCATTER_REGION, move |ctx, req, resp| {
         instance.scatter_region(ctx, req, resp)
+    });
+    let instance = s.clone();
+    builder = builder.add_unary_handler(&METHOD_PD_GET_GC_SAFE_POINT, move |ctx, req, resp| {
+        instance.get_gc_safe_point(ctx, req, resp)
+    });
+    let instance = s.clone();
+    builder = builder.add_unary_handler(&METHOD_PD_UPDATE_GC_SAFE_POINT, move |ctx, req, resp| {
+        instance.update_gc_safe_point(ctx, req, resp)
     });
     builder.build()
 }
