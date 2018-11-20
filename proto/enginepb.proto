@@ -7,12 +7,16 @@ import "raft_serverpb.proto";
 
 message CommandRequestHeader {
     uint64 region_id = 1;
+    uint64 index = 2;
+    uint64 term = 3;
 
     // Flush in-memory data to disk.
-    bool sync_log = 2;
+    bool sync_log = 4;
+    // Destroy the region.
+    bool destroy = 5;
 
-    uint64 index = 3;
-    uint64 term = 4;
+    // Additional information for the request.
+    bytes context = 6;
 }
 
 message CommandRequest {
