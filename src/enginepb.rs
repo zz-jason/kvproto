@@ -874,7 +874,7 @@ impl ::protobuf::reflect::ProtobufValue for CommandRequestBatch {
 pub struct CommandResponseHeader {
     // message fields
     pub region_id: u64,
-    pub destroy: bool,
+    pub destroyed: bool,
     // special fields
     unknown_fields: ::protobuf::UnknownFields,
     cached_size: ::protobuf::CachedSize,
@@ -900,19 +900,19 @@ impl CommandResponseHeader {
         self.region_id
     }
 
-    // bool destroy = 2;
+    // bool destroyed = 2;
 
-    pub fn clear_destroy(&mut self) {
-        self.destroy = false;
+    pub fn clear_destroyed(&mut self) {
+        self.destroyed = false;
     }
 
     // Param is passed by value, moved
-    pub fn set_destroy(&mut self, v: bool) {
-        self.destroy = v;
+    pub fn set_destroyed(&mut self, v: bool) {
+        self.destroyed = v;
     }
 
-    pub fn get_destroy(&self) -> bool {
-        self.destroy
+    pub fn get_destroyed(&self) -> bool {
+        self.destroyed
     }
 }
 
@@ -937,7 +937,7 @@ impl ::protobuf::Message for CommandResponseHeader {
                         return ::std::result::Result::Err(::protobuf::rt::unexpected_wire_type(wire_type));
                     }
                     let tmp = is.read_bool()?;
-                    self.destroy = tmp;
+                    self.destroyed = tmp;
                 },
                 _ => {
                     ::protobuf::rt::read_unknown_or_skip_group(field_number, wire_type, is, self.mut_unknown_fields())?;
@@ -954,7 +954,7 @@ impl ::protobuf::Message for CommandResponseHeader {
         if self.region_id != 0 {
             my_size += ::protobuf::rt::value_size(1, self.region_id, ::protobuf::wire_format::WireTypeVarint);
         }
-        if self.destroy != false {
+        if self.destroyed != false {
             my_size += 2;
         }
         my_size += ::protobuf::rt::unknown_fields_size(self.get_unknown_fields());
@@ -966,8 +966,8 @@ impl ::protobuf::Message for CommandResponseHeader {
         if self.region_id != 0 {
             os.write_uint64(1, self.region_id)?;
         }
-        if self.destroy != false {
-            os.write_bool(2, self.destroy)?;
+        if self.destroyed != false {
+            os.write_bool(2, self.destroyed)?;
         }
         os.write_unknown_fields(self.get_unknown_fields())?;
         ::std::result::Result::Ok(())
@@ -1017,9 +1017,9 @@ impl ::protobuf::Message for CommandResponseHeader {
                     |m: &mut CommandResponseHeader| { &mut m.region_id },
                 ));
                 fields.push(::protobuf::reflect::accessor::make_simple_field_accessor::<_, ::protobuf::types::ProtobufTypeBool>(
-                    "destroy",
-                    |m: &CommandResponseHeader| { &m.destroy },
-                    |m: &mut CommandResponseHeader| { &mut m.destroy },
+                    "destroyed",
+                    |m: &CommandResponseHeader| { &m.destroyed },
+                    |m: &mut CommandResponseHeader| { &mut m.destroyed },
                 ));
                 ::protobuf::reflect::MessageDescriptor::new::<CommandResponseHeader>(
                     "CommandResponseHeader",
@@ -1044,7 +1044,7 @@ impl ::protobuf::Message for CommandResponseHeader {
 impl ::protobuf::Clear for CommandResponseHeader {
     fn clear(&mut self) {
         self.clear_region_id();
-        self.clear_destroy();
+        self.clear_destroyed();
         self.unknown_fields.clear();
     }
 }
@@ -2460,14 +2460,14 @@ static file_descriptor_proto_data: &'static [u8] = b"\
     questR\x0cadminRequest\x12@\n\x0eadmin_response\x18\x04\x20\x01(\x0b2\
     \x19.raft_cmdpb.AdminResponseR\radminResponse\"K\n\x13CommandRequestBatc\
     h\x124\n\x08requests\x18\x01\x20\x03(\x0b2\x18.enginepb.CommandRequestR\
-    \x08requests\"N\n\x15CommandResponseHeader\x12\x1b\n\tregion_id\x18\x01\
-    \x20\x01(\x04R\x08regionId\x12\x18\n\x07destroy\x18\x02\x20\x01(\x08R\
-    \x07destroy\"\xad\x01\n\x0fCommandResponse\x127\n\x06header\x18\x01\x20\
-    \x01(\x0b2\x1f.enginepb.CommandResponseHeaderR\x06header\x12>\n\x0bapply\
-    _state\x18\x02\x20\x01(\x0b2\x1d.raft_serverpb.RaftApplyStateR\napplySta\
-    te\x12!\n\x0capplied_term\x18\x03\x20\x01(\x04R\x0bappliedTerm\"O\n\x14C\
-    ommandResponseBatch\x127\n\tresponses\x18\x01\x20\x03(\x0b2\x19.enginepb\
-    .CommandResponseR\tresponses\"\x99\x01\n\rSnapshotState\x12&\n\x06region\
+    \x08requests\"R\n\x15CommandResponseHeader\x12\x1b\n\tregion_id\x18\x01\
+    \x20\x01(\x04R\x08regionId\x12\x1c\n\tdestroyed\x18\x02\x20\x01(\x08R\td\
+    estroyed\"\xad\x01\n\x0fCommandResponse\x127\n\x06header\x18\x01\x20\x01\
+    (\x0b2\x1f.enginepb.CommandResponseHeaderR\x06header\x12>\n\x0bapply_sta\
+    te\x18\x02\x20\x01(\x0b2\x1d.raft_serverpb.RaftApplyStateR\napplyState\
+    \x12!\n\x0capplied_term\x18\x03\x20\x01(\x04R\x0bappliedTerm\"O\n\x14Com\
+    mandResponseBatch\x127\n\tresponses\x18\x01\x20\x03(\x0b2\x19.enginepb.C\
+    ommandResponseR\tresponses\"\x99\x01\n\rSnapshotState\x12&\n\x06region\
     \x18\x01\x20\x01(\x0b2\x0e.metapb.RegionR\x06region\x12\x20\n\x04peer\
     \x18\x02\x20\x01(\x0b2\x0c.metapb.PeerR\x04peer\x12>\n\x0bapply_state\
     \x18\x03\x20\x01(\x0b2\x1d.raft_serverpb.RaftApplyStateR\napplyState\"g\
@@ -2533,10 +2533,10 @@ static file_descriptor_proto_data: &'static [u8] = b"\
     \x04\x19\n\r\n\x05\x04\x03\x02\0\x04\x12\x04)\x04(\x1f\n\x0c\n\x05\x04\
     \x03\x02\0\x05\x12\x03)\x04\n\n\x0c\n\x05\x04\x03\x02\0\x01\x12\x03)\x0b\
     \x14\n\x0c\n\x05\x04\x03\x02\0\x03\x12\x03)\x17\x18\n#\n\x04\x04\x03\x02\
-    \x01\x12\x03+\x04\x15\x1a\x16\x20Region\x20is\x20destroyed.\n\n\r\n\x05\
+    \x01\x12\x03+\x04\x17\x1a\x16\x20Region\x20is\x20destroyed.\n\n\r\n\x05\
     \x04\x03\x02\x01\x04\x12\x04+\x04)\x19\n\x0c\n\x05\x04\x03\x02\x01\x05\
-    \x12\x03+\x04\x08\n\x0c\n\x05\x04\x03\x02\x01\x01\x12\x03+\t\x10\n\x0c\n\
-    \x05\x04\x03\x02\x01\x03\x12\x03+\x13\x14\n\n\n\x02\x04\x04\x12\x04.\03\
+    \x12\x03+\x04\x08\n\x0c\n\x05\x04\x03\x02\x01\x01\x12\x03+\t\x12\n\x0c\n\
+    \x05\x04\x03\x02\x01\x03\x12\x03+\x15\x16\n\n\n\x02\x04\x04\x12\x04.\03\
     \x01\n\n\n\x03\x04\x04\x01\x12\x03.\x08\x17\n\x0b\n\x04\x04\x04\x02\0\
     \x12\x03/\x04%\n\r\n\x05\x04\x04\x02\0\x04\x12\x04/\x04.\x19\n\x0c\n\x05\
     \x04\x04\x02\0\x06\x12\x03/\x04\x19\n\x0c\n\x05\x04\x04\x02\0\x01\x12\
