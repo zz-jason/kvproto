@@ -41,7 +41,7 @@ message CommandRequestBatch {
 message CommandResponseHeader {
     uint64 region_id = 1;
     // Region is destroyed.
-    bool destroy = 2;
+    bool destroyed = 2;
 }
 
 message CommandResponse {
