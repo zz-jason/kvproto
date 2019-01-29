@@ -12,12 +12,18 @@
 // limitations under the License.
 
 use regex::Regex;
+use std::env;
 use std::fs::File;
 use std::fs::{read_dir, remove_file};
 use std::io::{Read, Write};
 use std::process::Command;
 
 fn main() {
+    let buf_lib = BufferLib::from_env_vars();
+    if buf_lib == BufferLib::Prost {
+        unimplemented!("Prost support is not yet implemented");
+    }
+
     check_protoc_version();
     let _ = remove_file("src/lib.rs");
 
@@ -36,7 +42,9 @@ fn main() {
         println!("cargo:rerun-if-changed={}", f);
     }
 
-    generate_rust_files(file_names);
+    if buf_lib == BufferLib::Protobuf {
+        generate_protobuf_files(file_names);
+    }
 
     let mut mod_names: Vec<_> = read_dir("src")
         .expect("Couldn't read src directory")
@@ -51,8 +59,31 @@ fn main() {
         .collect();
     mod_names.sort();
     
-    replace_read_unknown_fields(&mod_names);
-    generate_lib_rs(&mod_names);
+    if buf_lib == BufferLib::Protobuf {
+        replace_read_unknown_fields(&mod_names);
+        generate_protobuf_lib_rs(&mod_names);
+    }
+}
+
+#[derive(Eq, PartialEq)]
+enum BufferLib {
+    Prost,
+    Protobuf,
+}
+
+impl BufferLib {
+    fn from_env_vars() -> BufferLib {
+        match (
+            env::var_os("CARGO_FEATURE_PROST_BUF"),
+            env::var_os("CARGO_FEATURE_PROTO_BUF"),
+        ) {
+            (Some(_), Some(_)) | (None, None) => {
+                panic!("You must use exactly one of `proto-buf` and `prost-buf` features")
+            }
+            (Some(_), _) => BufferLib::Prost,
+            (_, Some(_)) => BufferLib::Protobuf,
+        }
+    }
 }
 
 fn check_protoc_version() {
@@ -69,7 +100,7 @@ fn check_protoc_version() {
     }
 }
 
-fn generate_rust_files(file_names: Vec<&str>) {
+fn generate_protobuf_files(file_names: Vec<&str>) {
     protoc_rust::run(protoc_rust::Args {
         out_dir: "src",
         input: &file_names,
@@ -109,10 +140,10 @@ fn replace_read_unknown_fields(mod_names: &[String]) {
         let mut out = File::create(file_name).unwrap();
         out.write_all(text.as_bytes())
             .expect("Could not write source file");
-    }    
+    }
 }
 
-fn generate_lib_rs(mod_names: &[String]) {
+fn generate_protobuf_lib_rs(mod_names: &[String]) {
     let mut text = r"extern crate futures;
 extern crate grpcio;
 extern crate protobuf;
