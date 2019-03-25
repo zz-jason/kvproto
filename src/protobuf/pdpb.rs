@@ -12153,6 +12153,7 @@ pub enum OperatorStatus {
     TIMEOUT = 1,
     CANCEL = 2,
     REPLACE = 3,
+    RUNNING = 4,
 }
 
 impl ::protobuf::ProtobufEnum for OperatorStatus {
@@ -12166,6 +12167,7 @@ impl ::protobuf::ProtobufEnum for OperatorStatus {
             1 => ::std::option::Option::Some(OperatorStatus::TIMEOUT),
             2 => ::std::option::Option::Some(OperatorStatus::CANCEL),
             3 => ::std::option::Option::Some(OperatorStatus::REPLACE),
+            4 => ::std::option::Option::Some(OperatorStatus::RUNNING),
             _ => ::std::option::Option::None
         }
     }
@@ -12176,6 +12178,7 @@ impl ::protobuf::ProtobufEnum for OperatorStatus {
             OperatorStatus::TIMEOUT,
             OperatorStatus::CANCEL,
             OperatorStatus::REPLACE,
+            OperatorStatus::RUNNING,
         ];
         values
     }

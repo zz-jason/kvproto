@@ -496,6 +496,7 @@ enum OperatorStatus {
 	TIMEOUT = 1;
 	CANCEL  = 2;
 	REPLACE = 3;
+	RUNNING = 4;
 }
 
 message GetOperatorResponse {
