@@ -5,4 +5,7 @@ mod protobuf;
 pub use crate::protobuf::*;
 
 #[cfg(feature = "prost-codec")]
+mod prost;
+
+#[cfg(feature = "prost-codec")]
 pub use crate::prost::*;
