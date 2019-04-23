@@ -86,6 +86,17 @@ pub struct RaftLocalState {
     #[prost(uint64, tag = "2")]
     pub last_index: u64,
 }
+pub mod raft_local_state {
+    #[derive(Clone, PartialEq, ::prost::Message)]
+    pub struct ConfState {
+        #[prost(message, optional, tag = "1")]
+        pub conf_state: ::std::option::Option<super::super::eraftpb::ConfState>,
+        #[prost(uint64, tag = "2")]
+        pub index: u64,
+        #[prost(bool, tag = "3")]
+        pub in_membership_change: bool,
+    }
+}
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct RaftApplyState {
     #[prost(uint64, tag = "1")]

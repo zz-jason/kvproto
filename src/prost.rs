@@ -26,5 +26,3 @@ pub mod rustproto{
 include!("prost/rustproto.rs");include!("prost/wrapper_rustproto.rs");}
 pub mod tikvpb{
 include!("prost/tikvpb.rs");include!("prost/wrapper_tikvpb.rs");}
-
-// pub mod tikvpb_grpc;

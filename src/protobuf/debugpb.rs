@@ -5749,8 +5749,8 @@ static file_descriptor_proto_data: &'static [u8] = b"\
     ncyCheckResponse\"\0\x12Y\n\x10ModifyTikvConfig\x12\x20.debugpb.ModifyTi\
     kvConfigRequest\x1a!.debugpb.ModifyTikvConfigResponse\"\0\x12b\n\x13GetR\
     egionProperties\x12#.debugpb.GetRegionPropertiesRequest\x1a$.debugpb.Get\
-    RegionPropertiesResponse\"\0B\"\n\x10org.tikv.kvproto\xe0\xe2\x1e\x01\
-    \xc8\xe2\x1e\x01\xd8\xa8\x08\x01\xd0\xe2\x1e\x01b\x06proto3\
+    RegionPropertiesResponse\"\0B\"\n\x10org.tikv.kvproto\xd0\xe2\x1e\x01\
+    \xe0\xe2\x1e\x01\xc8\xe2\x1e\x01\xd8\xa8\x08\x01b\x06proto3\
 ";
 
 static mut file_descriptor_proto_lazy: ::protobuf::lazy::Lazy<::protobuf::descriptor::FileDescriptorProto> = ::protobuf::lazy::Lazy {

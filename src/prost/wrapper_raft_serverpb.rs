@@ -1286,6 +1286,134 @@ impl ::protobuf::Message for RaftLocalState {
         Ok(())
     }
 }
+impl raft_local_state::ConfState {
+    pub fn new_() -> raft_local_state::ConfState {
+        ::std::default::Default::default()
+    }
+    #[inline]
+    pub fn has_conf_state(&self) -> bool {
+        self.conf_state.is_some()
+    }
+    #[inline]
+    pub fn clear_conf_state(&mut self) {
+        self.conf_state = ::std::option::Option::None
+    }
+    #[inline]
+    pub fn set_conf_state(&mut self, v: super::super::eraftpb::ConfState) {
+        self.conf_state = ::std::option::Option::Some(v);
+    }
+    #[inline]
+    pub fn get_conf_state(&self) -> &super::super::eraftpb::ConfState {
+        match self.conf_state.as_ref() {
+            Some(v) => v,
+            None => <super::super::eraftpb::ConfState as ::protobuf::Message>::default_instance(),
+        }
+    }
+    #[inline]
+    pub fn mut_conf_state(&mut self) -> &mut super::super::eraftpb::ConfState {
+        if self.conf_state.is_none() {
+            self.conf_state =
+                ::std::option::Option::Some(super::super::eraftpb::ConfState::default());
+        }
+        self.conf_state.as_mut().unwrap()
+    }
+    #[inline]
+    pub fn take_conf_state(&mut self) -> super::super::eraftpb::ConfState {
+        self.conf_state
+            .take()
+            .unwrap_or_else(super::super::eraftpb::ConfState::default)
+    }
+    #[inline]
+    pub fn clear_index(&mut self) {
+        self.index = 0
+    }
+    #[inline]
+    pub fn set_index(&mut self, v: u64) {
+        self.index = v;
+    }
+    #[inline]
+    pub fn get_index(&self) -> u64 {
+        self.index
+    }
+    #[inline]
+    pub fn clear_in_membership_change(&mut self) {
+        self.in_membership_change = false
+    }
+    #[inline]
+    pub fn set_in_membership_change(&mut self, v: bool) {
+        self.in_membership_change = v;
+    }
+    #[inline]
+    pub fn get_in_membership_change(&self) -> bool {
+        self.in_membership_change
+    }
+}
+impl ::protobuf::Clear for raft_local_state::ConfState {
+    fn clear(&mut self) {
+        ::prost::Message::clear(self);
+    }
+}
+impl ::protobuf::Message for raft_local_state::ConfState {
+    fn compute_size(&self) -> u32 {
+        ::prost::Message::encoded_len(self) as u32
+    }
+    fn get_cached_size(&self) -> u32 {
+        ::prost::Message::encoded_len(self) as u32
+    }
+    fn as_any(&self) -> &::std::any::Any {
+        self as &::std::any::Any
+    }
+    fn descriptor(&self) -> &'static ::protobuf::reflect::MessageDescriptor {
+        Self::descriptor_static()
+    }
+    fn new() -> Self {
+        Self::new_()
+    }
+    fn write_to_with_cached_sizes(
+        &self,
+        _os: &mut ::protobuf::CodedOutputStream,
+    ) -> ::protobuf::ProtobufResult<()> {
+        unimplemented!();
+    }
+    fn default_instance() -> &'static raft_local_state::ConfState {
+        ::lazy_static::lazy_static! {
+            static ref INSTANCE: raft_local_state::ConfState = raft_local_state::ConfState::new_();
+        }
+        &*INSTANCE
+    }
+    fn is_initialized(&self) -> bool {
+        true
+    }
+    fn merge_from(
+        &mut self,
+        _is: &mut ::protobuf::CodedInputStream,
+    ) -> ::protobuf::ProtobufResult<()> {
+        unimplemented!();
+    }
+    fn get_unknown_fields(&self) -> &::protobuf::UnknownFields {
+        unimplemented!();
+    }
+    fn mut_unknown_fields(&mut self) -> &mut ::protobuf::UnknownFields {
+        unimplemented!();
+    }
+    fn write_to_bytes(&self) -> ::protobuf::ProtobufResult<Vec<u8>> {
+        let mut buf = Vec::new();
+        if let Err(_) = ::prost::Message::encode(self, &mut buf) {
+            return Err(::protobuf::ProtobufError::WireError(
+                ::protobuf::error::WireError::Other,
+            ));
+        }
+        Ok(buf)
+    }
+    fn merge_from_bytes(&mut self, bytes: &[u8]) -> ::protobuf::ProtobufResult<()> {
+        if let Err(_) = ::prost::Message::merge(self, bytes) {
+            return Err(::protobuf::ProtobufError::WireError(
+                ::protobuf::error::WireError::Other,
+            ));
+        }
+        Ok(())
+    }
+}
 impl RaftApplyState {
     pub fn new_() -> RaftApplyState {
         ::std::default::Default::default()

@@ -14511,7 +14511,7 @@ static file_descriptor_proto_data: &'static [u8] = b"\
     Response\"\0\x12F\n\x0bSyncRegions\x12\x17.pdpb.SyncRegionRequest\x1a\
     \x18.pdpb.SyncRegionResponse\"\0(\x010\x01\x12D\n\x0bGetOperator\x12\x18\
     .pdpb.GetOperatorRequest\x1a\x19.pdpb.GetOperatorResponse\"\0B\"\n\x10or\
-    g.tikv.kvproto\xe0\xe2\x1e\x01\xd8\xa8\x08\x01\xc8\xe2\x1e\x01\xd0\xe2\
+    g.tikv.kvproto\xd8\xa8\x08\x01\xc8\xe2\x1e\x01\xe0\xe2\x1e\x01\xd0\xe2\
     \x1e\x01b\x06proto3\
 ";
 

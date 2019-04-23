@@ -4365,7 +4365,7 @@ static file_descriptor_proto_data: &'static [u8] = b"\
     \0\x12Y\n\x10MvccGetByStartTs\x12\x20.kvrpcpb.MvccGetByStartTsRequest\
     \x1a!.kvrpcpb.MvccGetByStartTsResponse\"\0\x12R\n\rBatchCommands\x12\x1c\
     .tikvpb.BatchCommandsRequest\x1a\x1d.tikvpb.BatchCommandsResponse\"\0(\
-    \x010\x01B\"\n\x10org.tikv.kvproto\xe0\xe2\x1e\x01\xd0\xe2\x1e\x01\xc8\
+    \x010\x01B\"\n\x10org.tikv.kvproto\xe0\xe2\x1e\x01\xc8\xe2\x1e\x01\xd0\
     \xe2\x1e\x01\xd8\xa8\x08\x01b\x06proto3\
 ";
 
