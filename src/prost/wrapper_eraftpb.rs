@@ -194,6 +194,62 @@ impl SnapshotMetadata {
         self.conf_state.take().unwrap_or_else(ConfState::default)
     }
     #[inline]
+    pub fn clear_conf_state_index(&mut self) {
+        self.conf_state_index = 0
+    }
+    #[inline]
+    pub fn set_conf_state_index(&mut self, v: u64) {
+        self.conf_state_index = v;
+    }
+    #[inline]
+    pub fn get_conf_state_index(&self) -> u64 {
+        self.conf_state_index
+    }
+    #[inline]
+    pub fn has_next_conf_state(&self) -> bool {
+        self.next_conf_state.is_some()
+    }
+    #[inline]
+    pub fn clear_next_conf_state(&mut self) {
+        self.next_conf_state = ::std::option::Option::None
+    }
+    #[inline]
+    pub fn set_next_conf_state(&mut self, v: ConfState) {
+        self.next_conf_state = ::std::option::Option::Some(v);
+    }
+    #[inline]
+    pub fn get_next_conf_state(&self) -> &ConfState {
+        match self.next_conf_state.as_ref() {
+            Some(v) => v,
+            None => <ConfState as ::protobuf::Message>::default_instance(),
+        }
+    }
+    #[inline]
+    pub fn mut_next_conf_state(&mut self) -> &mut ConfState {
+        if self.next_conf_state.is_none() {
+            self.next_conf_state = ::std::option::Option::Some(ConfState::default());
+        }
+        self.next_conf_state.as_mut().unwrap()
+    }
+    #[inline]
+    pub fn take_next_conf_state(&mut self) -> ConfState {
+        self.next_conf_state
+            .take()
+            .unwrap_or_else(ConfState::default)
+    }
+    #[inline]
+    pub fn clear_next_conf_state_index(&mut self) {
+        self.next_conf_state_index = 0
+    }
+    #[inline]
+    pub fn set_next_conf_state_index(&mut self, v: u64) {
+        self.next_conf_state_index = v;
+    }
+    #[inline]
+    pub fn get_next_conf_state_index(&self) -> u64 {
+        self.next_conf_state_index
+    }
+    #[inline]
     pub fn clear_index(&mut self) {
         self.index = 0
     }
@@ -934,6 +990,48 @@ impl ConfChange {
     pub fn take_context(&mut self) -> std::vec::Vec<u8> {
         ::std::mem::replace(&mut self.context, ::std::vec::Vec::new())
     }
+    #[inline]
+    pub fn has_configuration(&self) -> bool {
+        self.configuration.is_some()
+    }
+    #[inline]
+    pub fn clear_configuration(&mut self) {
+        self.configuration = ::std::option::Option::None
+    }
+    #[inline]
+    pub fn set_configuration(&mut self, v: ConfState) {
+        self.configuration = ::std::option::Option::Some(v);
+    }
+    #[inline]
+    pub fn get_configuration(&self) -> &ConfState {
+        match self.configuration.as_ref() {
+            Some(v) => v,
+            None => <ConfState as ::protobuf::Message>::default_instance(),
+        }
+    }
+    #[inline]
+    pub fn mut_configuration(&mut self) -> &mut ConfState {
+        if self.configuration.is_none() {
+            self.configuration = ::std::option::Option::Some(ConfState::default());
+        }
+        self.configuration.as_mut().unwrap()
+    }
+    #[inline]
+    pub fn take_configuration(&mut self) -> ConfState {
+        self.configuration.take().unwrap_or_else(ConfState::default)
+    }
+    #[inline]
+    pub fn clear_start_index(&mut self) {
+        self.start_index = 0
+    }
+    #[inline]
+    pub fn set_start_index(&mut self, v: u64) {
+        self.start_index = v;
+    }
+    #[inline]
+    pub fn get_start_index(&self) -> u64 {
+        self.start_index
+    }
 }
 impl ::protobuf::Clear for ConfChange {
     fn clear(&mut self) {
@@ -1039,6 +1137,8 @@ impl ConfChangeType {
             ConfChangeType::AddNode,
             ConfChangeType::RemoveNode,
             ConfChangeType::AddLearnerNode,
+            ConfChangeType::BeginMembershipChange,
+            ConfChangeType::FinalizeMembershipChange,
         ];
         VALUES
     }

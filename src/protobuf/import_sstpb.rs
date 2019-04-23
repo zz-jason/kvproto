@@ -2149,8 +2149,8 @@ static file_descriptor_proto_data: &'static [u8] = b"\
     tpb.UploadResponse\"\0(\x01\x12E\n\x06Ingest\x12\x1b.import_sstpb.Ingest\
     Request\x1a\x1c.import_sstpb.IngestResponse\"\0\x12H\n\x07Compact\x12\
     \x1c.import_sstpb.CompactRequest\x1a\x1d.import_sstpb.CompactResponse\"\
-    \0B\"\n\x10org.tikv.kvproto\xe0\xe2\x1e\x01\xd8\xa8\x08\x01\xc8\xe2\x1e\
-    \x01\xd0\xe2\x1e\x01b\x06proto3\
+    \0B\"\n\x10org.tikv.kvproto\xc8\xe2\x1e\x01\xd0\xe2\x1e\x01\xe0\xe2\x1e\
+    \x01\xd8\xa8\x08\x01b\x06proto3\
 ";
 
 static mut file_descriptor_proto_lazy: ::protobuf::lazy::Lazy<::protobuf::descriptor::FileDescriptorProto> = ::protobuf::lazy::Lazy {

@@ -3433,8 +3433,8 @@ static file_descriptor_proto_data: &'static [u8] = b"\
     gineResponse\"\0\x12X\n\rCleanupEngine\x12!.import_kvpb.CleanupEngineReq\
     uest\x1a\".import_kvpb.CleanupEngineResponse\"\0\x12[\n\x0eCompactCluste\
     r\x12\".import_kvpb.CompactClusterRequest\x1a#.import_kvpb.CompactCluste\
-    rResponse\"\0B\"\n\x10org.tikv.kvproto\xd8\xa8\x08\x01\xe0\xe2\x1e\x01\
-    \xd0\xe2\x1e\x01\xc8\xe2\x1e\x01b\x06proto3\
+    rResponse\"\0B\"\n\x10org.tikv.kvproto\xd0\xe2\x1e\x01\xc8\xe2\x1e\x01\
+    \xd8\xa8\x08\x01\xe0\xe2\x1e\x01b\x06proto3\
 ";
 
 static mut file_descriptor_proto_lazy: ::protobuf::lazy::Lazy<::protobuf::descriptor::FileDescriptorProto> = ::protobuf::lazy::Lazy {

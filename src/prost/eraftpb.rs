@@ -27,10 +27,22 @@ pub struct Entry {
 }
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct SnapshotMetadata {
+    /// The current `ConfState`.
     #[prost(message, optional, tag = "1")]
     pub conf_state: ::std::option::Option<ConfState>,
+    /// The index of the current `ConfState`.
+    #[prost(uint64, tag = "5")]
+    pub conf_state_index: u64,
+    /// The next `ConfState`, only for membership change.
+    #[prost(message, optional, tag = "4")]
+    pub next_conf_state: ::std::option::Option<ConfState>,
+    /// The index of the next `ConfState`.
+    #[prost(uint64, tag = "6")]
+    pub next_conf_state_index: u64,
+    /// The applied index.
     #[prost(uint64, tag = "2")]
     pub index: u64,
+    /// The term of the applied index.
     #[prost(uint64, tag = "3")]
     pub term: u64,
 }
@@ -90,10 +102,18 @@ pub struct ConfChange {
     pub id: u64,
     #[prost(enumeration = "ConfChangeType", tag = "2")]
     pub change_type: i32,
+    /// Used in `AddNode`, `RemoveNode`, and `AddLearnerNode`.
     #[prost(uint64, tag = "3")]
     pub node_id: u64,
+    /// Some extra information used in configuration change.
     #[prost(bytes, tag = "4")]
     pub context: std::vec::Vec<u8>,
+    /// Used in `BeginMembershipChange`.
+    #[prost(message, optional, tag = "5")]
+    pub configuration: ::std::option::Option<ConfState>,
+    /// Used in `BeginMembershipChange`.
+    #[prost(uint64, tag = "6")]
+    pub start_index: u64,
 }
 #[derive(Clone, Copy, Debug, PartialEq, Eq, Hash, PartialOrd, Ord, ::prost::Enumeration)]
 #[repr(i32)]
@@ -130,4 +150,6 @@ pub enum ConfChangeType {
     AddNode = 0,
     RemoveNode = 1,
     AddLearnerNode = 2,
+    BeginMembershipChange = 3,
+    FinalizeMembershipChange = 4,
 }
