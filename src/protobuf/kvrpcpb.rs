@@ -4032,6 +4032,7 @@ pub struct PrewriteRequest {
     pub start_version: u64,
     pub lock_ttl: u64,
     pub skip_constraint_check: bool,
+    pub is_pessimistic_lock: ::std::vec::Vec<bool>,
     pub txn_size: u64,
     // special fields
     unknown_fields: ::protobuf::UnknownFields,
@@ -4172,6 +4173,31 @@ impl PrewriteRequest {
         self.skip_constraint_check
     }
 
+    // repeated bool is_pessimistic_lock = 7;
+
+    pub fn clear_is_pessimistic_lock(&mut self) {
+        self.is_pessimistic_lock.clear();
+    }
+
+    // Param is passed by value, moved
+    pub fn set_is_pessimistic_lock(&mut self, v: ::std::vec::Vec<bool>) {
+        self.is_pessimistic_lock = v;
+    }
+
+    // Mutable pointer to the field.
+    pub fn mut_is_pessimistic_lock(&mut self) -> &mut ::std::vec::Vec<bool> {
+        &mut self.is_pessimistic_lock
+    }
+
+    // Take field
+    pub fn take_is_pessimistic_lock(&mut self) -> ::std::vec::Vec<bool> {
+        ::std::mem::replace(&mut self.is_pessimistic_lock, ::std::vec::Vec::new())
+    }
+
+    pub fn get_is_pessimistic_lock(&self) -> &[bool] {
+        &self.is_pessimistic_lock
+    }
+
     // uint64 txn_size = 8;
 
     pub fn clear_txn_size(&mut self) {
@@ -4237,6 +4263,9 @@ impl ::protobuf::Message for PrewriteRequest {
                     let tmp = is.read_bool()?;
                     self.skip_constraint_check = tmp;
                 },
+                7 => {
+                    ::protobuf::rt::read_repeated_bool_into(wire_type, is, &mut self.is_pessimistic_lock)?;
+                },
                 8 => {
                     if wire_type != ::protobuf::wire_format::WireTypeVarint {
                         return ::std::result::Result::Err(::protobuf::rt::unexpected_wire_type(wire_type));
@@ -4276,6 +4305,7 @@ impl ::protobuf::Message for PrewriteRequest {
         if self.skip_constraint_check != false {
             my_size += 2;
         }
+        my_size += 2 * self.is_pessimistic_lock.len() as u32;
         if self.txn_size != 0 {
             my_size += ::protobuf::rt::value_size(8, self.txn_size, ::protobuf::wire_format::WireTypeVarint);
         }
@@ -4307,6 +4337,9 @@ impl ::protobuf::Message for PrewriteRequest {
         if self.skip_constraint_check != false {
             os.write_bool(6, self.skip_constraint_check)?;
         }
+        for v in &self.is_pessimistic_lock {
+            os.write_bool(7, *v)?;
+        };
         if self.txn_size != 0 {
             os.write_uint64(8, self.txn_size)?;
         }
@@ -4363,6 +4396,7 @@ impl ::protobuf::Clear for PrewriteRequest {
         self.clear_start_version();
         self.clear_lock_ttl();
         self.clear_skip_constraint_check();
+        self.clear_is_pessimistic_lock();
         self.clear_txn_size();
         self.unknown_fields.clear();
     }
@@ -4379,6 +4413,7 @@ impl crate::text::PbPrint for PrewriteRequest {
         crate::text::PbPrint::fmt(&self.start_version, "start_version", buf);
         crate::text::PbPrint::fmt(&self.lock_ttl, "lock_ttl", buf);
         crate::text::PbPrint::fmt(&self.skip_constraint_check, "skip_constraint_check", buf);
+        crate::text::PbPrint::fmt(&self.is_pessimistic_lock, "is_pessimistic_lock", buf);
         crate::text::PbPrint::fmt(&self.txn_size, "txn_size", buf);
         if old_len < buf.len() {
           buf.push(' ');
@@ -4396,6 +4431,7 @@ impl ::std::fmt::Debug for PrewriteRequest {
         crate::text::PbPrint::fmt(&self.start_version, "start_version", &mut s);
         crate::text::PbPrint::fmt(&self.lock_ttl, "lock_ttl", &mut s);
         crate::text::PbPrint::fmt(&self.skip_constraint_check, "skip_constraint_check", &mut s);
+        crate::text::PbPrint::fmt(&self.is_pessimistic_lock, "is_pessimistic_lock", &mut s);
         crate::text::PbPrint::fmt(&self.txn_size, "txn_size", &mut s);
         write!(f, "{}", s)
     }
@@ -4619,6 +4655,607 @@ impl ::std::fmt::Debug for PrewriteResponse {
 }
 
 impl ::protobuf::reflect::ProtobufValue for PrewriteResponse {
+    fn as_ref(&self) -> ::protobuf::reflect::ProtobufValueRef {
+        ::protobuf::reflect::ProtobufValueRef::Message(self)
+    }
+}
+
+#[derive(PartialEq,Clone,Default)]
+pub struct PessimisticLockRequest {
+    // message fields
+    pub context: ::protobuf::SingularPtrField<Context>,
+    pub mutations: ::protobuf::RepeatedField<Mutation>,
+    pub primary_lock: ::std::vec::Vec<u8>,
+    pub start_version: u64,
+    pub lock_ttl: u64,
+    pub for_update_ts: u64,
+    pub is_first_lock: bool,
+    // special fields
+    unknown_fields: ::protobuf::UnknownFields,
+    cached_size: ::protobuf::CachedSize,
+}
+
+impl PessimisticLockRequest {
+    pub fn new() -> PessimisticLockRequest {
+        ::std::default::Default::default()
+    }
+
+    // .kvrpcpb.Context context = 1;
+
+    pub fn clear_context(&mut self) {
+        self.context.clear();
+    }
+
+    pub fn has_context(&self) -> bool {
+        self.context.is_some()
+    }
+
+    // Param is passed by value, moved
+    pub fn set_context(&mut self, v: Context) {
+        self.context = ::protobuf::SingularPtrField::some(v);
+    }
+
+    // Mutable pointer to the field.
+    // If field is not initialized, it is initialized with default value first.
+    pub fn mut_context(&mut self) -> &mut Context {
+        if self.context.is_none() {
+            self.context.set_default();
+        }
+        self.context.as_mut().unwrap()
+    }
+
+    // Take field
+    pub fn take_context(&mut self) -> Context {
+        self.context.take().unwrap_or_else(|| Context::new())
+    }
+
+    pub fn get_context(&self) -> &Context {
+        self.context.as_ref().unwrap_or_else(|| Context::default_instance())
+    }
+
+    // repeated .kvrpcpb.Mutation mutations = 2;
+
+    pub fn clear_mutations(&mut self) {
+        self.mutations.clear();
+    }
+
+    // Param is passed by value, moved
+    pub fn set_mutations(&mut self, v: ::protobuf::RepeatedField<Mutation>) {
+        self.mutations = v;
+    }
+
+    // Mutable pointer to the field.
+    pub fn mut_mutations(&mut self) -> &mut ::protobuf::RepeatedField<Mutation> {
+        &mut self.mutations
+    }
+
+    // Take field
+    pub fn take_mutations(&mut self) -> ::protobuf::RepeatedField<Mutation> {
+        ::std::mem::replace(&mut self.mutations, ::protobuf::RepeatedField::new())
+    }
+
+    pub fn get_mutations(&self) -> &[Mutation] {
+        &self.mutations
+    }
+
+    // bytes primary_lock = 3;
+
+    pub fn clear_primary_lock(&mut self) {
+        self.primary_lock.clear();
+    }
+
+    // Param is passed by value, moved
+    pub fn set_primary_lock(&mut self, v: ::std::vec::Vec<u8>) {
+        self.primary_lock = v;
+    }
+
+    // Mutable pointer to the field.
+    // If field is not initialized, it is initialized with default value first.
+    pub fn mut_primary_lock(&mut self) -> &mut ::std::vec::Vec<u8> {
+        &mut self.primary_lock
+    }
+
+    // Take field
+    pub fn take_primary_lock(&mut self) -> ::std::vec::Vec<u8> {
+        ::std::mem::replace(&mut self.primary_lock, ::std::vec::Vec::new())
+    }
+
+    pub fn get_primary_lock(&self) -> &[u8] {
+        &self.primary_lock
+    }
+
+    // uint64 start_version = 4;
+
+    pub fn clear_start_version(&mut self) {
+        self.start_version = 0;
+    }
+
+    // Param is passed by value, moved
+    pub fn set_start_version(&mut self, v: u64) {
+        self.start_version = v;
+    }
+
+    pub fn get_start_version(&self) -> u64 {
+        self.start_version
+    }
+
+    // uint64 lock_ttl = 5;
+
+    pub fn clear_lock_ttl(&mut self) {
+        self.lock_ttl = 0;
+    }
+
+    // Param is passed by value, moved
+    pub fn set_lock_ttl(&mut self, v: u64) {
+        self.lock_ttl = v;
+    }
+
+    pub fn get_lock_ttl(&self) -> u64 {
+        self.lock_ttl
+    }
+
+    // uint64 for_update_ts = 6;
+
+    pub fn clear_for_update_ts(&mut self) {
+        self.for_update_ts = 0;
+    }
+
+    // Param is passed by value, moved
+    pub fn set_for_update_ts(&mut self, v: u64) {
+        self.for_update_ts = v;
+    }
+
+    pub fn get_for_update_ts(&self) -> u64 {
+        self.for_update_ts
+    }
+
+    // bool is_first_lock = 7;
+
+    pub fn clear_is_first_lock(&mut self) {
+        self.is_first_lock = false;
+    }
+
+    // Param is passed by value, moved
+    pub fn set_is_first_lock(&mut self, v: bool) {
+        self.is_first_lock = v;
+    }
+
+    pub fn get_is_first_lock(&self) -> bool {
+        self.is_first_lock
+    }
+}
+
+impl ::protobuf::Message for PessimisticLockRequest {
+    fn is_initialized(&self) -> bool {
+        for v in &self.context {
+            if !v.is_initialized() {
+                return false;
+            }
+        };
+        for v in &self.mutations {
+            if !v.is_initialized() {
+                return false;
+            }
+        };
+        true
+    }
+
+    fn merge_from(&mut self, is: &mut ::protobuf::CodedInputStream) -> ::protobuf::ProtobufResult<()> {
+        while !is.eof()? {
+            let (field_number, wire_type) = is.read_tag_unpack()?;
+            match field_number {
+                1 => {
+                    ::protobuf::rt::read_singular_message_into(wire_type, is, &mut self.context)?;
+                },
+                2 => {
+                    ::protobuf::rt::read_repeated_message_into(wire_type, is, &mut self.mutations)?;
+                },
+                3 => {
+                    ::protobuf::rt::read_singular_proto3_bytes_into(wire_type, is, &mut self.primary_lock)?;
+                },
+                4 => {
+                    if wire_type != ::protobuf::wire_format::WireTypeVarint {
+                        return ::std::result::Result::Err(::protobuf::rt::unexpected_wire_type(wire_type));
+                    }
+                    let tmp = is.read_uint64()?;
+                    self.start_version = tmp;
+                },
+                5 => {
+                    if wire_type != ::protobuf::wire_format::WireTypeVarint {
+                        return ::std::result::Result::Err(::protobuf::rt::unexpected_wire_type(wire_type));
+                    }
+                    let tmp = is.read_uint64()?;
+                    self.lock_ttl = tmp;
+                },
+                6 => {
+                    if wire_type != ::protobuf::wire_format::WireTypeVarint {
+                        return ::std::result::Result::Err(::protobuf::rt::unexpected_wire_type(wire_type));
+                    }
+                    let tmp = is.read_uint64()?;
+                    self.for_update_ts = tmp;
+                },
+                7 => {
+                    if wire_type != ::protobuf::wire_format::WireTypeVarint {
+                        return ::std::result::Result::Err(::protobuf::rt::unexpected_wire_type(wire_type));
+                    }
+                    let tmp = is.read_bool()?;
+                    self.is_first_lock = tmp;
+                },
+                _ => {
+                    ::protobuf::rt::read_unknown_or_skip_group(field_number, wire_type, is, self.mut_unknown_fields())?;
+                },
+            };
+        }
+        ::std::result::Result::Ok(())
+    }
+
+    // Compute sizes of nested messages
+    #[allow(unused_variables)]
+    fn compute_size(&self) -> u32 {
+        let mut my_size = 0;
+        if let Some(ref v) = self.context.as_ref() {
+            let len = v.compute_size();
+            my_size += 1 + ::protobuf::rt::compute_raw_varint32_size(len) + len;
+        }
+        for value in &self.mutations {
+            let len = value.compute_size();
+            my_size += 1 + ::protobuf::rt::compute_raw_varint32_size(len) + len;
+        };
+        if !self.primary_lock.is_empty() {
+            my_size += ::protobuf::rt::bytes_size(3, &self.primary_lock);
+        }
+        if self.start_version != 0 {
+            my_size += ::protobuf::rt::value_size(4, self.start_version, ::protobuf::wire_format::WireTypeVarint);
+        }
+        if self.lock_ttl != 0 {
+            my_size += ::protobuf::rt::value_size(5, self.lock_ttl, ::protobuf::wire_format::WireTypeVarint);
+        }
+        if self.for_update_ts != 0 {
+            my_size += ::protobuf::rt::value_size(6, self.for_update_ts, ::protobuf::wire_format::WireTypeVarint);
+        }
+        if self.is_first_lock != false {
+            my_size += 2;
+        }
+        my_size += ::protobuf::rt::unknown_fields_size(self.get_unknown_fields());
+        self.cached_size.set(my_size);
+        my_size
+    }
+
+    fn write_to_with_cached_sizes(&self, os: &mut ::protobuf::CodedOutputStream) -> ::protobuf::ProtobufResult<()> {
+        if let Some(ref v) = self.context.as_ref() {
+            os.write_tag(1, ::protobuf::wire_format::WireTypeLengthDelimited)?;
+            os.write_raw_varint32(v.get_cached_size())?;
+            v.write_to_with_cached_sizes(os)?;
+        }
+        for v in &self.mutations {
+            os.write_tag(2, ::protobuf::wire_format::WireTypeLengthDelimited)?;
+            os.write_raw_varint32(v.get_cached_size())?;
+            v.write_to_with_cached_sizes(os)?;
+        };
+        if !self.primary_lock.is_empty() {
+            os.write_bytes(3, &self.primary_lock)?;
+        }
+        if self.start_version != 0 {
+            os.write_uint64(4, self.start_version)?;
+        }
+        if self.lock_ttl != 0 {
+            os.write_uint64(5, self.lock_ttl)?;
+        }
+        if self.for_update_ts != 0 {
+            os.write_uint64(6, self.for_update_ts)?;
+        }
+        if self.is_first_lock != false {
+            os.write_bool(7, self.is_first_lock)?;
+        }
+        os.write_unknown_fields(self.get_unknown_fields())?;
+        ::std::result::Result::Ok(())
+    }
+
+    fn get_cached_size(&self) -> u32 {
+        self.cached_size.get()
+    }
+
+    fn get_unknown_fields(&self) -> &::protobuf::UnknownFields {
+        &self.unknown_fields
+    }
+
+    fn mut_unknown_fields(&mut self) -> &mut ::protobuf::UnknownFields {
+        &mut self.unknown_fields
+    }
+
+    fn as_any(&self) -> &::std::any::Any {
+        self as &::std::any::Any
+    }
+    fn as_any_mut(&mut self) -> &mut ::std::any::Any {
+        self as &mut ::std::any::Any
+    }
+    fn into_any(self: Box<Self>) -> ::std::boxed::Box<::std::any::Any> {
+        self
+    }
+
+    fn descriptor(&self) -> &'static ::protobuf::reflect::MessageDescriptor {
+        Self::descriptor_static()
+    }
+
+    fn new() -> PessimisticLockRequest {
+        PessimisticLockRequest::new()
+    }
+
+    fn default_instance() -> &'static PessimisticLockRequest {
+        static mut instance: ::protobuf::lazy::Lazy<PessimisticLockRequest> = ::protobuf::lazy::Lazy {
+            lock: ::protobuf::lazy::ONCE_INIT,
+            ptr: 0 as *const PessimisticLockRequest,
+        };
+        unsafe {
+            instance.get(PessimisticLockRequest::new)
+        }
+    }
+}
+
+impl ::protobuf::Clear for PessimisticLockRequest {
+    fn clear(&mut self) {
+        self.clear_context();
+        self.clear_mutations();
+        self.clear_primary_lock();
+        self.clear_start_version();
+        self.clear_lock_ttl();
+        self.clear_for_update_ts();
+        self.clear_is_first_lock();
+        self.unknown_fields.clear();
+    }
+}
+
+impl crate::text::PbPrint for PessimisticLockRequest {
+    #[allow(unused_variables)]
+    fn fmt(&self, name: &str, buf: &mut String) {
+        crate::text::push_message_start(name, buf);
+        let old_len = buf.len();
+        crate::text::PbPrint::fmt(&self.context, "context", buf);
+        crate::text::PbPrint::fmt(&self.mutations, "mutations", buf);
+        crate::text::PbPrint::fmt(&self.primary_lock, "primary_lock", buf);
+        crate::text::PbPrint::fmt(&self.start_version, "start_version", buf);
+        crate::text::PbPrint::fmt(&self.lock_ttl, "lock_ttl", buf);
+        crate::text::PbPrint::fmt(&self.for_update_ts, "for_update_ts", buf);
+        crate::text::PbPrint::fmt(&self.is_first_lock, "is_first_lock", buf);
+        if old_len < buf.len() {
+          buf.push(' ');
+        }
+        buf.push('}');
+    }
+}
+impl ::std::fmt::Debug for PessimisticLockRequest {
+    #[allow(unused_variables)]
+    fn fmt(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
+        let mut s = String::new();
+        crate::text::PbPrint::fmt(&self.context, "context", &mut s);
+        crate::text::PbPrint::fmt(&self.mutations, "mutations", &mut s);
+        crate::text::PbPrint::fmt(&self.primary_lock, "primary_lock", &mut s);
+        crate::text::PbPrint::fmt(&self.start_version, "start_version", &mut s);
+        crate::text::PbPrint::fmt(&self.lock_ttl, "lock_ttl", &mut s);
+        crate::text::PbPrint::fmt(&self.for_update_ts, "for_update_ts", &mut s);
+        crate::text::PbPrint::fmt(&self.is_first_lock, "is_first_lock", &mut s);
+        write!(f, "{}", s)
+    }
+}
+
+impl ::protobuf::reflect::ProtobufValue for PessimisticLockRequest {
+    fn as_ref(&self) -> ::protobuf::reflect::ProtobufValueRef {
+        ::protobuf::reflect::ProtobufValueRef::Message(self)
+    }
+}
+
+#[derive(PartialEq,Clone,Default)]
+pub struct PessimisticLockResponse {
+    // message fields
+    pub region_error: ::protobuf::SingularPtrField<super::errorpb::Error>,
+    pub errors: ::protobuf::RepeatedField<KeyError>,
+    // special fields
+    unknown_fields: ::protobuf::UnknownFields,
+    cached_size: ::protobuf::CachedSize,
+}
+
+impl PessimisticLockResponse {
+    pub fn new() -> PessimisticLockResponse {
+        ::std::default::Default::default()
+    }
+
+    // .errorpb.Error region_error = 1;
+
+    pub fn clear_region_error(&mut self) {
+        self.region_error.clear();
+    }
+
+    pub fn has_region_error(&self) -> bool {
+        self.region_error.is_some()
+    }
+
+    // Param is passed by value, moved
+    pub fn set_region_error(&mut self, v: super::errorpb::Error) {
+        self.region_error = ::protobuf::SingularPtrField::some(v);
+    }
+
+    // Mutable pointer to the field.
+    // If field is not initialized, it is initialized with default value first.
+    pub fn mut_region_error(&mut self) -> &mut super::errorpb::Error {
+        if self.region_error.is_none() {
+            self.region_error.set_default();
+        }
+        self.region_error.as_mut().unwrap()
+    }
+
+    // Take field
+    pub fn take_region_error(&mut self) -> super::errorpb::Error {
+        self.region_error.take().unwrap_or_else(|| super::errorpb::Error::new())
+    }
+
+    pub fn get_region_error(&self) -> &super::errorpb::Error {
+        self.region_error.as_ref().unwrap_or_else(|| super::errorpb::Error::default_instance())
+    }
+
+    // repeated .kvrpcpb.KeyError errors = 2;
+
+    pub fn clear_errors(&mut self) {
+        self.errors.clear();
+    }
+
+    // Param is passed by value, moved
+    pub fn set_errors(&mut self, v: ::protobuf::RepeatedField<KeyError>) {
+        self.errors = v;
+    }
+
+    // Mutable pointer to the field.
+    pub fn mut_errors(&mut self) -> &mut ::protobuf::RepeatedField<KeyError> {
+        &mut self.errors
+    }
+
+    // Take field
+    pub fn take_errors(&mut self) -> ::protobuf::RepeatedField<KeyError> {
+        ::std::mem::replace(&mut self.errors, ::protobuf::RepeatedField::new())
+    }
+
+    pub fn get_errors(&self) -> &[KeyError] {
+        &self.errors
+    }
+}
+
+impl ::protobuf::Message for PessimisticLockResponse {
+    fn is_initialized(&self) -> bool {
+        for v in &self.region_error {
+            if !v.is_initialized() {
+                return false;
+            }
+        };
+        for v in &self.errors {
+            if !v.is_initialized() {
+                return false;
+            }
+        };
+        true
+    }
+
+    fn merge_from(&mut self, is: &mut ::protobuf::CodedInputStream) -> ::protobuf::ProtobufResult<()> {
+        while !is.eof()? {
+            let (field_number, wire_type) = is.read_tag_unpack()?;
+            match field_number {
+                1 => {
+                    ::protobuf::rt::read_singular_message_into(wire_type, is, &mut self.region_error)?;
+                },
+                2 => {
+                    ::protobuf::rt::read_repeated_message_into(wire_type, is, &mut self.errors)?;
+                },
+                _ => {
+                    ::protobuf::rt::read_unknown_or_skip_group(field_number, wire_type, is, self.mut_unknown_fields())?;
+                },
+            };
+        }
+        ::std::result::Result::Ok(())
+    }
+
+    // Compute sizes of nested messages
+    #[allow(unused_variables)]
+    fn compute_size(&self) -> u32 {
+        let mut my_size = 0;
+        if let Some(ref v) = self.region_error.as_ref() {
+            let len = v.compute_size();
+            my_size += 1 + ::protobuf::rt::compute_raw_varint32_size(len) + len;
+        }
+        for value in &self.errors {
+            let len = value.compute_size();
+            my_size += 1 + ::protobuf::rt::compute_raw_varint32_size(len) + len;
+        };
+        my_size += ::protobuf::rt::unknown_fields_size(self.get_unknown_fields());
+        self.cached_size.set(my_size);
+        my_size
+    }
+
+    fn write_to_with_cached_sizes(&self, os: &mut ::protobuf::CodedOutputStream) -> ::protobuf::ProtobufResult<()> {
+        if let Some(ref v) = self.region_error.as_ref() {
+            os.write_tag(1, ::protobuf::wire_format::WireTypeLengthDelimited)?;
+            os.write_raw_varint32(v.get_cached_size())?;
+            v.write_to_with_cached_sizes(os)?;
+        }
+        for v in &self.errors {
+            os.write_tag(2, ::protobuf::wire_format::WireTypeLengthDelimited)?;
+            os.write_raw_varint32(v.get_cached_size())?;
+            v.write_to_with_cached_sizes(os)?;
+        };
+        os.write_unknown_fields(self.get_unknown_fields())?;
+        ::std::result::Result::Ok(())
+    }
+
+    fn get_cached_size(&self) -> u32 {
+        self.cached_size.get()
+    }
+
+    fn get_unknown_fields(&self) -> &::protobuf::UnknownFields {
+        &self.unknown_fields
+    }
+
+    fn mut_unknown_fields(&mut self) -> &mut ::protobuf::UnknownFields {
+        &mut self.unknown_fields
+    }
+
+    fn as_any(&self) -> &::std::any::Any {
+        self as &::std::any::Any
+    }
+    fn as_any_mut(&mut self) -> &mut ::std::any::Any {
+        self as &mut ::std::any::Any
+    }
+    fn into_any(self: Box<Self>) -> ::std::boxed::Box<::std::any::Any> {
+        self
+    }
+
+    fn descriptor(&self) -> &'static ::protobuf::reflect::MessageDescriptor {
+        Self::descriptor_static()
+    }
+
+    fn new() -> PessimisticLockResponse {
+        PessimisticLockResponse::new()
+    }
+
+    fn default_instance() -> &'static PessimisticLockResponse {
+        static mut instance: ::protobuf::lazy::Lazy<PessimisticLockResponse> = ::protobuf::lazy::Lazy {
+            lock: ::protobuf::lazy::ONCE_INIT,
+            ptr: 0 as *const PessimisticLockResponse,
+        };
+        unsafe {
+            instance.get(PessimisticLockResponse::new)
+        }
+    }
+}
+
+impl ::protobuf::Clear for PessimisticLockResponse {
+    fn clear(&mut self) {
+        self.clear_region_error();
+        self.clear_errors();
+        self.unknown_fields.clear();
+    }
+}
+
+impl crate::text::PbPrint for PessimisticLockResponse {
+    #[allow(unused_variables)]
+    fn fmt(&self, name: &str, buf: &mut String) {
+        crate::text::push_message_start(name, buf);
+        let old_len = buf.len();
+        crate::text::PbPrint::fmt(&self.region_error, "region_error", buf);
+        crate::text::PbPrint::fmt(&self.errors, "errors", buf);
+        if old_len < buf.len() {
+          buf.push(' ');
+        }
+        buf.push('}');
+    }
+}
+impl ::std::fmt::Debug for PessimisticLockResponse {
+    #[allow(unused_variables)]
+    fn fmt(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
+        let mut s = String::new();
+        crate::text::PbPrint::fmt(&self.region_error, "region_error", &mut s);
+        crate::text::PbPrint::fmt(&self.errors, "errors", &mut s);
+        write!(f, "{}", s)
+    }
+}
+
+impl ::protobuf::reflect::ProtobufValue for PessimisticLockResponse {
     fn as_ref(&self) -> ::protobuf::reflect::ProtobufValueRef {
         ::protobuf::reflect::ProtobufValueRef::Message(self)
     }
@@ -17188,6 +17825,7 @@ pub enum Op {
     Lock = 2,
     Rollback = 3,
     Insert = 4,
+    PessimisticLock = 5,
 }
 
 impl ::protobuf::ProtobufEnum for Op {
@@ -17202,6 +17840,7 @@ impl ::protobuf::ProtobufEnum for Op {
             2 => ::std::option::Option::Some(Op::Lock),
             3 => ::std::option::Option::Some(Op::Rollback),
             4 => ::std::option::Option::Some(Op::Insert),
+            5 => ::std::option::Option::Some(Op::PessimisticLock),
             _ => ::std::option::Option::None
         }
     }
@@ -17213,6 +17852,7 @@ impl ::protobuf::ProtobufEnum for Op {
             Op::Lock,
             Op::Rollback,
             Op::Insert,
+            Op::PessimisticLock,
         ];
         values
     }

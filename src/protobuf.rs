@@ -1,6 +1,8 @@
 use raft::eraftpb;
 
 pub mod coprocessor;
+pub mod deadlock;
+pub mod deadlock_grpc;
 pub mod debugpb;
 pub mod debugpb_grpc;
 pub mod enginepb;
