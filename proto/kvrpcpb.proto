@@ -68,6 +68,7 @@ enum CommandPri {
     Normal = 0; // Normal must the default value
     Low = 1;
     High = 2;
+    Spark = 3;
 }
 
 enum IsolationLevel {
