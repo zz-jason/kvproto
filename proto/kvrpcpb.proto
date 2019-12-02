@@ -175,6 +175,7 @@ message Mutation {
     bytes key = 2;
     bytes value = 3;
     Assertion assertion = 4;
+    repeated bytes secondary_keys = 5;
 }
 
 message PrewriteRequest {
@@ -199,6 +200,7 @@ message PrewriteRequest {
 message PrewriteResponse {
     errorpb.Error region_error = 1;
     repeated KeyError errors = 2;
+    uint64 max_read_ts = 3;
 }
 
 // Used to update the lock_ttl of a large transaction to prevent it from been killed.
