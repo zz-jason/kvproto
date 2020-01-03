@@ -23,10 +23,12 @@ If you need to override your version of `protoc` because you have a later versio
 
 ```bash
 PROTOC_VERSION=3.8.0
-curl -L https://github.com/google/protobuf/releases/download/v$PROTOC_VERSION/protoc-$PROTOC_VERSION-linux-x86_64.zip -o protoc.zip &&\
-unzip protoc.zip -d protoc &&\
+# Linux:
+curl -L https://github.com/protocolbuffers/protobuf/releases/download/v$PROTOC_VERSION/protoc-$PROTOC_VERSION-linux-x86_64.zip -o protoc.zip
+# Or MacOS:
+# curl -L https://github.com/protocolbuffers/protobuf/releases/download/v$PROTOC_VERSION/protoc-$PROTOC_VERSION-osx-x86_64.zip -o protoc.zip
+unzip protoc.zip -d protoc
 rm protoc.zip
 ```
 
 Then you can run `PATH="$(pwd)/protoc/bin:$PATH" make`
-

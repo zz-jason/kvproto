@@ -13,6 +13,8 @@ Cargo.lock
 .idea
 _tools
 
+/protoc
+
 cpp/kvproto/*.h
 cpp/kvproto/*.cc
 
