@@ -18,7 +18,6 @@ go: check
 
 rust: init
 	cargo check
-	cargo check --no-default-features --features prost-codec
 
 c++: check
 	$(CURDIR)/scripts/generate_cpp.sh
