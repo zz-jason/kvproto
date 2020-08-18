@@ -3,7 +3,7 @@ package pdpb;
 
 import "metapb.proto";
 import "eraftpb.proto";
-import "replicate_mode.proto";
+import "replication_modepb.proto";
 
 import "gogoproto/gogo.proto";
 import "rustproto.proto";
@@ -70,6 +70,8 @@ service PD {
 
     rpc UpdateGCSafePoint(UpdateGCSafePointRequest) returns (UpdateGCSafePointResponse) {}
 
+    rpc UpdateServiceGCSafePoint(UpdateServiceGCSafePointRequest) returns (UpdateServiceGCSafePointResponse) {}
+
     rpc SyncRegions(stream SyncRegionRequest) returns (stream SyncRegionResponse) {}
 
     rpc GetOperator(GetOperatorRequest) returns (GetOperatorResponse) {}
@@ -128,7 +130,7 @@ message BootstrapRequest {
 
 message BootstrapResponse {
     ResponseHeader header = 1;
-    replicate_mode.ReplicateStatus replicate_status = 2;
+    replication_modepb.ReplicationStatus replication_status = 2;
 }
 
 message IsBootstrappedRequest {
@@ -172,7 +174,7 @@ message PutStoreRequest {
 
 message PutStoreResponse {
     ResponseHeader header = 1;
-    replicate_mode.ReplicateStatus replicate_status = 2;
+    replication_modepb.ReplicationStatus replication_status = 2;
 }
 
 message GetAllStoresRequest {
@@ -305,7 +307,7 @@ message RegionHeartbeatRequest {
     uint64 approximate_keys = 13;
     // Term is the term of raft group.
     uint64 term = 14;
-    replicate_mode.RegionReplicateStatus replicate_status = 15;
+    replication_modepb.RegionReplicationStatus replication_status = 15;
 }
 
 message ChangePeer {
@@ -478,7 +480,7 @@ message StoreHeartbeatRequest {
 
 message StoreHeartbeatResponse {
     ResponseHeader header = 1;
-    replicate_mode.ReplicateStatus replicate_status = 2;
+    replication_modepb.ReplicationStatus replication_status = 2;
 }
 
 message ScatterRegionRequest {
@@ -516,6 +518,22 @@ message UpdateGCSafePointResponse {
     ResponseHeader header = 1;
 
     uint64 new_safe_point = 2;
+}
+
+message UpdateServiceGCSafePointRequest {
+    RequestHeader header = 1;
+
+    bytes service_id = 2;
+    int64 TTL = 3;
+    uint64 safe_point = 4;
+}
+
+message UpdateServiceGCSafePointResponse {
+    ResponseHeader header = 1;
+
+    bytes service_id = 2;
+    int64 TTL = 3;
+    uint64 min_safe_point = 4;
 }
 
 message RegionStat {
