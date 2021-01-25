@@ -3,6 +3,16 @@
 SCRIPTS_DIR=$(dirname "$0")
 source $SCRIPTS_DIR/common.sh
 
+if [ -z "$PROTOC" ]; then
+    echo "use system protoc."
+    PROTOC="protoc"
+fi
+
+if [ -z "$GRPC_CPP_PLUGIN" ]; then
+    echo "use system protoc."
+    GRPC_CPP_PLUGIN=`which grpc_cpp_plugin`
+fi
+
 echo "generate cpp code..."
 
 KVPROTO_ROOT="$SCRIPTS_DIR/.."
@@ -19,12 +29,12 @@ sed_inplace '/option\ *(gogoproto/d' proto-cpp/*
 sed_inplace -e 's/\[.*gogoproto.*\]//g' proto-cpp/*
 
 push proto-cpp
-protoc -I${GRPC_INCLUDE} --cpp_out ../cpp/kvproto *.proto || exit $?
-protoc -I${GRPC_INCLUDE} --grpc_out ../cpp/kvproto --plugin=protoc-gen-grpc=`which grpc_cpp_plugin` *.proto || exit $?
+${PROTOC} -I${GRPC_INCLUDE} --cpp_out ../cpp/kvproto *.proto || exit $?
+${PROTOC} -I${GRPC_INCLUDE} --grpc_out ../cpp/kvproto --plugin=protoc-gen-grpc="${GRPC_CPP_PLUGIN}" *.proto || exit $?
 pop
 
 push include
-protoc -I${GRPC_INCLUDE} --cpp_out ../cpp/kvproto *.proto google/api/http.proto google/api/annotations.proto || exit $?
+${PROTOC} -I${GRPC_INCLUDE} --cpp_out ../cpp/kvproto *.proto google/api/http.proto google/api/annotations.proto || exit $?
 pop
 
 rm -rf proto-cpp
