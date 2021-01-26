@@ -16,13 +16,15 @@ foreach(PROTO_FILE ${PROTO_FILES})
     list(APPEND OUTPUT_SOURCES ${PROTO_SRC} ${PROTO_HDR} ${GRPC_SRC} ${GRPC_HDR})
 endforeach()
 
+list(APPEND OUTPUT_SOURCES ${OUTPUT_DIR}/eraftpb.pb.cc ${OUTPUT_DIR}/eraftpb.pb.h)
+list(APPEND OUTPUT_SOURCES ${OUTPUT_DIR}/rustproto.pb.cc ${OUTPUT_DIR}/rustproto.pb.h)
+
 add_custom_command(
     OUTPUT ${OUTPUT_SOURCES}
     COMMAND PROTOC=${_PROTOBUF_PROTOC} ./generate_cpp.sh
     WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/../scripts
     DEPENDS ${PROTO_FILE}
 )
-
 add_library(kvproto ${OUTPUT_SOURCES})
 include_directories(${CMAKE_CURRENT_SOURCE_DIR}/kvproto)
 target_include_directories(kvproto PUBLIC ${CMAKE_CURRENT_SOURCE_DIR})
