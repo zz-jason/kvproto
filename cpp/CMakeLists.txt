@@ -7,7 +7,7 @@ set(OUTPUT_DIR "${CMAKE_CURRENT_SOURCE_DIR}/kvproto")
 
 file(GLOB PROTO_FILES "${PROTO_DIR}/*.proto")
 foreach(PROTO_FILE ${PROTO_FILES})
-    get_filename_component (FILENAME ${PROTO_FILE} NAME_WLE)
+    get_filename_component (FILENAME "${PROTO_FILE}" NAME_WE) # TODO: use NAME_WLE in cmake 3.14+
     set(PROTO_SRC "${OUTPUT_DIR}/${FILENAME}.pb.cc")
     set(PROTO_HDR "${OUTPUT_DIR}/${FILENAME}.pb.h")
     set(GRPC_SRC "${OUTPUT_DIR}/${FILENAME}.grpc.pb.cc")
