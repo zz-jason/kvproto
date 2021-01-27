@@ -27,4 +27,5 @@ add_custom_command(
 )
 add_library(kvproto ${OUTPUT_SOURCES})
 include_directories(${CMAKE_CURRENT_SOURCE_DIR}/kvproto)
+target_link_libraries(kvproto ${_GRPC_GRPCPP_UNSECURE} ${_PROTOBUF_LIBPROTOBUF})
 target_include_directories(kvproto PUBLIC ${CMAKE_CURRENT_SOURCE_DIR})
