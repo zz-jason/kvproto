@@ -51,6 +51,9 @@ service ImportSST {
     
     // Ingest Multiple files in one request
     rpc MultiIngest(MultiIngestRequest) returns (IngestResponse) {}
+
+    // Upload an SST file to a server.
+    rpc DuplicateDetect(DuplicateDetectRequest) returns (stream DuplicateDetectResponse) {}
 }
 
 enum SwitchMode {
@@ -220,4 +223,20 @@ message WriteRequest {
 message WriteResponse {
     Error error = 1;
     repeated SSTMeta metas = 2;
+}
+
+message DuplicateDetectRequest {
+    kvrpcpb.Context context = 1;
+    bytes start_key = 2;
+    // Return only the keys found by scanning, not their values.
+    bytes end_key = 3;
+    bool key_only = 4;
+    // We only check the data whose timestamp is larger than `min_commit_ts`.
+    uint64 min_commit_ts = 5;
+}
+
+message DuplicateDetectResponse {
+    errorpb.Error region_error = 1;
+    // Each KvPair may contain a key error.
+    repeated kvrpcpb.KvPair pairs = 2;
 }
