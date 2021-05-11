@@ -243,6 +243,6 @@ message KvPair {
 
 message DuplicateDetectResponse {
     errorpb.Error region_error = 1;
-    // Each KvPair may contain a key error.
-    repeated KvPair pairs = 2;
+    Error key_error = 2;
+    repeated KvPair pairs = 3;
 }
