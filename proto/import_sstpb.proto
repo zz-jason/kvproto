@@ -235,8 +235,14 @@ message DuplicateDetectRequest {
     uint64 min_commit_ts = 5;
 }
 
+message KvPair {
+    bytes key = 1;
+    bytes value = 2;
+    uint64 commit_ts = 3;
+}
+
 message DuplicateDetectResponse {
     errorpb.Error region_error = 1;
     // Each KvPair may contain a key error.
-    repeated kvrpcpb.KvPair pairs = 2;
+    repeated KvPair pairs = 2;
 }
