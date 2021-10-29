@@ -3,6 +3,7 @@ package pdpb;
 
 import "metapb.proto";
 import "eraftpb.proto";
+import "raft_serverpb.proto";
 import "replication_modepb.proto";
 
 import "gogoproto/gogo.proto";
@@ -530,16 +531,32 @@ message StoreStats {
     repeated uint64 damaged_regions_id = 23; 
 }
 
+message PeerReport {
+    raft_serverpb.RaftLocalState raft_state = 1;
+    raft_serverpb.RegionLocalState region_state = 2;
+}
+
 message StoreHeartbeatRequest {
     RequestHeader header = 1;
 
     StoreStats stats = 2;
+    // Detailed reports of the peers loaded on this store that are sent on PD's demand for online
+    // unsafe recover.
+    repeated PeerReport reports = 3;
+}
+
+message RecoveryPlan {
+    repeated metapb.Region creates = 1;
+    repeated metapb.Region updates = 2;
+    repeated uint64 deletes = 3;
 }
 
 message StoreHeartbeatResponse {
     ResponseHeader header = 1;
     replication_modepb.ReplicationStatus replication_status = 2;
     string cluster_version = 3;
+    bool require_detailed_report = 4;
+    RecoveryPlan plan = 5;
 }
 
 message ScatterRegionRequest {

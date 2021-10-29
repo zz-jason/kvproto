@@ -14,7 +14,7 @@ import (
 
 	eraftpb "github.com/pingcap/kvproto/pkg/eraftpb"
 
-	_ "github.com/pingcap/kvproto/pkg/kvrpcpb"
+	kvrpcpb "github.com/pingcap/kvproto/pkg/kvrpcpb"
 
 	metapb "github.com/pingcap/kvproto/pkg/metapb"
 )
