@@ -26,6 +26,11 @@ message IsAliveResponse {
         bool available = 1;
 }
 
+message TableRegions {
+        int64 physical_table_id = 1;
+	repeated coprocessor.RegionInfo regions = 2;
+}
+
 // Dipsatch the task request to different tiflash servers.
 message DispatchTaskRequest {
 	TaskMeta meta = 1;
@@ -34,6 +39,8 @@ message DispatchTaskRequest {
         repeated coprocessor.RegionInfo regions = 4; 
 	// If this task contains table scan, we still need their region info.
 	int64 schema_ver = 5;
+	// Used for partition table scan
+	repeated TableRegions table_regions = 6;
 }
 
 // Get response of DispatchTaskRequest.
