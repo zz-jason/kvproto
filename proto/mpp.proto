@@ -34,6 +34,7 @@ message DispatchTaskRequest {
         repeated coprocessor.RegionInfo regions = 4; 
 	// If this task contains table scan, we still need their region info.
 	int64 schema_ver = 5;
+	repeated DispatchTaskRequest other_tasks = 6;
 }
 
 // Get response of DispatchTaskRequest.
