@@ -308,6 +308,7 @@ message KVMeta {
 
     bytes end_key = 7;
 
+    // used for checksum when download kv file.
     bytes sha256 = 8;
 }
 
